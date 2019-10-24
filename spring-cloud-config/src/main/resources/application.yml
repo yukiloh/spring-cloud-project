@@ -9,9 +9,9 @@ spring:
       server:
 #        托管于github
         git:
-          uri: https://github.com/yukiloh/spring-cloud-project/tree/master/spring-cloud-config
+          uri: https://github.com/yukiloh/spring-cloud-project
 #          uri下的路径
-          search-paths: respo
+          search-paths: /spring-cloud-project/spring-cloud-config/configs/
 #          git的用户名&密码
           username: yukiloh@qq.com
           password: vq!@frYH!#19
