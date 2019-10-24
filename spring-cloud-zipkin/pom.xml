@@ -10,10 +10,10 @@
         <relativePath>../spring-cloud-dependencies/pom.xml</relativePath>
     </parent>
 
-    <artifactId>spring-cloud-web-admin-feign</artifactId>
+    <artifactId>spring-cloud-zipkin</artifactId>
     <packaging>jar</packaging>
 
-    <name>spring-cloud-web-admin-feign</name>
+    <name>hello-spring-cloud-zipkin</name>
 <!--    <url>http://www.funtl.com</url>-->
 <!--    <inceptionYear>2018-Now</inceptionYear>-->
 
@@ -29,10 +29,6 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
         <dependency>
@@ -44,33 +40,22 @@
 
         <!-- Spring Cloud Begin -->
         <dependency>
+            <groupId>io.zipkin.java</groupId>
+            <artifactId>zipkin</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.zipkin.java</groupId>
+            <artifactId>zipkin-server</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.zipkin.java</groupId>
+            <artifactId>zipkin-autoconfigure-ui</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-openfeign</artifactId>
-        </dependency>
         <!-- Spring Cloud End -->
-
-        <!-- 解决 thymeleaf 模板引擎一定要执行严格的 html5 格式校验问题 -->
-        <dependency>
-            <groupId>net.sourceforge.nekohtml</groupId>
-            <artifactId>nekohtml</artifactId>
-        </dependency>
-
-
-        <!--添加熔断器仪表监控-->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-hystrix-dashboard</artifactId>
-        </dependency>
-
-        <!--添加spring-cloud-config的客户端-->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-config</artifactId>
-        </dependency>
     </dependencies>
 
     <build>
@@ -79,7 +64,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>com.test.spring.cloud.service.admin.WebAdminFeignApplication</mainClass>
+                    <mainClass>com.test.spring.cloud.eureka.ZipkinApplication</mainClass>
                 </configuration>
             </plugin>
         </plugins>

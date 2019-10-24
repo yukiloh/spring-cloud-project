@@ -7,6 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="spring-cloud-config" />
+        <module name="spring-cloud-zipkin" />
         <module name="spring-cloud-service-admin" />
         <module name="spring-cloud-zuul" />
         <module name="spring-cloud-web-admin-ribbon" />
@@ -22,6 +23,7 @@
       <module name="spring-cloud-test" target="1.8" />
       <module name="spring-cloud-web-admin-feign" target="1.8" />
       <module name="spring-cloud-web-admin-ribbon" target="1.8" />
+      <module name="spring-cloud-zipkin" target="1.8" />
       <module name="spring-cloud-zuul" target="1.8" />
     </bytecodeTargetLevel>
   </component>
@@ -33,6 +35,7 @@
       <module name="spring-cloud-test" options="-parameters" />
       <module name="spring-cloud-web-admin-feign" options="-parameters" />
       <module name="spring-cloud-web-admin-ribbon" options="-parameters" />
+      <module name="spring-cloud-zipkin" options="-parameters" />
       <module name="spring-cloud-zuul" options="-parameters" />
     </option>
   </component>
