@@ -10,10 +10,10 @@
         <relativePath>../spring-cloud-dependencies/pom.xml</relativePath>
     </parent>
 
-    <artifactId>spring-cloud-web-admin-ribbon</artifactId>
+    <artifactId>spring-cloud-zuul</artifactId>
     <packaging>jar</packaging>
 
-    <name>spring-cloud-web-admin-ribbon</name>
+    <name>spring-cloud-zuul</name>
 <!--    <url>http://www.funtl.com</url>-->
 <!--    <inceptionYear>2018-Now</inceptionYear>-->
 
@@ -26,10 +26,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -49,21 +45,9 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
+            <artifactId>spring-cloud-starter-netflix-zuul</artifactId>
         </dependency>
         <!-- Spring Cloud End -->
-
-        <!--熔断器hystrix-->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
-        </dependency>
-
-        <!-- 解决 thymeleaf 模板引擎一定要执行严格的 html5 格式校验问题 -->
-        <dependency>
-            <groupId>net.sourceforge.nekohtml</groupId>
-            <artifactId>nekohtml</artifactId>
-        </dependency>
     </dependencies>
 
     <build>
@@ -72,7 +56,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>com.test.spring.cloud.service.admin.WebAdminRibbonApplication</mainClass>
+                    <mainClass>com.test.spring.cloud.service.admin.ServiceAdminApplication</mainClass>
                 </configuration>
             </plugin>
         </plugins>

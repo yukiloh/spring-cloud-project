@@ -2,11 +2,13 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/spring-cloud-config/spring-cloud-config.iml" filepath="$PROJECT_DIR$/spring-cloud-config/spring-cloud-config.iml" />
       <module fileurl="file://$PROJECT_DIR$/spring-cloud-dependencies/spring-cloud-dependencies.iml" filepath="$PROJECT_DIR$/spring-cloud-dependencies/spring-cloud-dependencies.iml" />
       <module fileurl="file://$PROJECT_DIR$/spring-cloud-eureka/spring-cloud-eureka.iml" filepath="$PROJECT_DIR$/spring-cloud-eureka/spring-cloud-eureka.iml" />
       <module fileurl="file://$PROJECT_DIR$/spring-cloud-service-admin/spring-cloud-service-admin.iml" filepath="$PROJECT_DIR$/spring-cloud-service-admin/spring-cloud-service-admin.iml" />
       <module fileurl="file://$PROJECT_DIR$/spring-cloud-web-admin-feign/spring-cloud-web-admin-feign.iml" filepath="$PROJECT_DIR$/spring-cloud-web-admin-feign/spring-cloud-web-admin-feign.iml" />
       <module fileurl="file://$PROJECT_DIR$/spring-cloud-web-admin-ribbon/spring-cloud-web-admin-ribbon.iml" filepath="$PROJECT_DIR$/spring-cloud-web-admin-ribbon/spring-cloud-web-admin-ribbon.iml" />
+      <module fileurl="file://$PROJECT_DIR$/spring-cloud-zuul/spring-cloud-zuul.iml" filepath="$PROJECT_DIR$/spring-cloud-zuul/spring-cloud-zuul.iml" />
     </modules>
   </component>
 </project>

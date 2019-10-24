@@ -13,6 +13,8 @@
         <option value="$PROJECT_DIR$/spring-cloud-service-admin/pom.xml" />
         <option value="$PROJECT_DIR$/spring-cloud-web-admin-ribbon/pom.xml" />
         <option value="$PROJECT_DIR$/spring-cloud-web-admin-feign/pom.xml" />
+        <option value="$PROJECT_DIR$/spring-cloud-zuul/pom.xml" />
+        <option value="$PROJECT_DIR$/spring-cloud-config/pom.xml" />
       </list>
     </option>
   </component>

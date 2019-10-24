@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: spring-cloud-config
+#    ↓spring cloud config的配置项
+  cloud:
+    config:
+#      分支
+      label: master
+      server:
+#        托管于github
+        git:
+          uri: https://github.com/yukiloh/spring-cloud-config
+#          uri下的路径
+          search-paths: respo
+#          git的用户名&密码
+          username: yukiloh@qq.com
+          password: vq!@frYH!#19
+
+server:
+#  spring cloud config中的默认端口为8888,正常情况无法修改!
+#  修改需要通过创建bootstrap.properties,添加server.port=XXXX;bootstrap配置文件会被优先加载
+  port: 8888
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
