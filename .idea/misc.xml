@@ -12,8 +12,9 @@
         <option value="$PROJECT_DIR$/spring-cloud-eureka/pom.xml" />
         <option value="$PROJECT_DIR$/spring-cloud-service-admin/pom.xml" />
         <option value="$PROJECT_DIR$/spring-cloud-web-admin-ribbon/pom.xml" />
+        <option value="$PROJECT_DIR$/spring-cloud-web-admin-feign/pom.xml" />
       </list>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="false" project-jdk-name="1.8" project-jdk-type="JavaSDK" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="false" project-jdk-name="12" project-jdk-type="JavaSDK" />
 </project>

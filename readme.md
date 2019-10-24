@@ -39,3 +39,79 @@ web的客户端，模拟消费情况
 其他：该模块中pom中主要新增了spring-cloud-starter-netflix-ribbon
 
 访问地址：http://localhost:8764/hi?message=hello
+
+
+##### spring-cloud-web-admin-feign  --web客户端,类似于ribbon
+feign默认继承了ribbon,因此本案例使用feign
+与ribbon用途相同,为服务消费者
+但通过注解@FeignClient的配置方式,更加灵活,可插拔
+
+与ribbon的区别:
+添加service层的接口,在类上添加注解@FeignClient("生产者的名称"),在类上添加注解@Get/PostMapping,如有参数需要@RequestParam来接收
+(此步骤类似于ribbon中的service实体类)
+
+
+
+##### 添加熔断器功能       
+spring-cloud-starter-netflix-hystrix
+
+-- 在ribbon中的步骤:
+1.入口方法Application中添加@EnableHystrix
+2.service层中添加熔断方法(hiError)
+3.在需要进行熔断保护的方法上添加@HystrixCommand(fallbackMethod = "HiError")
+
+测试方法:
+关闭服务提供者,页面会返回错误信息
+
+
+-- 在feign中,feign自带熔断器,步骤:
+1.在yml中开启hystrix
+2.添加熔断实现类(AdminServiceHystrix),并实现接口(AdminService),完善方法内熔断机制
+3.为接口中的@FeignClient添加参数 fallback = Hystrix.class
+
+*feign相比ribbon更优雅,面向接口变成贯彻从简原则,一个接口只实现一个用途
+
+
+-- 开启熔断器仪表监控功能
+feign中,
+1.向pom中添加
+    <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-starter-netflix-hystrix-dashboard</artifactId>
+    </dependency>
+2.在入口类中添加@EnableHystrixDashboard
+3.springboot 2.x后需额外配置config类(HystrixDashboardConfiguration)用于创建servlet(1.x中不需要)
+
+hystrix dashboard访问路径:   http://localhost:8765//hystrix
+页面中可填写: 1.需要监控熔断器的的地址;2.间隔毫秒;3.自定义名称
+
+
+
+
+
+
+
+
+
+
+
+#### 关于java8以后的版本适用性
+需要在eureka的pom中添加
+<dependency>
+    <groupId>com.sun.xml.bind</groupId>
+    <artifactId>jaxb-core</artifactId>
+    <version>2.3.0.1</version>
+</dependency>
+<dependency>
+    <groupId>javax.xml.bind</groupId>
+    <artifactId>jaxb-api</artifactId>
+    <version>2.3.1</version>
+</dependency>
+<dependency>
+    <groupId>com.sun.xml.bind</groupId>
+    <artifactId>jaxb-impl</artifactId>
+    <version>2.3.1</version>
+</dependency>
+
+以解决Type javax.xml.bind.JAXBContext not present的问题
+参考：https://crunchify.com/java-11-and-javax-xml-bind-jaxbcontext/?unapproved=63874&moderation-hash=6971fd34bc611ebd58f1ec9c01f42c9b#comment-63874

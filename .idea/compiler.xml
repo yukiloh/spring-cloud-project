@@ -7,6 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="spring-cloud-eureka" />
+        <module name="spring-cloud-web-admin-feign" />
         <module name="spring-cloud-web-admin-ribbon" />
         <module name="spring-cloud-service-admin" />
       </profile>
@@ -16,6 +17,7 @@
       <module name="spring-cloud-eureka" target="1.8" />
       <module name="spring-cloud-service-admin" target="1.8" />
       <module name="spring-cloud-test" target="1.8" />
+      <module name="spring-cloud-web-admin-feign" target="1.8" />
       <module name="spring-cloud-web-admin-ribbon" target="1.8" />
     </bytecodeTargetLevel>
   </component>
@@ -24,6 +26,7 @@
       <module name="spring-cloud-eureka" options="-parameters" />
       <module name="spring-cloud-service-admin" options="-parameters" />
       <module name="spring-cloud-test" options="-parameters" />
+      <module name="spring-cloud-web-admin-feign" options="-parameters" />
       <module name="spring-cloud-web-admin-ribbon" options="-parameters" />
     </option>
   </component>
