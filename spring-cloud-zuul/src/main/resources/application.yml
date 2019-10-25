@@ -2,20 +2,28 @@ spring:
   application:
     name: spring-cloud-zuul
 
-server:
-  port: 8769
+  cloud:
+    config:
+      uri: http://localhost:8888
+      name: spring-cloud-zuul
+      label: master
+      profile: dev
+#      profile: prod
 
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
-
-zuul:
-  routes:
-#    当访问/a指向ribbon的路径，/b为feign
-    api-a:
-      path: /api/a/**
-      serviceId: spring-cloud-web-admin-ribbon
-    api-b:
-      path: /api/b/**
-      serviceId: spring-cloud-web-admin-feign
+#server:
+#  port: 8769
+#
+#eureka:
+#  client:
+#    serviceUrl:
+#      defaultZone: http://localhost:8761/eureka/
+#
+#zuul:
+#  routes:
+##    当访问/a指向ribbon的路径，/b为feign
+#    api-a:
+#      path: /api/a/**
+#      serviceId: spring-cloud-web-admin-ribbon
+#    api-b:
+#      path: /api/b/**
+#      serviceId: spring-cloud-web-admin-feign

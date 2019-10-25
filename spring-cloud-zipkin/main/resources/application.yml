@@ -1,18 +1,29 @@
 spring:
-  application:
-    name: hello-spring-cloud-zipkin
+  main:
+    allow-bean-definition-overriding: true
+  cloud:
+    config:
+      uri: http://localhost:8888
+      name: spring-cloud-zipkin
+      label: master
+      profile: dev
+  #      profile: prod
 
-server:
-  port: 9411
 
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
 
-#2.10开始存在下方配置
-management:
-  metrics:
-    web:
-      server:
-        auto-time-requests: false
+#  application:
+#    name: spring-cloud-zipkin
+#server:
+#  port: 9411
+#
+#eureka:
+#  client:
+#    serviceUrl:
+#      defaultZone: http://localhost:8761/eureka/
+#
+##2.10开始存在下方配置
+#management:
+#  metrics:
+#    web:
+#      server:
+#        auto-time-requests: false

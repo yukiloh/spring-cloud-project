@@ -189,7 +189,14 @@ java -jar hello-spring-cloud-web-admin-feign-1.0.0-SNAPSHOT.jar --spring.profile
 1.pom中添加zipkin、zipkin-server、zipkin-autoconfigure-ui
 （maven显示已弃用，后期考虑更换新版本）
 （本项目中由dependencies统一管理包，所以需要在dependencies中的dependencyManagement.dependencies.dependence中添加上述三项jar包）
-2.为所有服务项添加spring-cloud-starter-zipkin的依赖,并在配置文件中添加spring.zipkin.base-url,配置zipkin的地址
+2.在入口类中添加@EnableZipkinServer
+3.为所有服务项添加spring-cloud-starter-zipkin的依赖,并在配置文件中添加spring.zipkin.base-url,配置zipkin的地址
+
+!!:java12存在无法启动zipkin问题，切换至java8（后期解决问题）-- 升级springboot&spring cloud的版本后解决，并且不再需要依赖javax.xml.bind.JAXBContext
+
+span：zipkin中的基本工作单元
+trace：由一系列spans组成的树状结构；分布式大数据工程时，可能需要trace来追踪
+Annotation：描述一个事件的情况；通常发生阻塞可以查看到各项单元调用的事件，排查阻塞
 
 
 # 明日工作

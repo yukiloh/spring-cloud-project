@@ -2,13 +2,23 @@ spring:
   application:
     name: spring-cloud-service-admin
 
-server:
-#  服务器端8761
-#  因需要模拟负载均衡，可勾择idea服务器设置中的Allow parallel run
-#  port: 8762
-  port: 8763
+  cloud:
+    config:
+      uri: http://localhost:8888
+      name: spring-cloud-service-admin
+      label: master
+      profile: dev
+  #      profile: prod
 
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
+
+
+#server:
+##  服务器端8761
+##  因需要模拟负载均衡，可勾择idea服务器设置中的Allow parallel run
+##  port: 8762
+#  port: 8763
+#
+#eureka:
+#  client:
+#    serviceUrl:
+#      defaultZone: http://localhost:8761/eureka/

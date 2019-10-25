@@ -1,7 +1,6 @@
 spring:
   application:
     name: spring-cloud-config
-#    ↓spring cloud config的配置项
   cloud:
     config:
 #      分支
@@ -16,7 +15,9 @@ spring:
 #          git的用户名&密码
           username: yukiloh@qq.com
           password: vq!@frYH!#19
-
+  # 链路追踪
+  zipkin:
+    base-url: http://localhost:9411
 server:
 #  spring cloud config中的默认端口为8888,正常情况无法修改!
 #  修改需要通过创建bootstrap.properties,添加server.port=XXXX;bootstrap配置文件会被优先加载
@@ -26,3 +27,5 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka/
+
+foo: test

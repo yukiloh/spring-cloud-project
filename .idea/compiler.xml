@@ -7,9 +7,9 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="spring-cloud-config" />
-        <module name="spring-cloud-zipkin" />
-        <module name="spring-cloud-service-admin" />
         <module name="spring-cloud-zuul" />
+        <module name="spring-cloud-service-admin" />
+        <module name="spring-cloud-zipkin" />
         <module name="spring-cloud-web-admin-ribbon" />
         <module name="spring-cloud-eureka" />
         <module name="spring-cloud-web-admin-feign" />
