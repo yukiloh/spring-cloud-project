@@ -4,14 +4,11 @@ spring:
 #    通过项目名称来查找eureka服务器
     name: spring-cloud-eureka
 
-  cloud:
-    config:
-      uri: http://localhost:8888
-      name: spring-cloud-eureka
-      label: master
-      profile: dev
-  #      profile: prod
-
+# 配置admin服务监控
+  boot:
+    admin:
+      client:
+        url: http://localhost:8084
 server:
   port: 8761
 

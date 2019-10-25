@@ -60,6 +60,16 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-zipkin</artifactId>
         </dependency>
+
+        <!--admin服务监控-->
+        <dependency>
+            <groupId>org.jolokia</groupId>
+            <artifactId>jolokia-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-starter-client</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
@@ -68,7 +78,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>com.test.spring.cloud.service.admin.ServiceAdminApplication</mainClass>
+                    <mainClass>com.test.spring.cloud.service.admin.ZuulApplication</mainClass>
                 </configuration>
             </plugin>
         </plugins>

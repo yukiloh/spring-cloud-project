@@ -7,15 +7,17 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="spring-cloud-config" />
-        <module name="spring-cloud-zuul" />
+        <module name="spring-cloud-admin" />
         <module name="spring-cloud-service-admin" />
         <module name="spring-cloud-zipkin" />
+        <module name="spring-cloud-zuul" />
         <module name="spring-cloud-web-admin-ribbon" />
         <module name="spring-cloud-eureka" />
         <module name="spring-cloud-web-admin-feign" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="spring-cloud-admin" target="1.8" />
       <module name="spring-cloud-config" target="1.8" />
       <module name="spring-cloud-dependencies" target="1.8" />
       <module name="spring-cloud-eureka" target="1.8" />
@@ -29,6 +31,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="spring-cloud-admin" options="-parameters" />
       <module name="spring-cloud-config" options="-parameters" />
       <module name="spring-cloud-eureka" options="-parameters" />
       <module name="spring-cloud-service-admin" options="-parameters" />

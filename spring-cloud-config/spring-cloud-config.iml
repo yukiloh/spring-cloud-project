@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule="true" type="JAVA_MODULE" version="4">
+<module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule="true" version="4">
   <component name="FacetManager">
     <facet type="Spring" name="Spring">
       <configuration />
@@ -187,5 +187,9 @@
     <orderEntry type="library" name="Maven: io.zipkin.reporter2:zipkin-reporter:2.10.2" level="project" />
     <orderEntry type="library" name="Maven: io.zipkin.reporter2:zipkin-sender-kafka:2.10.2" level="project" />
     <orderEntry type="library" name="Maven: io.zipkin.reporter2:zipkin-sender-amqp-client:2.10.2" level="project" />
+    <orderEntry type="library" name="Maven: org.jolokia:jolokia-core:1.6.2" level="project" />
+    <orderEntry type="library" name="Maven: com.googlecode.json-simple:json-simple:1.1.1" level="project" />
+    <orderEntry type="library" name="Maven: de.codecentric:spring-boot-admin-starter-client:2.1.6" level="project" />
+    <orderEntry type="library" name="Maven: de.codecentric:spring-boot-admin-client:2.1.6" level="project" />
   </component>
 </module>

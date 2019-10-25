@@ -1,4 +1,5 @@
 spring:
+#  必须开启，无法注册至云端，可能是优先加载的原因
   main:
     allow-bean-definition-overriding: true
   cloud:

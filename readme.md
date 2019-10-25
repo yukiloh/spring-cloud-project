@@ -186,32 +186,57 @@ java -jar hello-spring-cloud-web-admin-feign-1.0.0-SNAPSHOT.jar --spring.profile
 #### zipkin 服务链追踪
 右twitter提供，收集服务的定时数据,方便的监测系统中存在的瓶颈
 
+步骤：
 1.pom中添加zipkin、zipkin-server、zipkin-autoconfigure-ui
-（maven显示已弃用，后期考虑更换新版本）
-（本项目中由dependencies统一管理包，所以需要在dependencies中的dependencyManagement.dependencies.dependence中添加上述三项jar包）
-2.在入口类中添加@EnableZipkinServer
-3.为所有服务项添加spring-cloud-starter-zipkin的依赖,并在配置文件中添加spring.zipkin.base-url,配置zipkin的地址
+（其中zipkin在maven显示已弃用，后期考虑更换新版本）
+（本项目中由dependencies统一管理包，因此需要在dependencies中的dependencyManagement.dependencies.dependence中添加上述三项jar包）
+2.在入口类ZipkinApplication中添加@EnableZipkinServer
+3.为所有服务项添加spring-cloud-starter-zipkin依赖,并在配置文件中添加spring.zipkin.base-url,配置zipkin的地址
+4.java8以后:需要开启  main: allow-bean-definition-overriding: true
 
-!!:java12存在无法启动zipkin问题，切换至java8（后期解决问题）-- 升级springboot&spring cloud的版本后解决，并且不再需要依赖javax.xml.bind.JAXBContext
+!!:关于java12存在无法启动zipkin问题，可选择切换至java8,或升级springboot&spring cloud的版本后解决，并且解决eureka不再需要依赖javax.xml.bind.JAXBContext
 
+zipkin中的一些术语:
 span：zipkin中的基本工作单元
 trace：由一系列spans组成的树状结构；分布式大数据工程时，可能需要trace来追踪
-Annotation：描述一个事件的情况；通常发生阻塞可以查看到各项单元调用的事件，排查阻塞
-
-
-# 明日工作
-1.将所有服务的application.yml添加至分布式配置中心,进行统一管理
-2.为所有(除dependencies)项目添加zipkin
-
-
+Annotation：描述一个事件的情况；通常发生阻塞可以查看到各项单元调用的事件，排查阻塞情况
 
 
 ================================================================================
 
+#### Spring Boot Admin  服务监控
+监控每个微服务的健康状态、会话数量、并发数、服务资源、延迟等度量信息
+
+服务端步骤
+1.pom中添加jolokia-core、spring-boot-admin-starter-server2个依赖（spring-boot-admin-starter-server需要在dependencies中统一管理）
+2.为入口类AdminApplication添加@EnableAdminServer
+3.配置yml
+
+客户端步骤
+1.pom中添加jolokia-core、spring-boot-admin-starter-client（spring-boot-admin-starter-client需要在dependencies中统一管理）
+2.入口类无特别变化;
+3.yml中需要添加监控类的ip地址
+
+可以看到类似于心跳的ping
+
 ================================================================================
+服务的启动顺序：
+1.注册与发现中心   eureka
+2.分布式配置中心   config
+3.服务提供者       serviceAdmin
+4.服务消费者       ribbon、feign
+5.api网关          zuul
+6.监控等           zipkin、admin 
 
 
-#### 关于java8以上版本的适用性
+
+================================================================================
+--基础部署完毕--
+
+
+
+
+#### 补充：关于java8以上版本的适用性    -- 2019年10月25日更新：spring cloud&springboot版本后不再需要
 需要在eureka的pom中添加
 <dependency>
     <groupId>com.sun.xml.bind</groupId>

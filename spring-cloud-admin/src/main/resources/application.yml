@@ -1,0 +1,8 @@
+spring:
+  cloud:
+    config:
+      uri: http://localhost:8888
+      name: spring-cloud-admin
+      label: master
+      profile: dev
+  #      profile: prod

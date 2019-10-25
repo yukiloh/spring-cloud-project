@@ -30,6 +30,7 @@
         <spring-cloud.version>Greenwich.SR3</spring-cloud.version>
         <zipkin.version>2.10.1</zipkin.version>
         <zipkin2.version>2.18.3</zipkin2.version>
+        <spring-boot-admin.version>2.1.6</spring-boot-admin.version>
 
     </properties>
 
@@ -60,6 +61,20 @@
                 <artifactId>zipkin-autoconfigure-ui</artifactId>
                 <version>${zipkin.version}</version>
             </dependency>
+
+            <!--用于spring-cloud-admin服务监控-->
+            <dependency>
+                <groupId>de.codecentric</groupId>
+                <artifactId>spring-boot-admin-starter-server</artifactId>
+                <version>${spring-boot-admin.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>de.codecentric</groupId>
+                <artifactId>spring-boot-admin-starter-client</artifactId>
+                <version>${spring-boot-admin.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
