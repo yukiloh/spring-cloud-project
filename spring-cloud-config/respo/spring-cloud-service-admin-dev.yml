@@ -6,6 +6,7 @@ spring:
   boot:
     admin:
       client:
+#        因切换至nas端所以注释
 #        url: http://localhost:8084
         url: http://192.168.1.90:18084
 

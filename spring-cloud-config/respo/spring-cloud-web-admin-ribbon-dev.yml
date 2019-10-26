@@ -7,10 +7,12 @@ spring:
   boot:
     admin:
       client:
-        url: http://localhost:8084
+#        url: http://localhost:8084
+        url: http://192.168.1.90:18084
 
 
-#    新增了thymeleaf配置
+
+  #    新增了thymeleaf配置
   thymeleaf:
     cache: false
     mode: LEGACYHTML5
@@ -20,7 +22,8 @@ spring:
 
   # 链路追踪
   zipkin:
-    base-url: http://localhost:9411
+#    base-url: http://localhost:9411
+      url: http://192.168.1.90:19411
 
 
 server:
@@ -29,4 +32,5 @@ server:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
+#      defaultZone: http://localhost:8761/eureka/
+      defaultZone: http://192.168.1.90:18761/eureka/

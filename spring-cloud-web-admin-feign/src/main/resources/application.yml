@@ -1,14 +1,14 @@
-spring:
-  cloud:
-    config:
-#      分布式配置中心的地址
-      uri: http://localhost:8888
-#      配置文件的名称
-      name: spring-cloud-web-admin-feign
-      label: master
-      profile: dev
-#      通过切换profile的方式来快速切换环境所对应配置
-#      profile: prod
+#spring:
+#  cloud:
+#    config:
+##      分布式配置中心的地址
+#      uri: http://localhost:8888
+##      配置文件的名称
+#      name: spring-cloud-web-admin-feign
+#      label: master
+#      profile: dev
+##      通过切换profile的方式来快速切换环境所对应配置
+##      profile: prod
 
 
 #当启用cloud云配置后下方配置不再使用
