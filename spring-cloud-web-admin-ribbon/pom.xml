@@ -94,7 +94,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>com.test.spring.cloud.service.admin.WebAdminRibbonApplication</mainClass>
+                    <mainClass>com.test.spring.cloud.web.admin.WebAdminRibbonApplication</mainClass>
                 </configuration>
             </plugin>
         </plugins>

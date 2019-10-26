@@ -1,4 +1,4 @@
-package com.test.spring.cloud.zull.provider;
+package com.test.spring.cloud.zuul.provider;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.cloud.netflix.zuul.filters.route.FallbackProvider;

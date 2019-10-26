@@ -13,7 +13,7 @@
     <artifactId>spring-cloud-zipkin</artifactId>
     <packaging>jar</packaging>
 
-    <name>hello-spring-cloud-zipkin</name>
+    <name>spring-cloud-zipkin</name>
 <!--    <url>http://www.funtl.com</url>-->
 <!--    <inceptionYear>2018-Now</inceptionYear>-->
 
@@ -59,6 +59,13 @@
         <dependency>
             <groupId>io.zipkin.java</groupId>
             <artifactId>zipkin-server</artifactId>
+            <!--据说有依赖冲突，排除包-->
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-log4j</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>io.zipkin.java</groupId>
@@ -82,7 +89,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>com.test.spring.cloud.eureka.ZipkinApplication</mainClass>
+                    <mainClass>com.test.spring.cloud.zipkin.ZipkinApplication</mainClass>
                 </configuration>
             </plugin>
         </plugins>

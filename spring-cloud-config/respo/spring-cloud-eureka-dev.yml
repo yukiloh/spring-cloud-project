@@ -16,6 +16,7 @@ eureka:
     hostname: localhost
   client:
 #    标示本模块为服务端（server）；不添加则表示为客户端（client）
+#    当配置为eureka集群时需要改为true，并serviceUrl.defaultZone配置为多个，通过,间隔
     registerWithEureka: false
     fetchRegistry: false
 

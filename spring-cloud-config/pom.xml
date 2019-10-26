@@ -72,7 +72,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>com.test.spring.cloud.service.admin.ConfigApplication</mainClass>
+                    <mainClass>com.test.spring.cloud.config.ConfigApplication</mainClass>
                 </configuration>
             </plugin>
         </plugins>

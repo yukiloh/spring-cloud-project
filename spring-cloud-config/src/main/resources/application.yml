@@ -10,6 +10,9 @@ spring:
         git:
 #          GitHub的uri需要去除.git,码云等需要保留     需要创建一个配置仓库
 #          uri: https://github.com/yukiloh/spring-cloud-config
+#          search-paths: respo
+          
+#          2019年10月26日：将config文件替换至原有项目的仓库下
           uri: https://github.com/yukiloh/spring-cloud-project
 #          uri下的路径
           search-paths: /spring-cloud-config/respo
