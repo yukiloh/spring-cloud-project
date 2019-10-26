@@ -9,9 +9,10 @@ spring:
 #        托管于github
         git:
 #          GitHub的uri需要去除.git,码云等需要保留     需要创建一个配置仓库
-          uri: https://github.com/yukiloh/spring-cloud-config
+#          uri: https://github.com/yukiloh/spring-cloud-config
+          uri: https://github.com/yukiloh/spring-cloud-project
 #          uri下的路径
-          search-paths: /respo
+          search-paths: /spring-cloud-config/respo
 #          git的用户名&密码
           username: yukiloh@qq.com
           password: vq!@frYH!#19

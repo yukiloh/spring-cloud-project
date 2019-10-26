@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: spring-cloud-zuul
+
+
+  # admin服务监控
+  boot:
+    admin:
+      client:
+        url: http://localhost:8084
+
+  # 链路追踪
+  zipkin:
+    base-url: http://localhost:9411
+
+server:
+  port: 8769
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+
+zuul:
+  routes:
+#    当访问/a指向ribbon的路径，/b为feign
+    api-a:
+      path: /api/a/**
+      serviceId: spring-cloud-web-admin-ribbon
+    api-b:
+      path: /api/b/**
+      serviceId: spring-cloud-web-admin-feign

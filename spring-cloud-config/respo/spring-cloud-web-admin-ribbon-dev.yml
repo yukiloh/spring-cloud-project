@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: spring-cloud-web-admin-ribbon
+
+
+  # admin服务监控
+  boot:
+    admin:
+      client:
+        url: http://localhost:8084
+
+
+#    新增了thymeleaf配置
+  thymeleaf:
+    cache: false
+    mode: LEGACYHTML5
+    encoding: UTF-8
+    servlet:
+      content-type: text/html
+
+  # 链路追踪
+  zipkin:
+    base-url: http://localhost:9411
+
+
+server:
+  port: 8764
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
