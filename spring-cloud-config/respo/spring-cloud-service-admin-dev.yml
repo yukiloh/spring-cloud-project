@@ -6,14 +6,16 @@ spring:
   boot:
     admin:
       client:
-        url: http://localhost:8084
+#        url: http://localhost:8084
+        url: http://192.168.1.90:18084
 
   # 链路追踪
   zipkin:
-    base-url: http://localhost:9411
+#    base-url: http://localhost:9411
+    base-url: http://192.168.1.90:19411
 
 server:
-#  服务器端8761
+#  eureka服务器端8761
 #  因需要模拟负载均衡，可勾择idea服务器设置中的Allow parallel run
   port: 8762
 #  port: 8763
@@ -21,4 +23,5 @@ server:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
+#      defaultZone: http://localhost:8761/eureka/
+      defaultZone: http://192.168.1.90:18761/eureka/
