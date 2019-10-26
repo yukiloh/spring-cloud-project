@@ -233,18 +233,10 @@ Annotation：描述一个事件的情况；通常发生阻塞可以查看到各�
 
 ================================================================================
 
+
 #### 关于实际部署至服务器时的注意点
 1.config、admin、eureka、zipkin、zuul部署至nas上，配置（ip、端口）无特别修改
 2.service-admin、feign、ribbon仍为本机运行，需要创建bootstrap.yml用于初始化时加载，并停用application.yml；线上的配置文件需要改为nas的相应地址：端口
-
-
-
-
-
-
-
-
-
 
 
 #### 补充：关于java8以上版本的适用性    -- 2019年10月25日更新：spring cloud&springboot版本后不再需要
@@ -267,3 +259,21 @@ Annotation：描述一个事件的情况；通常发生阻塞可以查看到各�
 
 以解决Type javax.xml.bind.JAXBContext not present的问题
 参考：https://crunchify.com/java-11-and-javax-xml-bind-jaxbcontext/?unapproved=63874&moderation-hash=6971fd34bc611ebd58f1ec9c01f42c9b#comment-63874
+
+
+
+
+================================================================================
+#### 微服务逻辑
+服务提供者1  服务提供者2  服务提供者3
+
+服务消费者1  服务消费者2  服务消费者3
+
+-            网关聚合
+            
+-            前台调用
+
+
+
+
+================================================================================
