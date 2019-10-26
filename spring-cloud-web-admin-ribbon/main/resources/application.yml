@@ -1,12 +1,13 @@
-spring:
-  cloud:
-    config:
-      uri: http://localhost:8888
-      name: spring-cloud-web-admin-ribbon
-      label: master
-      profile: dev
-  #      profile: prod
-
+#因服务迁移至nas所以需要启动bootstrap.yml配置，注释下方
+#spring:
+#  cloud:
+#    config:
+#      uri: http://localhost:8888
+#      name: spring-cloud-web-admin-ribbon
+#      label: master
+#      profile: dev
+#  #      profile: prod
+#
 
 #  application:
 #    name: spring-cloud-web-admin-ribbon

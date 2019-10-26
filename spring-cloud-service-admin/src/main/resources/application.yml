@@ -1,14 +1,14 @@
-spring:
-  application:
-    name: spring-cloud-service-admin
-
-  cloud:
-    config:
-      uri: http://localhost:8888
-      name: spring-cloud-service-admin
-      label: master
-      profile: dev
-  #      profile: prod
+#spring:
+#  application:
+#    name: spring-cloud-service-admin
+#
+#  cloud:
+#    config:
+#      uri: http://192.168.1.90:18888
+#      name: spring-cloud-service-admin
+#      label: master
+#      profile: dev
+#  #      profile: prod
 
 
 
