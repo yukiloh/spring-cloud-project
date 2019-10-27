@@ -25,6 +25,17 @@
             <artifactId>spring-cloud-common-service</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
+
+        <!--已在common-service中注释,test内容只会在单元开发过程中使用,因此标注scope-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mariadb.jdbc</groupId>
+            <artifactId>mariadb-java-client</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

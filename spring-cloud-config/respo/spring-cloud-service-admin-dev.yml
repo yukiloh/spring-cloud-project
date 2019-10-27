@@ -4,8 +4,8 @@ spring:
 
   ##  数据库--maria
   datasource:
-    url: jdbc:mariadb://192.168.1.90:3306/service-admin
     hikari:
+      jdbc-url: jdbc:mariadb://192.168.1.90:3306/service-admin
       driver-class-name: org.mariadb.jdbc.Driver
       username: root
       password: zou9RYdAGW2MKoBY
