@@ -1,7 +1,10 @@
 ### spring cloud 测试项目
 关于分布式：所有项目可单独运行，而非单个模块。
+面向对象的设计:最少支持原则
 
 ================================================================================
+
+### 项目准备阶段
 
 ##### dependencies 
 管理全局依赖环境，其他项目皆继承此类
@@ -264,7 +267,12 @@ Annotation：描述一个事件的情况；通常发生阻塞可以查看到各�
 
 
 ================================================================================
-#### 微服务逻辑
+
+### 项目部署阶段
+
+#### 微服务逻辑关系
+本章节会着重对架构方面知识进行学习
+
 服务提供者1  服务提供者2  服务提供者3
 
 服务消费者1  服务消费者2  服务消费者3
@@ -273,7 +281,30 @@ Annotation：描述一个事件的情况；通常发生阻塞可以查看到各�
             
 -            前台调用
 
+服务消费者 ← 服务提供者         ←   数据库
+(feign)     (service-admin)
+所有的服务提供者都要获取数据库信息,因此需要创建一个提供给服务提供者专用的common通用接口
+因此创建common为总接口,而所有的common-service依赖于common(根据最少支持原则,单一职责来划分模块)
+*关于命名:spring-cloud-service-xxxx 都为服务提供者,spring-cloud-web/api/...-...皆为服务消费者,通用为common
+
+
+####配置service-admin,使其连接数据库,并使用tk.mybatis自动生成数据库查询命令
+依赖部分:
+1.service-admin依赖于'所有服务提供者'common-service,将service-admin中的pom全部移至common-service,并依赖spring-cloud-common-service
+2.导入相关依赖(tk.mybatis、PageHelper、sql连接驱动)
+
+创建接口：
+common-service中创建MyMapper的接口,为service-admin提供
+
+配置自动生成sql查询的代码：
+1.service-admin的pom中，增加tk.mybatis代码生成插件（注意此处的sql依赖）
+2.tk.mybatis通过generatorConfig.xml的配置来生成代码,因此进行.xml的配置
+(需要另创建jdbc.prop,用于填写sql连接信息;xml中*标记处为需要自定义修改内容)
+3.(后期准备)yml中（远程config配置）增加数据库连接信息(用户名密码)
 
 
 
 ================================================================================
+
+
+关于sqlStatement: https://mybatis.org/generator/configreference/generatedKey.html
