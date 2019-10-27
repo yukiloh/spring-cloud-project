@@ -9,6 +9,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class AdminController {
 
+
+
+
+
+
+
+
+    /*===下方为测试用===*/
     @Value("${server.port}")
     private String port;
 
