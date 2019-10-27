@@ -9,7 +9,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = ServiceAdminApplication.class)
-@ActiveProfiles("dev")
+@ActiveProfiles("dev")      /*用于指定配置文件类型(dev prod)*/
 public class AdminServiceTest {
 
     /*完成 登陆 和 注册 2个功能*/
