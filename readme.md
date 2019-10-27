@@ -291,7 +291,7 @@ Annotation：描述一个事件的情况；通常发生阻塞可以查看到各�
 ####配置service-admin,使其连接数据库,并使用tk.mybatis自动生成数据库查询命令
 依赖部分:
 1.service-admin依赖于'所有服务提供者'common-service,将service-admin中的pom全部移至common-service,并依赖spring-cloud-common-service
-2.导入相关依赖(tk.mybatis、PageHelper、sql连接驱动)
+2.导入相关依赖(tk.mybatis、PageHelper、sql连接驱动)(此处注意需要依赖数据库连接工具!)
 
 创建接口：
 common-service中创建MyMapper的接口,为service-admin提供
@@ -304,7 +304,7 @@ common-service中创建MyMapper的接口,为service-admin提供
 
 
 
-#### 
+#### 正式编写服务提供者的内容
 项目需要先写在测试类中(测试先行)
 缺点:费时   优点:代码质量高
 
