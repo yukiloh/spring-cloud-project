@@ -18,6 +18,11 @@
 <!--    <inceptionYear>2018-Now</inceptionYear>-->
 
     <dependencies>
+        <dependency>
+            <groupId>com.test</groupId>
+            <artifactId>spring-cloud-common-web</artifactId>
+            <version>${parent.version}</version>
+        </dependency>
         <!-- Spring Boot Begin -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -87,6 +92,7 @@
             <groupId>de.codecentric</groupId>
             <artifactId>spring-boot-admin-starter-client</artifactId>
         </dependency>
+
     </dependencies>
 
     <build>

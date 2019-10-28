@@ -163,7 +163,7 @@
     <orderEntry type="library" name="Maven: org.springframework.cloud:spring-cloud-starter-config:2.1.4.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.cloud:spring-cloud-config-client:2.1.4.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.9.0" level="project" />
-    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.9.9.3" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.10.0" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-core:2.9.9" level="project" />
     <orderEntry type="library" name="Maven: io.zipkin.java:zipkin:2.10.1" level="project" />
     <orderEntry type="library" name="Maven: io.zipkin.zipkin2:zipkin:2.10.1" level="project" />
