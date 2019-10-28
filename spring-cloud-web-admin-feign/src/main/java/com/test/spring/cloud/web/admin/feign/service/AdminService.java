@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface AdminService {
 
     @GetMapping("/login")
-        /*前端发送get请求,message=xxx,需要使用RequestParam来接收*/
     String login(@RequestParam("loginCode") String loginCode,@RequestParam("password") String password);
 
 

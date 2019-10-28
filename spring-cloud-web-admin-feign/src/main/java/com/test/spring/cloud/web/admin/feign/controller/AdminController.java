@@ -17,7 +17,7 @@ public class AdminController {
     @GetMapping({"/","/login"})
     public String  login(){
         String json = adminService.login("", "");
-        System.out.println(json);       /*用于测试接口,成功*/
+        System.out.println(json);       /*用于测试接口,打印json信息*/
         return "index";
     }
 
@@ -31,8 +31,6 @@ public class AdminController {
 
 
     /*===下方为测试用===*/
-
-
     @GetMapping("/hi")
     /*因为service层已经添加@RequestParam,此处注解可以省略*/
     public String sayHi(@RequestParam("message") String message){

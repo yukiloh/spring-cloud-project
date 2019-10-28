@@ -322,18 +322,84 @@ common-service中创建MyMapper的接口,为service-admin提供
 ================================================================================
 
 #### web-admin 编写服务消费者的内容
-同样需要一个common类:common-web,消费者直接使用web-admin-feign
+同样需要一个common类:common-web,消费者直接使用已创建的web-admin-feign
 
-feign中
-1.创建接口
-2.创建熔断机制
+常规测试：feign中创建controller
+开启熔断机制：
+1.创建用于熔断的接口（AdminService），并创建方法（login）（有参数传入时需要@RequestParam）
+2.创建熔断的实现类（AdminServiceHystrix），并重写相应方法；
+*关于实现类内的写法：1.返回结果集为baseResult.Error，因为已经触发熔断所以错误为502，msg为从上游服务器接收到无效相应
+                   2.因为此类错误结果可能多次调用，所以整合为枚举（遵从：一次书写，多次调用）
+                   3.使用了try/catch，如果抓住则返回错误信息的结果集；如果报错则直接返回null；并没有使用if/else的写法
 
-阶段:重写熔断机制
+测试熔断：关闭ServiceAdmin服务器
 
-
-
-
+后续：静态资源从伪cdn服务处获取；因此使用nginx创建伪服务器
 
 ================================================================================
 
+#### nginx配置相关
+于docker中配置,预留了
+:81
+:82
+*测试中80端口无法更改
+
+
+nginx具体可以参见下方的nginx.conf
+
+---conf start---
+
+# 使用线程,nginx支持多线程
+worker_processes  1;
+
+events {
+    worker_connections  1024;
+}
+
+
+http {
+    include       mime.types;
+    default_type  application/octet-stream;
+
+    sendfile        on;
+    #tcp_nopush     on;
+
+    keepalive_timeout  65;
+    
+    # 配置一个代理即 tomcat1 服务器   新版本的upstream名称中不可带有下划线 _ 
+    upstream tomcatServer1 {
+        server 192.168.75.145:9090;
+    }
+    
+    # 配置一个代理即 tomcat2 服务器
+    upstream tomcatServer2 {
+        server 192.168.75.145:9091;
+    }
+
+    # nginx可以配置一个虚拟服务主机 
+    server{
+        listen		81;
+    # server_name:访问地址的名称,可以是ip,或者是域名
+	server_name	localhost;
+	location / {
+	    # 虚拟服务器显示静态页面的路径
+	    root     /home/share/nginx/www/html81;
+	    # 欢迎页面,从左至右进行匹配
+	    index    index.html index.htm;
+	}
+    }
+    
+    server{
+        listen		82;
+    # 或者可以通过设置二级域名来决定访问的路径(类似于miaosha.jd.com)
+	server_name	port_82.domain.com;
+	location / {
+	    root     /home/share/nginx/www/html82;
+	    index    index.html index.htm;
+	}
+    }
+
+}
+
+---conf end---
 
