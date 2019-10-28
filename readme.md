@@ -1,6 +1,7 @@
 ### spring cloud 测试项目
 关于分布式：所有项目可单独运行，而非单个模块。
 面向对象的设计:最少支持原则
+极限编程:只管当下
 
 ================================================================================
 
@@ -285,9 +286,9 @@ Annotation：描述一个事件的情况；通常发生阻塞可以查看到各�
 (feign)     (service-admin)
 所有的服务提供者都会获取数据库信息,因此需要创建一个提供给服务提供者专用的common-service通用接口
 并且所有的common-service依赖于总通用接口common(根据最少支持原则,单一职责来划分模块)
-*关于命名:spring-cloud-service-xxxx 都为服务提供者,spring-cloud-web/api/...等皆为服务消费者
-common为通用
+*关于命名:spring-cloud-service-xxxx 都为服务提供者,spring-cloud-web/api/...等皆为服务消费者,common关键词为通用
 
+================================================================================
 
 #### 配置service-admin,使用tk.mybatis自动生成数据库查询命，并连接数据库
 依赖部分:
@@ -301,19 +302,33 @@ common-service中创建MyMapper的接口,为service-admin提供
 1.service-admin的pom中，增加tk.mybatis代码生成插件配置（注意此处的sql依赖的类型）
 2.tk.mybatis通过generatorConfig.xml的配置来生成代码,因此进行.xml的配置
 (需要另创建jdbc.prop,用于供读取sql连接信息;   另xml中*标记处为需要自定义修改内容)
+*关于xml中的sqlStatement: https://mybatis.org/generator/configreference/generatedKey.html
 3.(后期准备)yml中（远程config配置）增加数据库连接信息(用户名密码)
 
 
 
 #### service-admin 正式编写服务提供者的内容
-项目需要先写在测试类中(测试先行)   缺点:费时   优点:代码质量高，且越写越容易
-在项目中编写 登陆&注册 功能（详细内容在代码中），为service-admin提供controller
-controller返回结果一般为统一类，因此先在common中创建统一结果
+*项目需要先写在测试类中(测试先行)   缺点:费时   优点:代码质量高，且越写越容易
+过程:
+1.在项目中编写 登陆&注册 功能（详细内容在代码中），为service-admin提供controller
+2.controller返回结果一般为统一类，因此先在common项目中创建统一结果baseResult(注意结果集的类型参数)(使用Lombok)
+3.AdminController中编写具体login业务逻辑(返回的结果需要符合开发手册的要求)
 
+失误点:checkLogin方法中,返回的baseResult没有进行判断后赋值
 
+测试访问地址: http://localhost:8762/login?loginCode=test@test.com&password=111111
+*推荐使用postman,因为页面返回数据为json
 
+================================================================================
 
+#### web-admin 编写服务消费者的内容
+同样需要一个common类:common-web,消费者直接使用web-admin-feign
 
+feign中
+1.创建接口
+2.创建熔断机制
+
+阶段:重写熔断机制
 
 
 
@@ -322,4 +337,3 @@ controller返回结果一般为统一类，因此先在common中创建统一结�
 ================================================================================
 
 
-关于sqlStatement: https://mybatis.org/generator/configreference/generatedKey.html

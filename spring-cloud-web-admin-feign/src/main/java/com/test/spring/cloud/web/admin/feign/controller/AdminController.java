@@ -9,8 +9,29 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class AdminController {
 
+
+
     @Autowired
     private AdminService adminService;
+
+    @GetMapping({"/","/login"})
+    public String  login(){
+        String json = adminService.login("", "");
+        System.out.println(json);       /*用于测试接口,成功*/
+        return "index";
+    }
+
+
+
+
+
+
+
+
+
+
+    /*===下方为测试用===*/
+
 
     @GetMapping("/hi")
     /*因为service层已经添加@RequestParam,此处注解可以省略*/

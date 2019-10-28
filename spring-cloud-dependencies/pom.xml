@@ -33,6 +33,9 @@
         <spring-boot-admin.version>2.1.6</spring-boot-admin.version>
         <spring-boot-mapper.version>2.1.5</spring-boot-mapper.version>
         <spring-boot-pagehelper.version>1.2.12</spring-boot-pagehelper.version>
+        <lombok.version>1.18.4</lombok.version>
+        <guava.version>28.1-jre </guava.version>
+        <nekohtml.version>1.9.22</nekohtml.version>
 
     </properties>
 
@@ -92,7 +95,26 @@
                 <version>${spring-boot-pagehelper.version}</version>
             </dependency>
 
+            <!--Lombok-->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+                <scope>provided</scope>
+            </dependency>
 
+            <!-- https://mvnrepository.com/artifact/com.google.guava/guava Java API的补充，对Java开发中常用功能进行更优雅的实现-->
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>net.sourceforge.nekohtml</groupId>
+                <artifactId>nekohtml</artifactId>
+                <version>${nekohtml.version}</version>
+            </dependency>
 
         </dependencies>
     </dependencyManagement>
