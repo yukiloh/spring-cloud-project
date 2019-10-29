@@ -410,7 +410,7 @@ http {
 因此,提供一个由nginx提供的服务器,设定路径,防止静态资源文件夹即可(略)
 
 
-# redis 介绍略     cluster:集群
+# redis 介绍略     cluster:集群  HA:High Available 高可用
 redis可通过数字自增,用于区分订单
 例如: 订单号生成规格:yyyyMMddhhmmss+ms+自增数字,来区分订单号
 
