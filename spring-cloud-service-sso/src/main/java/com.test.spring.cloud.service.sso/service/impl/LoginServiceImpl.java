@@ -66,4 +66,12 @@ public class LoginServiceImpl implements LoginService {
         }
     return tbSysUser;
     }
+
+    @Override
+    public void test(String key) {
+        String test = redisService.test(key);
+        System.out.println(test);
+    }
+
+
 }

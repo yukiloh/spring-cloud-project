@@ -19,4 +19,7 @@ public interface LoginService {
      * @param plantPassword 明文密码
      */
     TbSysUser login(String loginCode, String plantPassword);
+
+
+    void test(String key);
 }

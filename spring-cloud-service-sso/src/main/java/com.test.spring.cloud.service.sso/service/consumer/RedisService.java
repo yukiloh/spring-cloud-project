@@ -18,4 +18,10 @@ public interface RedisService {
 
     @GetMapping("/get")
     String get(@RequestParam("key") String key);
+
+
+
+
+    @GetMapping("/test")
+    String test(@RequestParam("key") String key);
 }

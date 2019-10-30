@@ -27,4 +27,11 @@ public class SSOController {
         System.out.println(tbSysUser);
         return "success";
     }
+
+    @ResponseBody
+    @GetMapping("/test")
+    public String test(){
+        loginService.test("test!!!");
+        return "test";
+    }
 }

@@ -29,4 +29,12 @@ public class RedisController {
         }
         return null;
     }
+
+    @GetMapping("/test")
+    public String test(String key){
+        Object o = redisService.get(key);
+        System.out.println(o);
+        return key;
+    }
+
 }

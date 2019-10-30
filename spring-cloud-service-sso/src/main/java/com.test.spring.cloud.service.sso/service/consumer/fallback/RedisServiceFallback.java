@@ -16,4 +16,9 @@ public class RedisServiceFallback implements RedisService {
     public String get(String key) {
         return Fallback.badGateway();
     }
+
+    @Override
+    public String test(String key) {
+        return Fallback.badGateway();
+    }
 }
