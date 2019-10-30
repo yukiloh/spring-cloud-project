@@ -79,7 +79,7 @@
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
                     <configuration>
-                        <mainClass></mainClass>
+                        <mainClass>com.test.spring.cloud.service.redis.ServiceRedisApplication</mainClass>
                     </configuration>
                 </plugin>
             </plugins>
