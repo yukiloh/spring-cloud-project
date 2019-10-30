@@ -1,5 +1,6 @@
 package com.test.spring.cloud.service.redis.controller;
 
+import com.test.spring.cloud.service.redis.model.RedisObject;
 import com.test.spring.cloud.service.redis.service.RedisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +14,7 @@ public class RedisController {
     private RedisService redisService;
 
     @PostMapping("put")
-    public String put(String key, Object value, long seconds){
+    public String put(String key, String value, long seconds){
         redisService.put(key,value,seconds);
         return "ok" ;
     }
@@ -22,6 +23,7 @@ public class RedisController {
     public String get(String key){
         Object o = redisService.get(key);
         if (o != null) {
+//            String json = o.getValue();
             String json = String.valueOf(o);
             System.out.println(json);
             return json ;

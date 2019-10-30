@@ -539,6 +539,40 @@ sentinel:   192.168.2.110:26379     ,26380,26381
 
 
 
+##### 项目中使用redis
+redis属于服务提供者,因此需要创建spring-cloud-service-redis项目
+
+关于pom依赖:
+<!--供redis(lettuce)用的连接池-->
+<dependency>
+    <groupId>org.apache.commons</groupId>
+    <artifactId>commons-pool2</artifactId>
+</dependency>
+
+<!--redis starter,内包含了lettuce-->
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-data-redis</artifactId>
+</dependency>
+
+
+关于redis的config:
+spring: 
+  redis:
+    lettuce:
+      pool:
+        max-active: 8
+        max-idle: 8
+        max-wait: -1ms
+        min-idle: 0
+    sentinel:
+#      sentinel的master名称,为自定义
+      master: mymaster
+#      sentinel的各节点地址&端口
+      nodes: 192.168.2.110:26379, 192.168.2.110:26380, 192.168.2.110:26381
+      
+      
+方法中,redis只需要进行put和get操作,因此接口类中创建put和get方法;注意存放的value对象需要序列化
 
 
 

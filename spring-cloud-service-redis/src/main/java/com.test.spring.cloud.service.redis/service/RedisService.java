@@ -10,7 +10,7 @@ public interface RedisService {
      * @param value
      * @param seconds   超时时间
      */
-    void put(String key,Object value,long seconds);
+    void put(String key,String value,long seconds);
 
 
     Object get(String key);

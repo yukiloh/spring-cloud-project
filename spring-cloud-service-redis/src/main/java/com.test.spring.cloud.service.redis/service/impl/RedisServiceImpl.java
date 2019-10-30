@@ -1,14 +1,16 @@
 package com.test.spring.cloud.service.redis.service.impl;
 
+import com.test.spring.cloud.service.redis.model.RedisObject;
 import com.test.spring.cloud.service.redis.service.RedisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
+import java.io.Serializable;
 import java.util.concurrent.TimeUnit;
 
 @Service
-public class RedisServiceImpl implements RedisService {
+public class RedisServiceImpl implements RedisService, Serializable {
 
     /*redis的主要功能由spring提供(超复杂)*/
     @Autowired
@@ -16,7 +18,7 @@ public class RedisServiceImpl implements RedisService {
 
 
     @Override
-    public void put(String key, Object value, long seconds) {
+    public void put(String key, String value, long seconds) {
         redisTemplate.opsForValue().set(key,value,seconds, TimeUnit.SECONDS);
 
     }
