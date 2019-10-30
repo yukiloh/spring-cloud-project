@@ -410,6 +410,9 @@ http {
 因此,提供一个由nginx提供的服务器,设定路径,防止静态资源文件夹即可(略)
 
 
+
+================================================================================
+
 # redis 介绍略     cluster:集群
 redis可通过数字自增,用于区分订单
 例如: 订单号生成规格:yyyyMMddhhmmss+ms+自增数字,来区分订单号
@@ -436,14 +439,103 @@ jedis(过时)→lettuce(已被springboot集成)
 ↓  ↓
 从 从...
 
+##### 使用docker-compose在docker中安装redis服务器
+配置一下文件：（一主二从）
+vim ~/docker/redis/docker-compose.yml
+
+version: '3.1'
+services:
+  master:
+    image: redis
+    container_name: redis-master
+    ports:
+      - 6379:6379
+
+  slave1:
+    image: redis
+    container_name: redis-slave-1
+    ports:
+      - 6380:6379
+    command: redis-server --slaveof redis-master 6379
+
+  slave2:
+    image: redis
+    container_name: redis-slave-2
+    ports:
+      - 6381:6379
+    command: redis-server --slaveof redis-master 6379
 
 
 
+##### 配置redis-sentinel哨兵
+配置文件：（*volumes中指定了3份sentinel.conf）
+vim ~/docker/sentinel/docker-compose.yml
+
+version: '3.1'
+services:
+  sentinel1:
+    image: redis
+    container_name: redis-sentinel-1
+    ports:
+      - 26379:26379
+    command: redis-sentinel /usr/local/etc/redis/sentinel.conf
+    volumes:
+      - ./sentinel1.conf:/usr/local/etc/redis/sentinel.conf
+
+  sentinel2:
+    image: redis
+    container_name: redis-sentinel-2
+    ports:
+      - 26380:26379
+    command: redis-sentinel /usr/local/etc/redis/sentinel.conf
+    volumes:
+      - ./sentinel2.conf:/usr/local/etc/redis/sentinel.conf
+
+  sentinel3:
+    image: redis
+    container_name: redis-sentinel-3
+    ports:
+      - 26381:26379
+    command: redis-sentinel /usr/local/etc/redis/sentinel.conf
+    volumes:
+      - ./sentinel3.conf:/usr/local/etc/redis/sentinel.conf
 
 
+并配置3份 sentinel.conf 配置文件
+第一行sentinel的参数解释：
+集群名可自定义     127.0.0.1根据需求替换为 redis-master 的 ip  6379 为 redis-master 的端口     2 为最小投票数（因为有 3 台 Sentinel 所以可以设置成 2）
 
+port 26379
+dir /tmp
+sentinel monitor mymaster 192.168.2.110 6379 2
+sentinel down-after-milliseconds mymaster 30000
+sentinel parallel-syncs mymaster 1
+sentinel failover-timeout mymaster 180000
+sentinel deny-scripts-reconfig yes
 
+并创建sentinel1.conf sentinel2.conf sentinel3.conf(供docker-compose设置用)
+完成后进行docker-compose up -d 创建容器
+集群创建成功后,进入容器:
+docker exec -it redis-sentinel-1  /bin/bash
+进入redis-sentinel:26379(哨兵1)
+redis-cli -p 26379
+查看日志:
+sentinel master mymaster
+可查看到以下信息:包含2个slavers,剩余哨兵数um-other-sentinels,投票数quorum
+31) "num-slaves"
+32) "2"
+33) "num-other-sentinels"
+34) "2"
+35) "quorum"
+36) "2"
 
+创建哨兵集群后可以通过RedisDesktopManager直接连接哨兵(26379)来获取redis集群的信息
+至此redis集群创建全部完成.
+服务器通过调用哨兵,让哨兵再去调用redis服务器,最后返回结果.
+
+端口号整理:
+redis:      192.168.2.110:6379      ,6380,6381
+sentinel:   192.168.2.110:26379     ,26380,26381
 
 
 

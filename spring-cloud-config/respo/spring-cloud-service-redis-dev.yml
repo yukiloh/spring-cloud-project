@@ -1,0 +1,42 @@
+spring:
+  application:
+    name: spring-cloud-service-redis
+
+#redis相关配置
+  redis:
+    lettuce:
+      pool:
+        max-active: 8
+        max-idle: 8
+        max-wait: -1ms
+        min-idle: 0
+    sentinel:
+#      sentinel的master名称,为自定义
+      master: mymaster
+#      sentinel的各节点地址&端口
+      nodes: 192.168.2.110:26379, 192.168.2.110:26380, 192.168.2.110:26381
+
+
+# admin服务监控
+  boot:
+    admin:
+      client:
+#        因切换至nas端所以注释
+#        url: http://localhost:8084
+        url: http://192.168.1.90:18084
+
+  # 链路追踪
+  zipkin:
+#    base-url: http://localhost:9411
+    base-url: http://192.168.1.90:19411
+
+server:
+#  eureka服务器端8761
+  port: 8772
+
+eureka:
+  client:
+    serviceUrl:
+#      defaultZone: http://localhost:8761/eureka/
+      defaultZone: http://192.168.1.90:18761/eureka/
+
