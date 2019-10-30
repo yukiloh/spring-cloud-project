@@ -10,6 +10,13 @@ spring:
       username: root
       password: zou9RYdAGW2MKoBY
 
+# 需要页面模板
+  thymeleaf:
+    cache: false
+    mode: LEGACYHTML5
+    encoding: UTF-8
+    servlet:
+      content-type: text/html
 
   # admin服务监控
   boot:
