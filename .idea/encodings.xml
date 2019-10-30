@@ -3,6 +3,7 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/spring-cloud-admin" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/spring-cloud-common" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-cloud-common-domain" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/spring-cloud-common-service" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/spring-cloud-common-web" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/spring-cloud-config" charset="UTF-8" />
@@ -10,6 +11,7 @@
     <file url="file://$PROJECT_DIR$/spring-cloud-eureka" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/spring-cloud-service-admin" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/spring-cloud-service-redis" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-cloud-service-sso" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/spring-cloud-web-admin-feign" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/spring-cloud-web-admin-ribbon" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/spring-cloud-zipkin" charset="UTF-8" />

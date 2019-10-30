@@ -11,20 +11,27 @@
     </parent>
 
 
-    <artifactId>spring-cloud-service-admin</artifactId>
+    <artifactId>spring-cloud-service-sso</artifactId>
     <packaging>jar</packaging>
 
-    <name>spring-cloud-service-admin</name>
-<!--    <url>http://www.funtl.com</url>-->
-<!--    <inceptionYear>2018-Now</inceptionYear>-->
+    <name>spring-cloud-service-sso</name>
+    <!--    <url>http://www.funtl.com</url>-->
+    <!--    <inceptionYear>2018-Now</inceptionYear>-->
 
     <dependencies>
-        <!--迁移了实体类TbSysUser-->
+        <!--project-->
         <dependency>
             <groupId>com.test</groupId>
             <artifactId>spring-cloud-common-domain</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.test</groupId>
+            <artifactId>spring-cloud-common-web</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+
         <!--依赖于common-service,包内容集成至common-service-->   <!--版本号依赖于parent,遵从写且只写一次原则-->
         <dependency>
             <groupId>com.test</groupId>
@@ -38,6 +45,7 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
         <dependency>
             <groupId>org.mariadb.jdbc</groupId>
             <artifactId>mariadb-java-client</artifactId>
@@ -50,33 +58,8 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>com.test.spring.cloud.service.admin.ServiceAdminApplication</mainClass>
+                    <mainClass>com.test.spring.cloud.service.sso.ServiceSSOApplication</mainClass>
                 </configuration>
-            </plugin>
-
-            <!--mybatis代码生成-->
-            <plugin>
-                <groupId>org.mybatis.generator</groupId>
-                <artifactId>mybatis-generator-maven-plugin</artifactId>
-                <version>1.3.5</version>
-                <configuration>
-                    <configurationFile>${basedir}/src/main/resources/generator/generatorConfig.xml</configurationFile>
-                    <overwrite>true</overwrite>
-                    <verbose>true</verbose>
-                </configuration>
-                <dependencies>
-                    <!--此处不是mysql的依赖-->
-                    <dependency>
-                        <groupId>org.mariadb.jdbc</groupId>
-                        <artifactId>mariadb-java-client</artifactId>
-                        <version>${mariadb.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>tk.mybatis</groupId>
-                        <artifactId>mapper</artifactId>
-                        <version>3.4.4</version>
-                    </dependency>
-                </dependencies>
             </plugin>
         </plugins>
     </build>

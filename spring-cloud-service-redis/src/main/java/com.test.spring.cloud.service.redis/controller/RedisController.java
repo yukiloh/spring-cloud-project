@@ -1,6 +1,5 @@
 package com.test.spring.cloud.service.redis.controller;
 
-import com.test.spring.cloud.service.redis.model.RedisObject;
 import com.test.spring.cloud.service.redis.service.RedisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +12,7 @@ public class RedisController {
     @Autowired
     private RedisService redisService;
 
-    @PostMapping("put")
+    @PostMapping("/put")
     public String put(String key, String value, long seconds){
         redisService.put(key,value,seconds);
         return "ok" ;
@@ -28,6 +27,6 @@ public class RedisController {
             System.out.println(json);
             return json ;
         }
-        return "error";
+        return null;
     }
 }
