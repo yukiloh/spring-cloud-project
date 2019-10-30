@@ -1,6 +1,6 @@
 spring:
   application:
-    name: spring-cloud-service-admin
+    name: spring-cloud-service-sso
 
   ##  数据库--maria
   datasource:
@@ -10,7 +10,8 @@ spring:
       username: root
       password: zou9RYdAGW2MKoBY
 
-# admin服务监控
+
+  # admin服务监控
   boot:
     admin:
       client:
@@ -25,9 +26,7 @@ spring:
 
 server:
 #  eureka服务器端8761
-#  因需要模拟负载均衡，可勾择idea服务器设置中的Allow parallel run
-  port: 8762
-#  port: 8763
+  port: 8773
 
 eureka:
   client:
@@ -40,3 +39,9 @@ mybatis:
   #  实体类路径
   type-aliases-package: com.test.spring.cloud.common.domain
   mapper-locations: classpath:mapper/*.xml
+
+
+feign:
+  #  开启熔断机制
+  hystrix:
+    enabled: true
