@@ -7,7 +7,7 @@ spring:
   boot:
     admin:
       client:
-        url: http://localhost:8084
+        url: http://http://192.168.2.110:8084
 #        url: http://192.168.1.90:18084
 
 
@@ -22,7 +22,7 @@ spring:
 
   # 链路追踪
   zipkin:
-    base-url: http://localhost:9411
+    base-url: http://http://192.168.2.110:9411
 #      url: http://192.168.1.90:19411
 
 
@@ -32,5 +32,5 @@ server:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: http://http://192.168.2.110:8761/eureka/
 #      defaultZone: http://192.168.1.90:18761/eureka/
