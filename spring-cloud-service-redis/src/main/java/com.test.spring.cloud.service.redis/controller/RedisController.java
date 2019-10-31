@@ -23,18 +23,9 @@ public class RedisController {
         Object o = redisService.get(key);
         if (o != null) {
 //            String json = o.getValue();
-            String json = String.valueOf(o);
-            System.out.println(json);
-            return json ;
+            return String.valueOf(o);
         }
         return null;
-    }
-
-    @GetMapping("/test")
-    public String test(String key){
-        Object o = redisService.get(key);
-        System.out.println(o);
-        return key;
     }
 
 }

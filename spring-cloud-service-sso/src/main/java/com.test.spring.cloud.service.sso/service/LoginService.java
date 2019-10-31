@@ -21,5 +21,4 @@ public interface LoginService {
     TbSysUser login(String loginCode, String plantPassword);
 
 
-    void test(String key);
 }

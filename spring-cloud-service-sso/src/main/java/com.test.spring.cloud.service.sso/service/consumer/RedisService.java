@@ -21,7 +21,4 @@ public interface RedisService {
 
 
 
-
-    @GetMapping("/test")
-    String test(@RequestParam("key") String key);
 }

@@ -44,7 +44,7 @@ public class LoginServiceImpl implements LoginService {
             example.createCriteria().andEqualTo("loginCode",loginCode);
             tbSysUser = tbSysUserMapper.selectOneByExample(example);
             String password = DigestUtils.md5DigestAsHex(plantPassword.getBytes()); /*明文加密，需要传入字节码*/
-            if (tbSysUser.getPassword().equals(password)) {
+            if (tbSysUser != null &&tbSysUser.getPassword().equals(password)) { /*当user存在且密码正确时（遗漏判断user是否存在）*/
                 /*找到tbSysUser，并存入redis,存活时间1天*/
                 try {
                     redisService.put(loginCode,MapperUtils.obj2json(tbSysUser),60*60*24);
@@ -66,12 +66,4 @@ public class LoginServiceImpl implements LoginService {
         }
     return tbSysUser;
     }
-
-    @Override
-    public void test(String key) {
-        String test = redisService.test(key);
-        System.out.println(test);
-    }
-
-
 }

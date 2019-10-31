@@ -1,0 +1,70 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../static/images/favicon.ico">
+
+    <title>登陆</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <!--自定义css样式-->
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+
+    <!-- Custom styles for this template -->
+    <!--    <link href="navbar.css" rel="stylesheet">-->
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+
+
+
+</head>
+
+
+
+<div class="container-fluid mainCss">
+    <div class="row">
+        <div class="col-md-push-4 col-md-4" >
+            <h3>用户登陆</h3><hr>
+            <div class="container-fluid">
+                <div class="center-block">
+                    <form action="/login" method="post">
+                        <table border="0">
+                            <tr>
+                                <td style="text-align:center"><font size="3" >用户名</font></td>
+                                <td>&nbsp;&nbsp;</td>
+                                <td ><input type="text" class="form-control" name="loginCode"></td>
+                            </tr>
+                            <tr>
+                                <td style="text-align:center" > <font size="3" >密码</font></td>
+                                <td>&nbsp;&nbsp;</td>
+                                <td ><input type="password" class="form-control " name="password"></td>
+                            </tr>
+
+                        </table>
+                        <br>
+                        <div><button type="submit" class="btn btn-info" id= "submit" >提交</button></div>
+                        <div th:if="${message} != null"><span th:text="${message}"></span></div>
+
+                    </form>
+                </div><br>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>
+

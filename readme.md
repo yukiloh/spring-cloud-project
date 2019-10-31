@@ -601,7 +601,16 @@ spring:
 5.编写具体业务逻辑（查询redis，如存在则直接返回User，无则进行登陆验证）
 6.编写controller，提供/login的post请求
 
+传统会话的缺点
+1.域名必须统一；       →通过nginx解决 
+2.无法实现跨语言；      →redis
+3.cookie本身不安全      →redis中使用uuid,通过uuid来验证loginCode
+因此需要在loginController中完善cookie的问题3
 
+关于loginController的逻辑:
+登陆后进行判断     →   有token  →   查找loginCode     →   匹配则回传user对象
+                 →    无token  →     进行登录,验证用户名密码    →   登陆完成后赋予token
+*错误点:获取user时使用了错误的变量!
 
 
 
