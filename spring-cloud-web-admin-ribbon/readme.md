@@ -1,0 +1,1 @@
+测试spring-cloud中产生的项目，服务提供者为service-admin，用于演示ribbon的用法，与主项目无关
