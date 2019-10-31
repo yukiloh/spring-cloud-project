@@ -572,11 +572,33 @@ spring:
       nodes: 192.168.2.110:26379, 192.168.2.110:26380, 192.168.2.110:26381
       
       
-方法中,redis只需要进行put和get操作,因此接口类中创建put和get方法;注意存放的value对象需要序列化
+方法中,redis只需要进行put和get操作,因此接口类中创建put和get方法;  注意存放的value对象需要序列化
 
 
+##### 使用redis实现单点登录SSO（SingleSignOn）    既是服务消费者，也是提供者
+使用传统的cookie可以通过共享域名来交换会话，但缺点1.域名必须统一；2.无法实现跨语言；3.cookie本身不安全
+
+单点登录示意图          
+                      局部会话          全局会话
+网页（客户端）     →     客户端     →     SSO（需要获取客户端地址用于返回跳转页面）
+                登陆             校验   授权
+
+-                 ←               ←  
+-              登陆成功                返回授权（令牌，地址）
 
 
+*为解决跨语言问题，可以使用redis，统一从数据库中取出登陆信息
+
+创建工程的步骤：
+1.修改原有项目，创建通用的domain（用于存放TbSysUser）
+因此创建spring-cloud-common-domain，并迁移service-admin下的TbSysUser
+（注意原有模块中的resources.mapper.Mapper.xml，和其他类的依赖，和config中的mybatis依赖路径）
+2.创建对service-sso，配置config（需要配置mybatis+数据库，hystrix）
+3.入口类中添加@EnableDiscoveryClient  @EnableFeignClients，和@MapperScan（用于读取数据库）
+*关于操作数据库的部分，不适用共性抽取，因为每个数据库读取的方法并不一致，因此本项目在service-admin和service-sso分别创建
+4.使用feign功能，创建fallback熔断机制（与feign项目下的熔断进行整合，至common中）
+5.编写具体业务逻辑（查询redis，如存在则直接返回User，无则进行登陆验证）
+6.编写controller
 
 
 

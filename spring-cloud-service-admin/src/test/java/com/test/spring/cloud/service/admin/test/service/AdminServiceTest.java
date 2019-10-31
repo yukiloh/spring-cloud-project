@@ -1,7 +1,7 @@
 package com.test.spring.cloud.service.admin.test.service;
 
+import com.test.spring.cloud.common.domain.TbSysUser;
 import com.test.spring.cloud.service.admin.ServiceAdminApplication;
-import com.test.spring.cloud.service.admin.domain.TbSysUser;
 import com.test.spring.cloud.service.admin.service.impl.AdminServiceImpl;
 import org.junit.Assert;
 import org.junit.Test;

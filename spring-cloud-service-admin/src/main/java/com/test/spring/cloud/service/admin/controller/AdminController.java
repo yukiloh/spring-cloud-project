@@ -2,8 +2,8 @@ package com.test.spring.cloud.service.admin.controller;
 
 
 import com.google.common.collect.Lists;
+import com.test.spring.cloud.common.domain.TbSysUser;
 import com.test.spring.cloud.common.dto.BaseResult;
-import com.test.spring.cloud.service.admin.domain.TbSysUser;
 import com.test.spring.cloud.service.admin.service.AdminService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;

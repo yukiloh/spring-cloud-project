@@ -6,23 +6,26 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="spring-cloud-config" />
-        <module name="spring-cloud-service-redis" />
-        <module name="spring-cloud-zipkin" />
+        <module name="spring-cloud-service-admin" />
+        <module name="spring-cloud-web-admin-feign" />
         <module name="spring-cloud-eureka" />
+        <module name="spring-cloud-config" />
         <module name="spring-cloud-common" />
         <module name="spring-cloud-zuul" />
-        <module name="spring-cloud-web-admin-ribbon" />
-        <module name="spring-cloud-service-admin" />
-        <module name="spring-cloud-admin" />
-        <module name="spring-cloud-web-admin-feign" />
         <module name="spring-cloud-common-web" />
+        <module name="spring-cloud-common-domain" />
+        <module name="spring-cloud-web-admin-ribbon" />
+        <module name="spring-cloud-service-sso" />
+        <module name="spring-cloud-service-redis" />
+        <module name="spring-cloud-zipkin" />
+        <module name="spring-cloud-admin" />
         <module name="spring-cloud-common-service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="spring-cloud-admin" target="1.8" />
       <module name="spring-cloud-common" target="1.8" />
+      <module name="spring-cloud-common-domain" target="1.8" />
       <module name="spring-cloud-common-service" target="1.8" />
       <module name="spring-cloud-common-web" target="1.8" />
       <module name="spring-cloud-config" target="1.8" />
@@ -30,6 +33,7 @@
       <module name="spring-cloud-eureka" target="1.8" />
       <module name="spring-cloud-service-admin" target="1.8" />
       <module name="spring-cloud-service-redis" target="1.8" />
+      <module name="spring-cloud-service-sso" target="1.8" />
       <module name="spring-cloud-test" target="1.8" />
       <module name="spring-cloud-web-admin-feign" target="1.8" />
       <module name="spring-cloud-web-admin-ribbon" target="1.8" />
@@ -41,12 +45,14 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="spring-cloud-admin" options="-parameters" />
       <module name="spring-cloud-common" options="-parameters" />
+      <module name="spring-cloud-common-domain" options="-parameters" />
       <module name="spring-cloud-common-service" options="-parameters" />
       <module name="spring-cloud-common-web" options="-parameters" />
       <module name="spring-cloud-config" options="-parameters" />
       <module name="spring-cloud-eureka" options="-parameters" />
       <module name="spring-cloud-service-admin" options="-parameters" />
       <module name="spring-cloud-service-redis" options="-parameters" />
+      <module name="spring-cloud-service-sso" options="-parameters" />
       <module name="spring-cloud-test" options="-parameters" />
       <module name="spring-cloud-web-admin-feign" options="-parameters" />
       <module name="spring-cloud-web-admin-ribbon" options="-parameters" />

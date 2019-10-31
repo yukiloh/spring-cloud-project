@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/spring-cloud-admin/spring-cloud-admin.iml" filepath="$PROJECT_DIR$/spring-cloud-admin/spring-cloud-admin.iml" />
       <module fileurl="file://$PROJECT_DIR$/spring-cloud-common/spring-cloud-common.iml" filepath="$PROJECT_DIR$/spring-cloud-common/spring-cloud-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/spring-cloud-common-domain/spring-cloud-common-domain.iml" filepath="$PROJECT_DIR$/spring-cloud-common-domain/spring-cloud-common-domain.iml" />
       <module fileurl="file://$PROJECT_DIR$/spring-cloud-common-service/spring-cloud-common-service.iml" filepath="$PROJECT_DIR$/spring-cloud-common-service/spring-cloud-common-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/spring-cloud-common-web/spring-cloud-common-web.iml" filepath="$PROJECT_DIR$/spring-cloud-common-web/spring-cloud-common-web.iml" />
       <module fileurl="file://$PROJECT_DIR$/spring-cloud-config/spring-cloud-config.iml" filepath="$PROJECT_DIR$/spring-cloud-config/spring-cloud-config.iml" />
@@ -11,6 +12,7 @@
       <module fileurl="file://$PROJECT_DIR$/spring-cloud-eureka/spring-cloud-eureka.iml" filepath="$PROJECT_DIR$/spring-cloud-eureka/spring-cloud-eureka.iml" />
       <module fileurl="file://$PROJECT_DIR$/spring-cloud-service-admin/spring-cloud-service-admin.iml" filepath="$PROJECT_DIR$/spring-cloud-service-admin/spring-cloud-service-admin.iml" />
       <module fileurl="file://$PROJECT_DIR$/spring-cloud-service-redis/spring-cloud-service-redis.iml" filepath="$PROJECT_DIR$/spring-cloud-service-redis/spring-cloud-service-redis.iml" />
+      <module fileurl="file://$PROJECT_DIR$/spring-cloud-service-sso/spring-cloud-service-sso.iml" filepath="$PROJECT_DIR$/spring-cloud-service-sso/spring-cloud-service-sso.iml" />
       <module fileurl="file://$PROJECT_DIR$/spring-cloud-web-admin-feign/spring-cloud-web-admin-feign.iml" filepath="$PROJECT_DIR$/spring-cloud-web-admin-feign/spring-cloud-web-admin-feign.iml" />
       <module fileurl="file://$PROJECT_DIR$/spring-cloud-web-admin-ribbon/spring-cloud-web-admin-ribbon.iml" filepath="$PROJECT_DIR$/spring-cloud-web-admin-ribbon/spring-cloud-web-admin-ribbon.iml" />
       <module fileurl="file://$PROJECT_DIR$/spring-cloud-zipkin/spring-cloud-zipkin.iml" filepath="$PROJECT_DIR$/spring-cloud-zipkin/spring-cloud-zipkin.iml" />

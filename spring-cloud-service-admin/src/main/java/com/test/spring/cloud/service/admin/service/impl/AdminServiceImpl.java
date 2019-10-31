@@ -1,6 +1,6 @@
 package com.test.spring.cloud.service.admin.service.impl;
 
-import com.test.spring.cloud.service.admin.domain.TbSysUser;
+import com.test.spring.cloud.common.domain.TbSysUser;
 import com.test.spring.cloud.service.admin.mapper.TbSysUserMapper;
 import com.test.spring.cloud.service.admin.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -3,6 +3,7 @@ spring:
     name: spring-cloud-service-redis
 
 #redis相关配置
+  #redis相关配置
   redis:
     lettuce:
       pool:
@@ -10,11 +11,23 @@ spring:
         max-idle: 8
         max-wait: -1ms
         min-idle: 0
-    sentinel:
-#      sentinel的master名称,为自定义
-      master: mymaster
-#      sentinel的各节点地址&端口
-      nodes: 192.168.2.110:26379, 192.168.2.110:26380, 192.168.2.110:26381
+    url: 192.168.1.90:36379
+    password: XqQjF&80gXZANz
+
+
+#
+#  redis:
+#    lettuce:
+#      pool:
+#        max-active: 8
+#        max-idle: 8
+#        max-wait: -1ms
+#        min-idle: 0
+#    sentinel:
+##      sentinel的master名称,为自定义
+#      master: mymaster
+##      sentinel的各节点地址&端口
+#      nodes: 192.168.2.110:26379, 192.168.2.110:26380, 192.168.2.110:26381
 
 
 # admin服务监控
