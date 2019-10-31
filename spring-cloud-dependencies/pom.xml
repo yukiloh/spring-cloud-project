@@ -37,6 +37,7 @@
         <guava.version>28.1-jre </guava.version>
         <nekohtml.version>1.9.22</nekohtml.version>
         <jackson.version>2.10.0</jackson.version>
+        <persistence-api.version>1.0.2</persistence-api.version>
 
     </properties>
 
@@ -132,7 +133,11 @@
                 <version>${jackson.version}</version>
             </dependency>
 
-
+            <dependency>
+                <groupId>javax.persistence</groupId>
+                <artifactId>persistence-api</artifactId>
+                <version>${persistence-api.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

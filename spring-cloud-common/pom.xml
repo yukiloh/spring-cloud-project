@@ -32,6 +32,7 @@
             <artifactId>guava</artifactId>
         </dependency>
 
+        <!--json-->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
@@ -42,5 +43,13 @@
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-joda</artifactId>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api --> <!--scope:provided,告知maven容器已提供，不会进行打包-->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
     </dependencies>
 </project>

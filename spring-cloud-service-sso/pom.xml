@@ -19,7 +19,7 @@
     <!--    <inceptionYear>2018-Now</inceptionYear>-->
 
     <dependencies>
-        <!--project-->
+        <!--project start-->
         <dependency>
             <groupId>com.test</groupId>
             <artifactId>spring-cloud-common-domain</artifactId>
@@ -38,6 +38,7 @@
             <artifactId>spring-cloud-common-service</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
+        <!--project end-->
 
         <!--已在common-service中注释,test内容只会在单元开发过程中使用,因此标注scope-->
         <dependency>
