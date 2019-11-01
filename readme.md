@@ -339,71 +339,136 @@ common-service中创建MyMapper的接口,为service-admin提供
 ================================================================================
 
 #### nginx  目的:为静态资源的cdn提供一个服务器
-配置相关:于docker中配置,预留了
-:81
-:82
+
+通过docker启动nginx
+docker run --name runoob-nginx-test -p 8081:80 -d nginx
+
+参数解释：
+runoob-nginx-test 容器名称。
+the -d设置容器在在后台一直运行。
+the -p 端口进行映射，将本地 8081 端口映射到容器内部的 80 端口。
+
+
+
+
+或者通过docker-compose up -d来启动
+需要使用docker-compose.yml
+version: '3.1'
+services:
+  nginx:
+    image: nginx
+    container_name: nginx
+    ports:
+      - 8080:8080
+    volumes:
+      - ./conf/nginx.conf:/etc/nginx/nginx.conf
+      - ./wwwroot:/usr/share/nginx/wwwroot
+
+*不要使用nginx原生文件夹/usr/share/nginx/html/ ！！！！！
 *测试中80端口无法更改
 
-
-nginx具体可以参见下方的nginx.conf
+此外还需要nginx.conf,具体可以参见下方
 
 ---conf start---
+user nginx;
 
-# 使用线程,nginx支持多线程
+# 启动进程,通常设置成和 CPU 的数量相等
 worker_processes  1;
 
 events {
+    # epoll 是多路复用 IO(I/O Multiplexing) 中的一种方式
+    # 但是仅用于 linux2.6 以上内核,可以大大提高 nginx 的性能
+    use epoll;
+    # 单个后台 worker process 进程的最大并发链接数
     worker_connections  1024;
 }
 
-
 http {
+    # 设定 mime 类型,类型由 mime.type 文件定义
     include       mime.types;
     default_type  application/octet-stream;
 
+    # sendfile 指令指定 nginx 是否调用 sendfile 函数（zero copy 方式）来输出文件，对于普通应用，
+    # 必须设为 on，如果用来进行下载等应用磁盘 IO 重负载应用，可设置为 off，以平衡磁盘与网络 I/O 处理速度，降低系统的 uptime.
     sendfile        on;
-    #tcp_nopush     on;
-
+    
+    # 连接超时时间
     keepalive_timeout  65;
-    
-    # 配置一个代理即 tomcat1 服务器   新版本的upstream名称中不可带有下划线 _ 
-    upstream tomcatServer1 {
-        server 192.168.75.145:9090;
-    }
-    
-    # 配置一个代理即 tomcat2 服务器;负责负载均衡,weigh为比率(1:2=81端口访问量为82端口的1/2)
-    upstream tomcatServer2 {
-        server 192.168.1.90:32881 weigh=1;
-        server 192.168.1.90:32882 weigh=2;
-    }
+    # 设定请求缓冲
+    client_header_buffer_size 2k;
 
-    # nginx可以配置一个虚拟服务主机 
-    server{
-        listen		81;
-    # server_name:访问地址的名称,可以是ip,或者是域名
-	server_name	localhost;
-	location / {
-	    # 虚拟服务器显示静态页面的路径
-	    root     /home/share/nginx/www/html81;
-	    # 欢迎页面,从左至右进行匹配
-	    index    index.html index.htm;
+    #=====代理部分===========
+	# 配置一个代理即 tomcat1 服务器
+	upstream tomcatServer1 {
+		server 192.168.75.145:9090;
 	}
+
+	# 配置一个代理即 tomcat2 服务器
+	upstream tomcatServer2 {
+		server 192.168.75.145:9091;
+	}
+
+    server {
+        listen 80;
+        server_name admin.service.itoken.funtl.com;
+        location / {
+                # 域名 admin.service.itoken.funtl.com 的请求全部转发到 tomcat_server1 即 tomcat1 服务上
+                #这里的http://tomcatServer1需要与代理服务器的upstream相同
+                proxy_pass http://tomcatServer1;
+                # 欢迎页面，按照从左到右的顺序查找页面
+                index index.jsp index.html index.htm;
+        }
     }
     
-    server{
-        listen		82;
-    # 或者可以通过设置二级域名来决定访问的路径(类似于miaosha.jd.com)
-	server_name	port_82.domain.com;
-	location / {
-	    root     /home/share/nginx/www/html82;
-	    index    index.html index.htm;
-	}
-    }
+    server {
+        listen 80;
+        server_name admin.web.itoken.funtl.com;
 
+        location / {
+            # 域名 admin.web.itoken.funtl.com 的请求全部转发到 tomcat_server2 即 tomcat2 服务上
+            proxy_pass http://tomcatServer2;
+            index index.jsp index.html index.htm;
+        }
+    }
+    
+    
+    
+    #=====常规nginx主机部分===========
+    # 配置虚拟主机 192.168.75.145
+    server {
+	# 监听的ip和端口，配置 192.168.75.145:80
+        listen       80;
+	# 虚拟主机名称这里配置ip地址
+        server_name  192.168.75.145;
+	# 所有的请求都以 / 开始，所有的请求都可以匹配此 location
+        location / {
+	    # 使用 root 指令指定虚拟主机目录即网页存放目录
+	    # 比如访问 http://ip/index.html 将找到 /usr/local/docker/nginx/wwwroot/html80/index.html
+	    # 比如访问 http://ip/item/index.html 将找到 /usr/local/docker/nginx/wwwroot/html80/item/index.html
+
+            root   /usr/share/nginx/wwwroot/html80;
+	    # 指定欢迎页面，按从左到右顺序查找
+            index  index.html index.htm;
+        }
+
+    }
+    
+    # 配置虚拟主机 192.168.75.245
+    server {
+        listen       8080;
+        server_name  192.168.75.145;
+
+        location / {
+            root   /usr/share/nginx/wwwroot/html8080;
+            index  index.html index.htm;
+        }
+    }
 }
 
 ---conf end---
 
+
+补充:
 *关于nginx的惊群问题：用户首次进入多核多线程的nginx环境中会导致多个核心同时响应；1.13.1版本后已解决
 *nginx可以作为对用户访问的负载均衡，属于软负载(软路由,与传统的路由器为"硬路由"),当超出nginx的负载均衡后可以考虑采用F5(专业负责负载均衡,收费)
 
@@ -640,12 +705,12 @@ spring:
 三种解决方案:
 1.cors(跨资源共享),需要服务器&浏览器同时支持
 2.jsonp,服务器端设置的一种"使用模式"(如果非自家的服务器则无法修改)
-3.nginx反向代理
+3.nginx反向代理 ← 本项目采用的方案
 
 
-
-
-
+代理后静态资源地址:http://192.168.2.110:28080/static/js/bootstrap.min.js
+                          nginx服务器地址     静态  js   真实文件
+                          
 
 
 
