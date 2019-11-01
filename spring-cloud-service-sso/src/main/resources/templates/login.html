@@ -27,10 +27,13 @@
     <!--thymeleaf的2种通过@{}引入资源的方式-->
 <!--    <script th:src="@{${staticSources}+'jquery.min.js'}"></script>-->
     <script th:src="@{{staticSources}jquery.min.js(staticSources=${staticSources})}"></script>
+    <script th:src="@{{staticSources}bootstrap.min.js(staticSources=${staticSources})}"></script>
+    <script th:src="@{{staticSources}html5shiv.min.js(staticSources=${staticSources})}"></script>
+    <script th:src="@{{staticSources}respond.min.js(staticSources=${staticSources})}"></script>
 
-    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+<!--    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+<!--    <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>-->
+<!--    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>-->
 
 
 

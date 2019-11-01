@@ -616,32 +616,31 @@ spring:
                  →    无token  →     进行登录,验证用户名密码    →   登陆完成后赋予token
 *错误点:获取user时使用了错误的变量!
 
+================================================================================
 
-#迁移静态资源至cdn，并修改链接   使用filter拦截并赋予cdn资源路径
+
+#### 迁移静态资源至cdn，并修改链接   使用filter拦截并赋予cdn资源路径
 将所有静态资源，例如：https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js 迁移至自己的cdn服务器
 如使用https://192.168.1.1/jquery/3.4.1/jquery.min.js 则不便于后期维护，因此进行共性抽取，使用拦截器将地址和路径进行统一配置
 
+步骤：
+1.在common-web种创建拦截器StaticSourcesInterceptor，在后处理(postHandle)中对ModelAndView进行判断,如果存在则为非JSON请求,添加model:"static"
+2.配置拦截器配置类InterceptorConfig,并注册拦截器
+3.前台页面通过thymeleaf读取"static"数据;
 
-
-thymeleaf的2种通过@{}引入资源的方式
-<script th:src="@{${staticSources}+'jquery.min.js'}"></script>
-<script th:src="@{{staticSources}jquery.min.js(staticSources=${staticSources})}"></script>
-
-
-
-
-
-
+*关于thymeleaf的2种通过@{}引入资源的方式
+    <script th:src="@{${staticSources}+'jquery.min.js'}"></script>
+    <script th:src="@{{staticSources}jquery.min.js(staticSources=${staticSources})}"></script>
 
 
 
-
-
-
-
-
-
-
+#### 关于跨域问题
+浏览器无法执行执行其他网站的脚本,称为跨域问题,是浏览器对js施加的安全限制
+因此脚本必须满足同源(域名-test.com  协议-http 端口-:80 都相同的情况)
+三种解决方案:
+1.cors(跨资源共享),需要服务器&浏览器同时支持
+2.jsonp,服务器端设置的一种"使用模式"(如果非自家的服务器则无法修改)
+3.nginx反向代理
 
 
 
@@ -651,7 +650,19 @@ thymeleaf的2种通过@{}引入资源的方式
 
 
 
-浏览器在读取静态资源时会因为跨域问题而导致资源无法正常读取，因此
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+================================================================================
+================================================================================
