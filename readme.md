@@ -440,7 +440,9 @@ jedis(过时)→lettuce(已被springboot集成)
 从 从...
 
 ##### 使用docker-compose在docker中安装redis服务器
-配置一下文件：（一主二从）
+配置一下文件：（一主二从）      
+
+
 vim ~/docker/redis/docker-compose.yml
 
 version: '3.1'
@@ -456,7 +458,7 @@ services:
     container_name: redis-slave-1
     ports:
       - 6380:6379
-    command: redis-server --slaveof redis-master 6379
+    command: redis-server --slaveof redis-master 6379 
 
   slave2:
     image: redis
@@ -466,6 +468,8 @@ services:
     command: redis-server --slaveof redis-master 6379
 
 
+如需添加redis密码：（未做测试）
+command: redis-server --slaveof redis-master 6379 --requirepass yourpassword
 
 ##### 配置redis-sentinel哨兵
 配置文件：（*volumes中指定了3份sentinel.conf）
@@ -611,6 +615,43 @@ spring:
 登陆后进行判断     →   有token  →   查找loginCode     →   匹配则回传user对象
                  →    无token  →     进行登录,验证用户名密码    →   登陆完成后赋予token
 *错误点:获取user时使用了错误的变量!
+
+
+#迁移静态资源至cdn，并修改链接   使用filter拦截并赋予cdn资源路径
+将所有静态资源，例如：https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js 迁移至自己的cdn服务器
+如使用https://192.168.1.1/jquery/3.4.1/jquery.min.js 则不便于后期维护，因此进行共性抽取，使用拦截器将地址和路径进行统一配置
+
+
+
+thymeleaf的2种通过@{}引入资源的方式
+<script th:src="@{${staticSources}+'jquery.min.js'}"></script>
+<script th:src="@{{staticSources}jquery.min.js(staticSources=${staticSources})}"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+浏览器在读取静态资源时会因为跨域问题而导致资源无法正常读取，因此
 
 
 
