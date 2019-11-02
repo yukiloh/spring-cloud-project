@@ -707,10 +707,24 @@ spring:
 2.jsonp,服务器端设置的一种"使用模式"(如果非自家的服务器则无法修改)
 3.nginx反向代理 ← 本项目采用的方案
 
-
 代理后静态资源地址:http://192.168.2.110:28080/static/js/bootstrap.min.js
                           nginx服务器地址     静态  js   真实文件
                           
+对应服务器路径：http://192.168.2.110:28080/  static ...
+              /root/docker/nginx/wwwroot/  static ...
+
+
+
+#### 实现其他页面(web-admin-feign)登陆跳转至sso功能 
+步骤:
+1.检查访问feign页面的用户是否已有登陆(是否有token),因此创建feign的拦截器,
+ (记得在服务提供者(service-admin)的入口类中添加@SpringBootApplication(scanBasePackages = "com.test.spring.cloud"))
+ 并检查token
+2.
+ 
+ 
+!!feign中删除部分未做!!
+
 
 
 
