@@ -6,6 +6,7 @@ spring:
   #redis相关配置
 
   redis:
+    passowrd: CVQ39Vyt3mg#B5
     lettuce:
       pool:
         max-active: 8
