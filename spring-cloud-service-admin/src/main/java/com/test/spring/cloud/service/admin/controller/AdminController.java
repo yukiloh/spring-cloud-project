@@ -15,62 +15,72 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class AdminController {
 
-    @Autowired
-    private AdminService adminService;
-
-    @GetMapping("/login")
-    public BaseResult login(String loginCode, String password){
-        BaseResult baseResult = checkLogin(loginCode, password);
-
-        /*检查登陆信息*/
-        if (baseResult != null) {
-            return baseResult;      /*根据checkLogin的方法,用户名密码不为空时,验证信息应为null,继续执行登陆业务;而不为null则直接返回结果*/
-        }
-
-        /*执行登陆*/
-        TbSysUser tbSysUser = adminService.login(loginCode, password);
-
-        if (tbSysUser != null) {
-            return BaseResult.ok(tbSysUser);    /*登陆成功*/
-        }else {
-            return BaseResult.notOk(Lists.newArrayList(new BaseResult.Error("","登陆失败")));    /*登陆失败*/
-        }
+    @GetMapping("/")
+    public String index(){
+        return "hello index!";
     }
 
 
-    /*检查登陆状态*/
-    private BaseResult checkLogin(String loginCode, String password){
-        BaseResult baseResult = null;
 
-        if (StringUtils.isBlank(loginCode) || StringUtils.isBlank(password)) {
-            baseResult = BaseResult.notOk(
-                    Lists.newArrayList( /*使用了Google的guava api,与new ArrayList效果相同*/
-                    new BaseResult.Error("loginCode","账号不能为空"),
-                    new BaseResult.Error("password","密码不能为空")
-                    )
-            );
-        }
 
-        /*另一种笨重的写法*/
-////        ArrayList<BaseResult.Error> errors = new ArrayList<>();     /*使用java原有api的语法*/
-//        ArrayList<BaseResult.Error> errors = Lists.newArrayList();;     /*使用guava的api语法*/
+    /*过期，登陆功能移至sso*/
+//
+//    @Autowired
+//    private AdminService adminService;
+//
+//    @GetMapping("/login")
+//    public BaseResult login(String loginCode, String password){
+//        BaseResult baseResult = checkLogin(loginCode, password);
+//
+//        /*检查登陆信息*/
+//        if (baseResult != null) {
+//            return baseResult;      /*根据checkLogin的方法,用户名密码不为空时,验证信息应为null,继续执行登陆业务;而不为null则直接返回结果*/
+//        }
+//
+//        /*执行登陆*/
+//        TbSysUser tbSysUser = adminService.login(loginCode, password);
+//
+//        if (tbSysUser != null) {
+//            return BaseResult.ok(tbSysUser);    /*登陆成功*/
+//        }else {
+//            return BaseResult.notOk(Lists.newArrayList(new BaseResult.Error("","登陆失败")));    /*登陆失败*/
+//        }
+//    }
 //
 //
-//        if (StringUtils.isBlank(loginCode)) {
-//            BaseResult.Error error = new BaseResult.Error();
-//            error.setField("loginCode");
-//            error.setMessage("账号不能为空");
-//            errors.add(error);
+//    /*检查登陆状态*/
+//    private BaseResult checkLogin(String loginCode, String password){
+//        BaseResult baseResult = null;
+//
+//        if (StringUtils.isBlank(loginCode) || StringUtils.isBlank(password)) {
+//            baseResult = BaseResult.notOk(
+//                    Lists.newArrayList( /*使用了Google的guava api,与new ArrayList效果相同*/
+//                    new BaseResult.Error("loginCode","账号不能为空"),
+//                    new BaseResult.Error("password","密码不能为空")
+//                    )
+//            );
 //        }
-//        if (StringUtils.isBlank(password)) {
-//            BaseResult.Error error = new BaseResult.Error();
-//            error.setField("password");
-//            error.setMessage("密码不能为空");
-//            errors.add(error);
-//        }
-
-        return baseResult;  /*返回结果的解释:只有当loginCode与password都不为空时,返回null*/
-    }
+//
+//        /*另一种笨重的写法*/
+//////        ArrayList<BaseResult.Error> errors = new ArrayList<>();     /*使用java原有api的语法*/
+////        ArrayList<BaseResult.Error> errors = Lists.newArrayList();;     /*使用guava的api语法*/
+////
+////
+////        if (StringUtils.isBlank(loginCode)) {
+////            BaseResult.Error error = new BaseResult.Error();
+////            error.setField("loginCode");
+////            error.setMessage("账号不能为空");
+////            errors.add(error);
+////        }
+////        if (StringUtils.isBlank(password)) {
+////            BaseResult.Error error = new BaseResult.Error();
+////            error.setField("password");
+////            error.setMessage("密码不能为空");
+////            errors.add(error);
+////        }
+//
+//        return baseResult;  /*返回结果的解释:只有当loginCode与password都不为空时,返回null*/
+//    }
 
 
 

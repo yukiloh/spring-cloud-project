@@ -8,14 +8,13 @@
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="../static/images/favicon.ico">
+    <link rel="icon" th:href="@{{staticImages}favicon.ico(staticImages=${staticImages})}">
     <link rel="icon" th:href="@{{staticImages}favicon.ico(staticImages=${staticImages})}">
 
     <title>登陆</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-    <!--自定义css样式-->
+    <link th:href="@{{staticCSS}bootstrap.min.css(staticCSS=${staticCSS})}" rel="stylesheet">
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 

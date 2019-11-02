@@ -305,7 +305,39 @@ common-service中创建MyMapper的接口,为service-admin提供
 *关于xml中的sqlStatement: https://mybatis.org/generator/configreference/generatedKey.html
 3.(后期准备)yml中（远程config配置）增加数据库连接信息(用户名密码)
 
+数据库信息：
+  datasource:
+    url: jdbc:mariadb://192.168.1.90:3306/service-admin
+    hikari:
+      driver-class-name: org.mariadb.jdbc.Driver
+      username: root
+      password: zou9RYdAGW2MKoBY
+aws：
 
+  datasource:
+    url: jdbc:mariadb://3.113.65.65:3306/service-admin
+    hikari:
+      driver-class-name: org.mariadb.jdbc.Driver
+      username: root
+      password: CVQ39Vyt3mg#B5
+
+*关于用docker生成mariadb，docker-compose代码如下：
+
+version: '3.1'
+ 
+services:
+  maria:
+    image: mariadb
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=CVQ39Vyt3mg#B5
+      - MYSQL_DATABASE=service-admin
+      - MYSQL_USER=only4me
+      - MYSQL_PASSWORD=CVQ39Vyt3mg#B5
+
+个人用户生成语法：
+INSERT INTO `service-admin`.tb_sys_user (user_code, login_code, user_name, PASSWORD, email, mobile, phone, sex, avatar, SIGN, wx_openid, mobile_imei, user_type, ref_code, ref_name, mgr_type, pwd_security_level, pwd_update_date, pwd_update_record, pwd_question, pwd_question_answer, pwd_question_2, pwd_question_answer_2, pwd_question_3, pwd_question_answer_3, pwd_quest_update_date, last_login_ip, last_login_date, freeze_date, freeze_cause, user_weight, STATUS, create_by, create_date, update_by, update_date, remarks, corp_code, corp_name, extend_s1, extend_s2, extend_s3, extend_s4, extend_s5, extend_s6, extend_s7, extend_s8, extend_i1, extend_i2, extend_i3, extend_i4, extend_f1, extend_f2, extend_f3, extend_f4, extend_d1, extend_d2, extend_d3, extend_d4) VALUES ('fccf287e-d12c-4321-930b-df27afcb6997', 'test@test.com', 'username', '96e79218965eb72c92a549dd5a330112', 'password@111111.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, '1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', 'fccf287e-d12c-4321-930b-df27afcb6997', '2019-10-27 19:15:48', 'fccf287e-d12c-4321-930b-df27afcb6997', '2019-10-27 19:15:48', NULL, '0', 'test', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 #### service-admin 正式编写服务提供者的内容
 *项目需要先写在测试类中(测试先行)   缺点:费时   优点:代码质量高，且越写越容易
@@ -606,7 +638,8 @@ sentinel master mymaster
 redis:      192.168.2.110:6379      ,6380,6381
 sentinel:   192.168.2.110:26379     ,26380,26381
 
-
+*关于redis集群配置密码：https://www.cnblogs.com/hckblogs/p/11186311.html
+aws-redis密码：pQxWfm339xbT@#
 
 ##### 项目中使用redis
 redis属于服务提供者,因此需要创建spring-cloud-service-redis项目
@@ -723,7 +756,7 @@ spring:
 2.
  
  
-!!feign中删除部分未做!!
+!!admin中登陆功能已删除，feign中尚未!!
 
 
 
