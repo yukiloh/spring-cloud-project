@@ -6,7 +6,6 @@ spring:
   #redis相关配置
 
   redis:
-    password: CVQ39Vyt3mg#B5
     lettuce:
       pool:
         max-active: 8
@@ -14,6 +13,7 @@ spring:
         max-wait: -1ms
         min-idle: 0
     sentinel:
+      password: CVQ39Vyt3mg#B5
 #      sentinel的master名称,为自定义
       master: mymaster
 #      sentinel的各节点地址&端口
