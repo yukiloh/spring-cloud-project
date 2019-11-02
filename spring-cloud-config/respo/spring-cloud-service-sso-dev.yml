@@ -4,11 +4,13 @@ spring:
 
   ##  数据库--maria
   datasource:
-    url: jdbc:mariadb://192.168.1.90:3306/service-admin
+#    url: jdbc:mariadb://192.168.1.90:3306/service-admin
+    url: jdbc:mariadb://3.113.65.65:3306/service-admin
     hikari:
       driver-class-name: org.mariadb.jdbc.Driver
       username: root
-      password: zou9RYdAGW2MKoBY
+#      password: zou9RYdAGW2MKoBY
+      password: CVQ39Vyt3mg#B5
 
 # 需要页面模板
   thymeleaf:
@@ -23,13 +25,14 @@ spring:
     admin:
       client:
 #        因切换至nas端所以注释
-        url: http://192.168.2.110:8084
-#        url: http://192.168.1.90:18084
+#        url: http://192.168.2.110:8084
+        url: http://3.113.65.65:8084
 
   # 链路追踪
   zipkin:
-    base-url: http://192.168.2.110:9411
-#    base-url: http://192.168.1.90:19411
+#    base-url: http://192.168.2.110:9411
+    base-url: http://3.113.65.65:9411
+
 
 server:
 #  eureka服务器端8761
@@ -38,8 +41,8 @@ server:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://192.168.2.110:8761/eureka/
-#      defaultZone: http://192.168.1.90:18761/eureka/
+#      defaultZone: http://192.168.2.110:8761/eureka/
+      defaultZone: http://3.113.65.65:8761/eureka/
 
 #mabatis配置
 mybatis:
