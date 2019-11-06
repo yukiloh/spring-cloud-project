@@ -1,6 +1,5 @@
 package com.test.spring.cloud.service.redis.service.impl;
 
-import com.test.spring.cloud.service.redis.model.RedisObject;
 import com.test.spring.cloud.service.redis.service.RedisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;

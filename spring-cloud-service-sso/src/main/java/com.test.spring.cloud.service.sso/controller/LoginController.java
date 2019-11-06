@@ -57,8 +57,9 @@ public class LoginController {
                             return "redirect:"+url; /*原路返回*/
                         }
 
-                        /*如果没有登陆信息则显示 登陆成功，此处建议模拟*/
-                        model.addAttribute("message",tbSysUser.getLoginCode()+",welcome");
+                        /*如果没有登陆信息则显示 登陆成功，此处建议模拟,向登录页面返回welcome和user信息*/
+                        model.addAttribute("message","welcome");
+                        model.addAttribute("tbSysUser",tbSysUser);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -66,6 +67,10 @@ public class LoginController {
 
             }
         }
+        if (StringUtils.isNotBlank(url)) {
+            model.addAttribute("url",url);
+        }
+
         return "login";
     }
 
@@ -78,7 +83,7 @@ public class LoginController {
 
         /*登陆失败*/
         if (tbSysUser == null){
-            /*↓ = request.getSession().setAttribute()*/
+            /*↓ = request.getSession().setAttribute() ,springMVC的功能，因为登录失败后会重定向*/
             redirectAttributes.addFlashAttribute("message","用户名密码错误");
         }
 
@@ -95,11 +100,23 @@ public class LoginController {
                 }
             }else { /*熔断的处理*/
                 redirectAttributes.addFlashAttribute("message","服务器异常，稍后重试");
+
             }
         }
         /*如果登陆错误,返回至login(并返回错误信息,暂时略)*/
-        return "redirect:login";
+        return "redirect:login"+url;
     }
 
 
+    /*登出功能，删除cookie 返回一个login的方法（比较新奇）*/
+    @GetMapping("/logout")
+    public String logout(@RequestParam(required = false) String url,HttpServletRequest request,HttpServletResponse response,Model model){
+        try {
+            CookieUtils.deleteCookie(request,response,"token");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return login(url,request,model);
+    }
 }

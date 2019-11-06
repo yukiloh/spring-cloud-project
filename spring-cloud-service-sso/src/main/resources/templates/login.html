@@ -52,12 +52,14 @@
                                 <td style="text-align:center" > <font size="3" >密码</font></td>
                                 <td>&nbsp;&nbsp;</td>
                                 <td ><input type="password" class="form-control " name="password"></td>
+                                <td><input type="hidden" name="url" th:value="${url}"></td>
                             </tr>
 
                         </table>
                         <br>
                         <div><button type="submit" class="btn btn-info" id= "submit" >提交</button></div>
                         <div th:if="${message} != null"><span th:text="${message}"></span></div>
+                        <div th:if="${tbSysUser} != null"><span th:text="${tbSysUser.getLoginCode()}"></span></div>
 
                     </form>
                 </div><br>

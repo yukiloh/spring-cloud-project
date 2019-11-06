@@ -750,13 +750,15 @@ spring:
 
 #### 实现其他页面(web-admin-feign)登陆跳转至sso功能 
 步骤:
-1.检查访问feign页面的用户是否已有登陆(是否有token),因此创建feign的拦截器,
+1.检查访问feign页面的用户是否已有登陆(是否有token),因此创建feign的拦截器
  (记得在服务提供者(service-admin)的入口类中添加@SpringBootApplication(scanBasePackages = "com.test.spring.cloud"))
- 并检查token
-2.
+ 在拦截其中检查token，如果没有token/token与redis中不符，则携带自身url跳转至sso
+2.sso接收跳转的请求，处理问题并按照原url跳转
+3.登出功能/logout，删除cookie
+！！！！携带url跳转会出现问题！！！！会莫名添加静态资源路径！！！！
+登出功能同样有问题，无法删除token，只是将token的值清空（应该是CookieUtils的问题）
  
  
-!!admin中登陆功能已删除，feign中尚未!!
 
 
 
