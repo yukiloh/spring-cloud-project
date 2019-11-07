@@ -1,7 +1,12 @@
 spring:
   application:
     name: spring-cloud-zuul
-
+  zipkin:
+    base-url: http://3.113.65.65:9411
+  boot:
+    admin:
+      client:
+        url: http://3.113.65.65:8084
 
 server:
   port: 8769
@@ -15,3 +20,8 @@ zuul:
     api-b:
       path: /api/b/**
       serviceId: spring-cloud-web-admin-feign
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://3.113.65.65:8761/eureka/

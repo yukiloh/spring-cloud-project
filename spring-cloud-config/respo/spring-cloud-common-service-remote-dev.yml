@@ -1,7 +1,7 @@
-# 一些所有服务都会用到的的通用配置
+# 一些所有服务都会用到的的通用配置,remote代表远程服务器
 spring:
   application:
-    name: spring-cloud-common-service
+    name: spring-cloud-common-service-remote
   zipkin:
     base-url: http://3.113.65.65:9411
   boot:

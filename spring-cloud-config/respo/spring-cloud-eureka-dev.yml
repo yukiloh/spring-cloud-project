@@ -3,7 +3,12 @@ spring:
   application:
 #    通过项目名称来查找eureka服务器
     name: spring-cloud-eureka
-
+  zipkin:
+    base-url: http://3.113.65.65:9411
+  boot:
+    admin:
+      client:
+        url: http://3.113.65.65:8084
 server:
   port: 8761
 
