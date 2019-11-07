@@ -4,10 +4,6 @@ spring:
 #    通过项目名称来查找eureka服务器
     name: spring-cloud-eureka
 
-  # 链路追踪
-  zipkin:
-    base-url: http://localhost:9411
-
 server:
   port: 8761
 

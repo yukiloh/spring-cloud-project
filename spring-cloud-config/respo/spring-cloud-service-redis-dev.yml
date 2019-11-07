@@ -21,26 +21,6 @@ spring:
       nodes: 3.113.65.65:26379, 3.113.65.65:26380, 3.113.65.65:26381
 
 
-# admin服务监控
-  boot:
-    admin:
-      client:
-#        因切换至nas端所以注释
-#        url: http://192.168.2.110:8084
-        url: http://3.113.65.65:8084
-
-  # 链路追踪
-  zipkin:
-#    base-url: http://192.168.2.110:9411
-    base-url: http://3.113.65.65:9411
-
 server:
 #  eureka服务器端8761
   port: 8772
-
-eureka:
-  client:
-    serviceUrl:
-#      defaultZone: http://192.168.2.110:8761/eureka/
-      defaultZone: http://3.113.65.65:8761/eureka/
-

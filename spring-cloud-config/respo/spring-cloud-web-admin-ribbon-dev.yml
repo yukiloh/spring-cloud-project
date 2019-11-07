@@ -2,14 +2,6 @@ spring:
   application:
     name: spring-cloud-web-admin-ribbon
 
-
-  # admin服务监控
-  boot:
-    admin:
-      client:
-#        url: http://192.168.2.110:8084
-        url: http://3.113.65.65:8084
-
   #    新增了thymeleaf配置
   thymeleaf:
     cache: false
@@ -18,17 +10,7 @@ spring:
     servlet:
       content-type: text/html
 
-  # 链路追踪
-  zipkin:
-#    base-url: http://192.168.2.110:9411
-    base-url: http://3.113.65.65:9411
-
-
 server:
   port: 8764
 
-eureka:
-  client:
-    serviceUrl:
-#      defaultZone: http://192.168.2.110:8761/eureka/
-      defaultZone: http://3.113.65.65:8761/eureka/
+

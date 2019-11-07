@@ -2,19 +2,8 @@ spring:
   application:
     name: spring-cloud-zipkin
 
-  # admin服务监控
-  boot:
-    admin:
-      client:
-        url: http://localhost:8084
-
 server:
   port: 9411
-
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
 
 #2.10后需要开启下列配置
 management:
