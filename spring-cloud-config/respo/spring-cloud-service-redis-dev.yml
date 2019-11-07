@@ -2,9 +2,7 @@ spring:
   application:
     name: spring-cloud-service-redis
 
-#redis相关配置
   #redis相关配置
-
   redis:
     password: pQxWfm339xbT@#
     lettuce:
@@ -14,10 +12,10 @@ spring:
         max-wait: -1ms
         min-idle: 0
     sentinel:
-#      sentinel的master名称,为自定义
+      #      sentinel的master名称,为自定义
       master: mymaster
-#      sentinel的各节点地址&端口
-#      nodes: 192.168.2.110:26379, 192.168.2.110:26380, 192.168.2.110:26381
+      #      sentinel的各节点地址&端口
+      #      nodes: 192.168.2.110:26379, 192.168.2.110:26380, 192.168.2.110:26381
       nodes: 3.113.65.65:26379, 3.113.65.65:26380, 3.113.65.65:26381
 
   zipkin:
@@ -28,7 +26,7 @@ spring:
         url: http://3.113.65.65:8084
 
 server:
-#  eureka服务器端8761
+  #  eureka服务器端8761
   port: 8772
 
 eureka:
