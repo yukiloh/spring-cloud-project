@@ -99,7 +99,7 @@ public class LoginController {
                     return "redirect:"+url;
                 }
             }else { /*熔断的处理*/
-                redirectAttributes.addFlashAttribute("message","服务器异常，稍后重试");
+                redirectAttributes.addFlashAttribute("message","服务器异常，稍后重试"+url);
 
             }
         }

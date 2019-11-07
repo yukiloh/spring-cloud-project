@@ -20,7 +20,18 @@ spring:
 #      nodes: 192.168.2.110:26379, 192.168.2.110:26380, 192.168.2.110:26381
       nodes: 3.113.65.65:26379, 3.113.65.65:26380, 3.113.65.65:26381
 
+  zipkin:
+    base-url: http://3.113.65.65:9411
+  boot:
+    admin:
+      client:
+        url: http://3.113.65.65:8084
 
 server:
 #  eureka服务器端8761
   port: 8772
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://3.113.65.65:8761/eureka/

@@ -9,6 +9,13 @@ spring:
     servlet:
       content-type: text/html
 
+  zipkin:
+    base-url: http://3.113.65.65:9411
+  boot:
+    admin:
+      client:
+        url: http://3.113.65.65:8084
+
 server:
   port: 8765
 
@@ -16,3 +23,9 @@ feign:
 #  开启熔断机制
   hystrix:
     enabled: true
+
+
+  eureka:
+    client:
+      serviceUrl:
+        defaultZone: http://3.113.65.65:8761/eureka/

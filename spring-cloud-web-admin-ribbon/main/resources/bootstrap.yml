@@ -2,6 +2,7 @@ spring:
   cloud:
     config:
       uri: http://3.113.65.65:8888
+#      name: spring-cloud-web-admin-ribbon,spring-cloud-common-service-remote
       name: spring-cloud-web-admin-ribbon
       label: master
       profile: dev
