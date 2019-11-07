@@ -8,8 +8,3 @@ server:
   port: 8762
 #  port: 8763
 
-#mabatis配置
-mybatis:
-  #  实体类路径
-  type-aliases-package: com.test.spring.cloud.common.domain
-  mapper-locations: classpath:mapper/*.xml
