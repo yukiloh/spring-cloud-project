@@ -29,6 +29,11 @@ public class BaseResult implements Serializable {
     public static BaseResult ok(Object data){
         return createResult(RESULT_OK,data,SUCCESS,null,null);
     }
+    /*重载，带有cursor的结果集*/
+    public static BaseResult ok(Object data,Cursor cursor){
+        return createResult(RESULT_OK,data,SUCCESS,cursor,null);
+    }
+
 
     /*notOk的结果集*/
     public static BaseResult notOk(List<Error> errors){

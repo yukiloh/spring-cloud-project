@@ -1,12 +1,15 @@
 package com.test.spring.cloud.common.web.interceptor;
 
 import org.springframework.lang.Nullable;
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
+@Component
 /*用于初始化静态资源的拦截器*/
 public class StaticSourcesInterceptor implements HandlerInterceptor {
     /*http://192.168.2.110:28080/static/bootstrap.min.js*/

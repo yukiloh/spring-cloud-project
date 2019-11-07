@@ -1,19 +1,50 @@
 package com.test.spring.cloud.service.admin.controller;
 
 
+import com.github.pagehelper.PageInfo;
+import com.test.spring.cloud.common.domain.TbSysUser;
+import com.test.spring.cloud.common.dto.BaseResult;
+import com.test.spring.cloud.service.admin.service.AdminService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-/*用于测试eureka客户端*/
+import java.util.List;
+
+/*旧：用于测试eureka客户端*/   /*现：用于提供文章类api查询服务*/
 @RestController
+@RequestMapping("v1/admins")    /*按照restFul风格进行路径设计*/
 public class AdminController {
 
-    @GetMapping("/")
-    public String index(){
-        return "hello index!";
-    }
+    @Autowired
+    private AdminService adminService;
 
+    /*使用restFul风格，进行分页查询*/
+    @GetMapping("/page/{pageNum}/{pageSize}")
+    public BaseResult page(
+            @PathVariable(required = true)int pageNum,
+            @PathVariable(required = true)int pageSize,
+            @RequestParam(required = false) TbSysUser tbSysUser    /*可能分页查询不存在user因此false*/
+
+    ){
+        /*具体分页查询逻辑*/
+        PageInfo pageInfo = adminService.page(pageNum, pageSize, tbSysUser);
+
+        /*分页后的结果集*/
+        List<TbSysUser> list = pageInfo.getList();
+
+        /*封装cursor（关于页码的游标）对象*/  /*需要在BaseResult中添加一个带有cursor的重载*/
+        BaseResult.Cursor cursor = new BaseResult.Cursor();
+        /*设置cursor的总页数total*/
+        cursor.setTotal(Long.valueOf(pageInfo.getTotal()).intValue());  /*!!getTotal类型为long，需要转换为int*/
+        /*设置当前页数*/
+        cursor.setOffset(pageInfo.getPageNum());
+        /*设置每页显示条数*/
+        cursor.setLimit(pageInfo.getPageSize());
+
+
+        return BaseResult.ok(list,cursor);
+    }
 
 
 
@@ -82,6 +113,12 @@ public class AdminController {
 
 
     /*===下方为测试用===*/
+
+    @GetMapping("/")
+    public String index(){
+        return "hello index!";
+    }
+
     @Value("${server.port}")
     private String port;
 

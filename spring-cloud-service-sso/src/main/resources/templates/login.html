@@ -8,13 +8,20 @@
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" th:href="@{{staticImages}favicon.ico(staticImages=${staticImages})}">
-    <link rel="icon" th:href="@{{staticImages}favicon.ico(staticImages=${staticImages})}">
+    <script th:src="@{${staticJS}+'jquery.min.js'}"></script>
+
+    <!--/*@thymesVar id="staticImages" type="com.test.spring.cloud.common.web.interceptor"*/-->
+    <link rel="icon" th:href="@{${staticImages}+'favicon.ico'}">
+
+<!--    <link rel="icon" th:href="@{{staticImages}favicon.ico(staticImages=${staticImages})}">-->
 
     <title>登陆</title>
 
     <!-- Bootstrap core CSS -->
-    <link th:href="@{{staticCSS}bootstrap.min.css(staticCSS=${staticCSS})}" rel="stylesheet">
+<!--    <link th:href="@{{staticCSS}bootstrap.min.css(staticCSS=${staticCSS})}" rel="stylesheet">-->
+
+    <!--/*@thymesVar id="staticCSS" type="com.test.spring.cloud.common.web.interceptor"*/-->
+    <link th:href="@{${staticCSS}+'bootstrap.min.css'}" rel="stylesheet">
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 
@@ -25,12 +32,17 @@
 
     <!--/*@thymesVar id="staticJS" type="com.test.spring.cloud.common.web.interceptor.StaticSourcesInterceptor"*/-->
     <!--thymeleaf的2种通过@{}引入资源的方式-->
-<!--    <script th:src="@{${staticJS}+'jquery.min.js'}"></script>-->
+    <script th:src="@{${staticJS}+'jquery.min.js'}"></script>
+    <script th:src="@{${staticJS}+'bootstrap.min.js'}"></script>
+    <script th:src="@{${staticJS}+'html5shiv.min.js'}"></script>
+    <script th:src="@{${staticJS}+'respond.min.js'}"></script>
     <!--nginx路径参考：http://192.168.2.110:28080/static/bootstrap.min.js-->
-    <script th:src="@{{staticJS}jquery.min.js(staticJS=${staticJS})}"></script>
-    <script th:src="@{{staticJS}bootstrap.min.js(staticJS=${staticJS})}"></script>
-    <script th:src="@{{staticJS}html5shiv.min.js(staticJS=${staticJS})}"></script>
-    <script th:src="@{{staticJS}respond.min.js(staticJS=${staticJS})}"></script>
+
+
+<!--    <script th:src="@{{staticJS}jquery.min.js(staticJS=${staticJS})}"></script>-->
+<!--    <script th:src="@{{staticJS}bootstrap.min.js(staticJS=${staticJS})}"></script>-->
+<!--    <script th:src="@{{staticJS}html5shiv.min.js(staticJS=${staticJS})}"></script>-->
+<!--    <script th:src="@{{staticJS}respond.min.js(staticJS=${staticJS})}"></script>-->
 </head>
 
 

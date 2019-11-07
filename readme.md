@@ -1,6 +1,6 @@
 ### spring cloud 测试项目
 关于分布式：所有项目可单独运行，而非单个模块。
-面向对象的设计:最少支持原则
+面向对象的设计:最少知识原则（Least Knowledge Principle），参考：https://www.cnblogs.com/gaochundong/p/least_knowledge_principle.html
 极限编程:只管当下
 
 ================================================================================
@@ -759,6 +759,39 @@ spring:
 登出功能同样有问题，无法删除token，只是将token的值清空（应该是CookieUtils的问题）
  
  
+================================================================================
+
+#### 后半场的工作
+1.实现Spring Cloud Config Client 通用配置
+2.实现Spring Boot MyBatis Redis 二级缓存，不怎么变的
+3.管理员服务、文章服务实现CRUD 功能
+4.使用FastDFS 实现图片上传
+
+##### 关于通用配置
+可以通过配置通用配置文件（common-service），使一些通用的配置（如eureka、admin、zipkin等）统一归类
+各项目读取时，在bootstrap.yml中加载common-service即可，如：
+spring:
+  cloud:
+    config:
+      uri: http://3.113.65.65:8888
+      name: spring-cloud-web-admin-ribbon,spring-cloud-common-service-remote
+      label: master
+      profile: dev
+
+*有坑，导致service-admin出现sql类型的错误，暂时禁用
+
+
+#### 关于管理员服务、文章服务类的crud功能（对原有admin-service进行重构）
+1.创建数据库service-posts（脚本文件于config.sql中）
+2.重构项目中关于sql的代码
+    -- 已规定,连接数据库的必然是服务提供者,因此将数据库连接功能移至common-service中;创建generatorConfig.xml进行配置(user和post2个数据库)
+    -- 进行共性抽取,在common-domain中创建领域模型BaseDomain和2个衍生实体类post&user(注意需要继承领域模型)
+3.在common-service中编写领域模型crud业务逻辑
+    -- 创建接口类BaseService和实体类BaseServiceImpl,编写领域模型的crud业务逻辑(注意勿忘事务管理!)
+4.在service-admin中继承领域模型的crud类
+5.在service-admin中的controller编写业务
+    -- 基于Restful风格进行api解口的编写
+        当访问/v1/admins//page/{pageNum}/{pageSize}时，返回一个带有（user）list,（页码）cursor的结果集
 
 
 
@@ -768,15 +801,7 @@ spring:
 
 
 
-
-
-
-
-
-
-
-
-
-
+================================================================================
+================================================================================
 ================================================================================
 ================================================================================

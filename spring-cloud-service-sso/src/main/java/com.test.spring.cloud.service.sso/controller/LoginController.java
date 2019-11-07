@@ -78,13 +78,16 @@ public class LoginController {
     @PostMapping("/login")
     public String login(String loginCode, String password,
                         @RequestParam(required = false) String url,     /*用于获取来访地址（并在登陆成功后跳转），设定默认可以没有（false）*/
-                        HttpServletRequest request, HttpServletResponse response, RedirectAttributes  redirectAttributes){
+                        HttpServletRequest request, HttpServletResponse response,Model model/*, RedirectAttributes  redirectAttributes*/){
         TbSysUser tbSysUser = loginService.login(loginCode, password);
 
         /*登陆失败*/
         if (tbSysUser == null){
             /*↓ = request.getSession().setAttribute() ,springMVC的功能，因为登录失败后会重定向*/
-            redirectAttributes.addFlashAttribute("message","用户名密码错误");
+            model.addAttribute("message","用户名密码错误"+url);
+
+            /*注释理由：redirectAttributes可以用于跳转后msg传参，但重定向后会向地址栏添加静态资源地址，暂时无法解决，搁置*/
+//            redirectAttributes.addFlashAttribute("message","用户名密码错误"+url);
         }
 
         /*登陆成功,则设置一个全局的token，存放loginCode供其他服务端调取*/
@@ -99,12 +102,14 @@ public class LoginController {
                     return "redirect:"+url;
                 }
             }else { /*熔断的处理*/
-                redirectAttributes.addFlashAttribute("message","服务器异常，稍后重试"+url);
+//                redirectAttributes.addFlashAttribute("message","服务器异常，稍后重试"+url);
+                model.addAttribute("message","服务器异常，稍后重试"+url);
+
 
             }
         }
         /*如果登陆错误,返回至login(并返回错误信息,暂时略)*/
-        return "redirect:login"+url;
+        return "login";
     }
 
 
