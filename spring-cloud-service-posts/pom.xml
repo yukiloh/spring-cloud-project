@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.test</groupId>
+        <artifactId>spring-cloud-dependencies</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+        <relativePath>../spring-cloud-dependencies/pom.xml</relativePath>
+    </parent>
+
+
+    <artifactId>spring-cloud-service-posts</artifactId>
+    <packaging>jar</packaging>
+
+    <name>spring-cloud-service-posts</name>
+    <!--    <url>http://www.funtl.com</url>-->
+    <!--    <inceptionYear>2018-Now</inceptionYear>-->
+
+    <dependencies>
+        <!--迁移了实体类TbSysUser-->
+        <dependency>
+            <groupId>com.test</groupId>
+            <artifactId>spring-cloud-common-domain</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+        <!--依赖于common-service,包内容集成至common-service-->   <!--版本号依赖于parent,遵从写且只写一次原则-->
+        <dependency>
+            <groupId>com.test</groupId>
+            <artifactId>spring-cloud-common-service</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+
+        <!--已在common-service中注释,test内容只会在单元开发过程中使用,因此标注scope-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mariadb.jdbc</groupId>
+            <artifactId>mariadb-java-client</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>com.test.spring.cloud.service.admin.ServiceAdminApplication</mainClass>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
+</project>

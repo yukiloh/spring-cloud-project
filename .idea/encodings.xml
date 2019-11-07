@@ -10,6 +10,7 @@
     <file url="file://$PROJECT_DIR$/spring-cloud-dependencies" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/spring-cloud-eureka" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/spring-cloud-service-admin" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-cloud-service-posts" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/spring-cloud-service-redis" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/spring-cloud-service-sso" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/spring-cloud-web-admin-feign" charset="UTF-8" />

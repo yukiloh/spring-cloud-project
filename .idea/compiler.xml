@@ -10,6 +10,7 @@
         <module name="spring-cloud-web-admin-feign" />
         <module name="spring-cloud-eureka" />
         <module name="spring-cloud-config" />
+        <module name="spring-cloud-service-posts" />
         <module name="spring-cloud-common" />
         <module name="spring-cloud-zuul" />
         <module name="spring-cloud-common-web" />
@@ -32,6 +33,7 @@
       <module name="spring-cloud-dependencies" target="1.8" />
       <module name="spring-cloud-eureka" target="1.8" />
       <module name="spring-cloud-service-admin" target="1.8" />
+      <module name="spring-cloud-service-posts" target="1.8" />
       <module name="spring-cloud-service-redis" target="1.8" />
       <module name="spring-cloud-service-sso" target="1.8" />
       <module name="spring-cloud-test" target="1.8" />
@@ -51,6 +53,7 @@
       <module name="spring-cloud-config" options="-parameters" />
       <module name="spring-cloud-eureka" options="-parameters" />
       <module name="spring-cloud-service-admin" options="-parameters" />
+      <module name="spring-cloud-service-posts" options="-parameters" />
       <module name="spring-cloud-service-redis" options="-parameters" />
       <module name="spring-cloud-service-sso" options="-parameters" />
       <module name="spring-cloud-test" options="-parameters" />

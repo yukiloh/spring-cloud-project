@@ -1,6 +1,7 @@
 ### spring cloud 测试项目
 关于分布式：所有项目可单独运行，而非单个模块。
-面向对象的设计:最少知识原则（Least Knowledge Principle），参考：https://www.cnblogs.com/gaochundong/p/least_knowledge_principle.html
+面向对象的设计:最少知识原则（Least Knowledge Principle）
+(参考：https://www.cnblogs.com/gaochundong/p/least_knowledge_principle.html)
 极限编程:只管当下
 
 ================================================================================
@@ -767,7 +768,7 @@ spring:
 3.管理员服务、文章服务实现CRUD 功能
 4.使用FastDFS 实现图片上传
 
-##### 关于通用配置
+#### 关于通用配置
 可以通过配置通用配置文件（common-service），使一些通用的配置（如eureka、admin、zipkin等）统一归类
 各项目读取时，在bootstrap.yml中加载common-service即可，如：
 spring:
@@ -781,7 +782,9 @@ spring:
 *有坑，导致service-admin出现sql类型的错误，暂时禁用
 
 
-#### 关于管理员服务、文章服务类的crud功能（对原有admin-service进行重构）
+#### 关于管理员服务、文章服务类的crud功能
+
+##### 前置工作（对原有service-admin项目进行重构）
 1.创建数据库service-posts（脚本文件于config.sql中）
 2.重构项目中关于sql的代码
     -- 已规定,连接数据库的必然是服务提供者,因此将数据库连接功能移至common-service中;创建generatorConfig.xml进行配置(user和post2个数据库)
@@ -794,8 +797,10 @@ spring:
         当访问/v1/admins//page/{pageNum}/{pageSize}时，返回一个带有（user）list,（页码）cursor的结果集
 
 
-
-
+##### service-posts 文章服务的提供者
+1.创建service-posts项目,pom内容基本基于service-admin
+2.创建文件夹等环境
+做到复制extend mapper文件这里
 
 
 
