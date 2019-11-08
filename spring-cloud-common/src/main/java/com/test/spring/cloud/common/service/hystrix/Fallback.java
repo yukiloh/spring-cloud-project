@@ -1,9 +1,9 @@
-package com.test.spring.cloud.common.hystrix;
+package com.test.spring.cloud.common.service.hystrix;
 
 import com.google.common.collect.Lists;
-import com.test.spring.cloud.common.constants.HttpStatusConstants;
-import com.test.spring.cloud.common.dto.BaseResult;
-import com.test.spring.cloud.common.utils.MapperUtils;
+import com.test.spring.cloud.common.service.constants.HttpStatusConstants;
+import com.test.spring.cloud.common.service.dto.BaseResult;
+import com.test.spring.cloud.common.service.utils.MapperUtils;
 
 public class Fallback {
     /*通用的回滚方法*/

@@ -1,4 +1,4 @@
-package com.test.spring.cloud.common.utils;
+package com.test.spring.cloud.common.service.utils;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;

@@ -1,9 +1,7 @@
-package com.test.spring.cloud.service.sso.mapper;
+package com.test.spring.cloud.common.service.mapper;
 
 import com.test.spring.cloud.common.service.domain.TbSysUser;
-import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.MyMapper;
 
-@Service
 public interface TbSysUserMapper extends MyMapper<TbSysUser> {
-        }
+}

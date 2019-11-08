@@ -1,8 +1,7 @@
-package com.test.spring.cloud.common.domain;
+package com.test.spring.cloud.common.service.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Date;
 
 @Table(name = "tb_sys_user")

@@ -1,8 +1,17 @@
-### spring cloud 测试项目
+# spring cloud 测试项目
 关于分布式：所有项目可单独运行，而非单个模块。
 面向对象的设计:最少知识原则（Least Knowledge Principle）
 (参考：https://www.cnblogs.com/gaochundong/p/least_knowledge_principle.html)
 极限编程:只管当下
+
+##### 关于restful风格设计的一些原则:
+幂等性:HTTP 幂等方法，是指无论调用多少次都不会有不同结果的 HTTP 方法。例如:
+GET     /tickets       # 获取ticket列表
+GET     /tickets/12    # 查看某个具体的ticket
+POST    /tickets       # 新建一个ticket
+PUT     /tickets/12    # 更新ticket 12
+PATCH   /tickets/12    # 更新ticket 12
+DELETE  /tickets/12    # 删除ticekt 12
 
 ================================================================================
 
@@ -799,8 +808,23 @@ spring:
 
 ##### service-posts 文章服务的提供者
 1.创建service-posts项目,pom内容基本基于service-admin
-2.创建文件夹等环境
-做到复制extend mapper文件这里
+2.创建mapper.TbPostsPostExtendMapper(扩展mapper),和相对应的resources下的mapper.xml
+3.编写service层;写接口,写实现类;
+ (类似于adminController,提供保存(更新)文章 根据id获取文章 分页查询的功能;   实际工作中需要*严格*依据API文档,为前端提供功能!!)
+
+
+@Table(name = "service-posts.tb_posts_post"
+
+
+
+
+
+
+
+
+
+
+
 
 
 

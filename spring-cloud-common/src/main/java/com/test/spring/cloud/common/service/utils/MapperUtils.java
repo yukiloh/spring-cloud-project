@@ -1,4 +1,4 @@
-package com.test.spring.cloud.common.utils;
+package com.test.spring.cloud.common.service.utils;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.type.TypeReference;

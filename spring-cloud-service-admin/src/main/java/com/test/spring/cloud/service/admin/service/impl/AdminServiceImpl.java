@@ -1,8 +1,8 @@
 package com.test.spring.cloud.service.admin.service.impl;
 
-import com.test.spring.cloud.common.domain.TbSysUser;
-import com.test.spring.cloud.common.mapper.TbSysUserMapper;
-import com.test.spring.cloud.common.service.impl.BaseServiceImpl;
+import com.test.spring.cloud.common.service.domain.TbSysUser;
+import com.test.spring.cloud.common.service.mapper.TbSysUserMapper;
+import com.test.spring.cloud.common.service.service.impl.BaseServiceImpl;
 import com.test.spring.cloud.service.admin.service.AdminService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

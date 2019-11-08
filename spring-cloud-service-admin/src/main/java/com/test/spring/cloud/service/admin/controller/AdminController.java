@@ -2,14 +2,18 @@ package com.test.spring.cloud.service.admin.controller;
 
 
 import com.github.pagehelper.PageInfo;
-import com.test.spring.cloud.common.domain.TbSysUser;
-import com.test.spring.cloud.common.dto.BaseResult;
+import com.test.spring.cloud.common.service.domain.TbSysUser;
+import com.test.spring.cloud.common.service.dto.BaseResult;
+import com.test.spring.cloud.common.service.utils.MapperUtils;
 import com.test.spring.cloud.service.admin.service.AdminService;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 /*旧：用于测试eureka客户端*/   /*现：用于提供文章类api查询服务*/
 @RestController
@@ -17,18 +21,31 @@ import java.util.List;
 public class AdminController {
 
     @Autowired
-    private AdminService adminService;
+    private AdminService<TbSysUser> adminService;
 
     /*使用restFul风格，进行分页查询*/
     @GetMapping("/page/{pageNum}/{pageSize}")
     public BaseResult page(
             @PathVariable(required = true)int pageNum,
             @PathVariable(required = true)int pageSize,
-            @RequestParam(required = false) TbSysUser tbSysUser    /*可能分页查询不存在user因此false*/
+//            @RequestParam(required = false) TbSysUser tbSysUser    /*可能分页查询不存在user因此false*/   /*此处注解是因为feign可能无法传输对象数据,因此使用json*/
+            @RequestParam(required = false) String tbSysUserJson    /*可能分页查询不存在user因此false*/
 
     ){
+        /*初始化*/
+        TbSysUser tbSysUser = null;
+
+        /*如果获取到了json数据*/
+        if (StringUtils.isNotBlank(tbSysUserJson)) {
+            try {
+                tbSysUser = MapperUtils.json2pojo(tbSysUserJson, TbSysUser.class);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
         /*具体分页查询逻辑*/
-        PageInfo pageInfo = adminService.page(pageNum, pageSize, tbSysUser);
+        PageInfo pageInfo = adminService.page(pageNum, pageSize,tbSysUser);
 
         /*分页后的结果集*/
         List<TbSysUser> list = pageInfo.getList();
@@ -42,13 +59,78 @@ public class AdminController {
         /*设置每页显示条数*/
         cursor.setLimit(pageInfo.getPageSize());
 
-
         return BaseResult.ok(list,cursor);
     }
 
 
+    /*根据ID获取管理员*/
+    @GetMapping("{userCode}")
+    public BaseResult get(@PathVariable String userCode){
+        TbSysUser tbSysUser = new TbSysUser();
+        tbSysUser.setUserCode(userCode);
+        TbSysUser obj = adminService.selectOne(tbSysUser);
+        return BaseResult.ok(obj);
+    }
 
-    /*过期，登陆功能移至sso*/
+
+    /*保存管理员*/
+    @PostMapping("/")
+    public BaseResult save(
+            @RequestParam String tbUserJson,    /*当不在同一局域网下莫名原因feign无法传输对象,因此传输json数据*/
+            @RequestParam String optsBy         /*创建者*/
+    ){
+        /*初始化*/
+        int result = 0;
+        TbSysUser tbSysUser = null;
+
+        /*获取user*/
+        try {
+            tbSysUser = MapperUtils.json2pojo(tbUserJson, TbSysUser.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        /*判空,如无user则返回保存失败*/
+        if (tbSysUser != null) {
+            /*将密码加密;    使用spring的加密功能*/
+            String password = DigestUtils.md5DigestAsHex(tbSysUser.getPassword().getBytes());
+            tbSysUser.setPassword(password);
+
+            /*新增用户,通过判断是否存已存在userCode来决定; StringUtils为apache.commons的功能*/
+            if (StringUtils.isNotBlank(tbSysUser.getUserCode())) {
+                tbSysUser.setUserCode(UUID.randomUUID().toString());
+                result = adminService.insert(tbSysUser, optsBy);
+
+            /*如已存在userCode,则修改用户*/
+            }else {
+                result = adminService.update(tbSysUser, optsBy);
+            }
+
+            /*最终判断,确认是否有数据被影响*/
+            if (result > 0) {
+                return BaseResult.ok("保存管理员成功");
+            }
+        }
+
+
+        return BaseResult.ok("保存管理员失败");
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /*过期,收藏用，登陆功能移至sso*/
 //
 //    @Autowired
 //    private AdminService adminService;

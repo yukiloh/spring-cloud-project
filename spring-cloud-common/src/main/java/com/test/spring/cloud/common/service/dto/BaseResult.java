@@ -1,4 +1,4 @@
-package com.test.spring.cloud.common.dto;
+package com.test.spring.cloud.common.service.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.test.spring.cloud.common.mapper.TbPostsPostMapper">
-  <resultMap id="BaseResultMap" type="com.test.spring.cloud.common.domain.TbPostsPost">
+<mapper namespace="com.test.spring.cloud.common.service.mapper.TbPostsPostMapper">
+  <resultMap id="BaseResultMap" type="com.test.spring.cloud.common.service.domain.TbPostsPost">
     <!--
       WARNING - @mbg.generated
     -->
     <id column="post_guid" jdbcType="VARCHAR" property="postGuid" />
     <result column="title" jdbcType="VARCHAR" property="title" />
     <result column="time_published" jdbcType="TIMESTAMP" property="timePublished" />
-    <result column="status" jdbcType="CHAR" property="status" />
+    <result column="STATUS" jdbcType="CHAR" property="status" />
     <result column="alias" jdbcType="VARCHAR" property="alias" />
     <result column="score" jdbcType="DECIMAL" property="score" />
     <result column="number_of_upvotes" jdbcType="DECIMAL" property="numberOfUpvotes" />
@@ -46,7 +46,7 @@
     <result column="extend_d4" jdbcType="TIMESTAMP" property="extendD4" />
     <result column="summary" jdbcType="LONGVARCHAR" property="summary" />
     <result column="main" jdbcType="LONGVARCHAR" property="main" />
-    <result column="authors" jdbcType="LONGVARCHAR" property="authors" />
+    <result column="AUTHORS" jdbcType="LONGVARCHAR" property="authors" />
     <result column="thumb_image" jdbcType="LONGVARCHAR" property="thumbImage" />
     <result column="original_images" jdbcType="LONGVARCHAR" property="originalImages" />
     <result column="images" jdbcType="LONGVARCHAR" property="images" />

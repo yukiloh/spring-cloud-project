@@ -1,6 +1,5 @@
 package com.test.spring.cloud.service.sso.service.consumer.fallback;
 
-import com.test.spring.cloud.common.hystrix.Fallback;
 import com.test.spring.cloud.service.sso.service.consumer.RedisService;
 import org.springframework.stereotype.Component;
 

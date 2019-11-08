@@ -1,8 +1,8 @@
 package com.test.spring.cloud.service.sso.controller;
 
-import com.test.spring.cloud.common.domain.TbSysUser;
-import com.test.spring.cloud.common.utils.CookieUtils;
-import com.test.spring.cloud.common.utils.MapperUtils;
+import com.test.spring.cloud.common.service.domain.TbSysUser;
+import com.test.spring.cloud.common.service.utils.CookieUtils;
+import com.test.spring.cloud.common.service.utils.MapperUtils;
 import com.test.spring.cloud.service.sso.service.LoginService;
 import com.test.spring.cloud.service.sso.service.consumer.RedisService;
 import org.apache.commons.lang.StringUtils;
@@ -12,7 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

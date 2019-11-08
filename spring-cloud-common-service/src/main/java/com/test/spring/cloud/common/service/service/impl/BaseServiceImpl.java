@@ -1,9 +1,9 @@
-package com.test.spring.cloud.common.service.impl;
+package com.test.spring.cloud.common.service.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.test.spring.cloud.common.domain.BaseDomain;
-import com.test.spring.cloud.common.service.BaseService;
+import com.test.spring.cloud.common.service.domain.BaseDomain;
+import com.test.spring.cloud.common.service.service.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,6 +11,7 @@ import tk.mybatis.mapper.MyMapper;
 
 import java.util.Date;
 
+/*提供给其他service通用的增删改查功能*/
 @Service
 @Transactional(readOnly = true)
 public class BaseServiceImpl<T extends BaseDomain,D extends MyMapper<T>> implements BaseService<T> {

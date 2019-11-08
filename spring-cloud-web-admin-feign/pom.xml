@@ -27,8 +27,14 @@
         <dependency>
             <groupId>com.test</groupId>
             <artifactId>spring-cloud-common-domain</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${parent.version}</version>
             <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.test</groupId>
+            <artifactId>spring-cloud-common-service</artifactId>
+            <version>${parent.version}</version>
         </dependency>
         <!-- Spring Boot Begin -->
         <dependency>

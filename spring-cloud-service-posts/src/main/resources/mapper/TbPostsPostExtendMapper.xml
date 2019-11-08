@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.test.spring.cloud.common.service.mapper.TbSysUserMapper">
+<mapper namespace="com.test.spring.cloud.service.posts.mapper.TbSysUserExtendMapper">
   <resultMap id="BaseResultMap" type="com.test.spring.cloud.common.service.domain.TbSysUser">
     <!--
       WARNING - @mbg.generated

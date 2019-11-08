@@ -1,11 +1,10 @@
-package com.test.spring.cloud.common.domain;
+package com.test.spring.cloud.common.service.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Date;
 
-@Table(name = "service-posts..tb_posts_post")
+@Table(name = "tb_posts_post")
 public class TbPostsPost extends BaseDomain implements Serializable {
     /**
      * 文章编码

@@ -1,7 +1,7 @@
-package com.test.spring.cloud.common.service;
+package com.test.spring.cloud.common.service.service;
 
 import com.github.pagehelper.PageInfo;
-import com.test.spring.cloud.common.domain.BaseDomain;
+import com.test.spring.cloud.common.service.domain.BaseDomain;
 
 /*领域模型的crud*/
 public interface BaseService<T extends BaseDomain> {
