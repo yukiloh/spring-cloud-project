@@ -1,14 +1,13 @@
 package com.test.spring.cloud.service.sso.service.impl;
 
 import com.test.spring.cloud.common.domain.TbSysUser;
-import com.test.spring.cloud.common.utils.MapperUtils;
 import com.test.spring.cloud.common.mapper.TbSysUserMapper;
+import com.test.spring.cloud.common.utils.MapperUtils;
 import com.test.spring.cloud.service.sso.service.LoginService;
 import com.test.spring.cloud.service.sso.service.consumer.RedisService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
@@ -24,7 +23,6 @@ public class LoginServiceImpl implements LoginService {
     private RedisService redisService;
 
     @Autowired
-    @Qualifier("tbSysUserMapper")
     private TbSysUserMapper tbSysUserMapper;
 
     /*注册*/

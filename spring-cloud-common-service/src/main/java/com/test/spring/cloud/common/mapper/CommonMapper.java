@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 import tk.mybatis.mapper.MyMapper;
 
-@Repository("commonMapper")
+
 @Primary
 public interface CommonMapper extends MyMapper<TbPostsPost> {
 }

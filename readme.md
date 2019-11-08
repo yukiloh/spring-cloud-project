@@ -888,7 +888,7 @@ mybatis:
 2.在需要的service项目中,配置swagger(每个service的swagger一般不相同)
     -- 创建config.Swagger2Config,并根据项目的实际需求进行修改
 3.在入口类中,启用swagger   @EnableSwagger2
-
+4.web访问:http://localhost:8764/swagger-ui.html
 
 
 
