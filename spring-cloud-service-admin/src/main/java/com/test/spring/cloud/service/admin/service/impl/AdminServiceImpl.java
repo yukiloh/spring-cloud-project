@@ -10,5 +10,5 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional(readOnly = true)
 /*注意此处的继承和指定泛型*/    /*继承领域模型的crud功能,并预留了extendMapper的mapper接口*/
-public class AdminServiceImpl extends BaseServiceImpl<TbSysUser, TbSysUserMapper> implements AdminService<TbSysUser> {
+public class AdminServiceImpl extends BaseServiceImpl<TbSysUser, TbSysUserMapper> implements AdminService {
 }

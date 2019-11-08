@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Service      /*原教程中未添加,此处需要向spring注入*/
-
 /*feign使用时需要创建接口,而ribbon则是创建实体类AdminService*/
 /*@FeignClient:指向服务提供者的名称*/  /*fallback:提供熔断后的方法名称*/
 @FeignClient(value = "spring-cloud-service-admin",fallback = AdminServiceHystrix.class)

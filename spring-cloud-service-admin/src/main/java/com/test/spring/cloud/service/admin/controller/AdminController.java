@@ -21,7 +21,7 @@ import java.util.UUID;
 public class AdminController {
 
     @Autowired
-    private AdminService<TbSysUser> adminService;
+    private AdminService adminService;
 
     /*使用restFul风格，进行分页查询*/
     @GetMapping("/page/{pageNum}/{pageSize}")

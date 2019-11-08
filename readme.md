@@ -891,7 +891,12 @@ mybatis:
 4.web访问:http://localhost:8764/swagger-ui.html
 
 
-
+问题点：PostsController中
+    @Autowired
+    private PostsService postsService;
+    无法跳转，同时PostsServiceImpl没有被引用
+优先解决post端口无法正常提供数据的问题
+同时二级缓存开启失败
 
 ================================================================================
 ================================================================================

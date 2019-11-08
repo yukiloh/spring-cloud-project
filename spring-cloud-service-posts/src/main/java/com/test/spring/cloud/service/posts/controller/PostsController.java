@@ -7,10 +7,8 @@ import com.test.spring.cloud.common.utils.MapperUtils;
 import com.test.spring.cloud.service.posts.service.PostsService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
 import java.util.List;
 import java.util.UUID;
 
@@ -19,8 +17,9 @@ import java.util.UUID;
 @RequestMapping("v1/posts")    /*按照restFul风格进行路径设计*/
 public class PostsController {
 
+
     @Autowired
-    private PostsService<TbPostsPost> postsService;
+    private PostsService postsService;
 
     /*根据ID获取文章*/
     @GetMapping("{postGuid}")
@@ -99,7 +98,8 @@ public class PostsController {
         PageInfo pageInfo = postsService.page(pageNum, pageSize, tbPostsPost);
 
         /*分页后的结果集*/
-        List<TbPostsPost> list = pageInfo.getList();
+        /*List<TbPostsPost> list = */
+        List list = pageInfo.getList();
 
         /*封装cursor（关于页码的游标）对象*/  /*需要在BaseResult中添加一个带有cursor的重载*/
         BaseResult.Cursor cursor = new BaseResult.Cursor();

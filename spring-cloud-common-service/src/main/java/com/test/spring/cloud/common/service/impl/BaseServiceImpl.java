@@ -14,7 +14,7 @@ import java.util.Date;
 /*提供给其他service通用的增删改查功能*/
 @Service
 @Transactional(readOnly = true)
-public class BaseServiceImpl<T extends BaseDomain,D extends MyMapper<T>> implements BaseService<T> {
+public abstract class BaseServiceImpl<T extends BaseDomain,D extends MyMapper<T>> implements BaseService<T> {
 
     @Autowired
     private D dao;

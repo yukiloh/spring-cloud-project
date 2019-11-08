@@ -2,8 +2,10 @@ package com.test.spring.cloud.common.service;
 
 import com.github.pagehelper.PageInfo;
 import com.test.spring.cloud.common.domain.BaseDomain;
+import org.springframework.stereotype.Service;
 
 /*领域模型的crud*/
+@Service
 public interface BaseService<T extends BaseDomain> {
 
     /*createBy,需要填写创建者的id*/
