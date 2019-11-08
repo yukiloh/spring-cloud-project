@@ -6,6 +6,7 @@ import java.util.Date;
 
 @Table(name = "tb_sys_user")
 public class TbSysUser extends BaseDomain implements Serializable {
+    private static final long serialVersionUID = -1026751999311808130L;
     /**
      * 用户编码
      */

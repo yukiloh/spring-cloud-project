@@ -773,11 +773,11 @@ spring:
 
 #### 后半场的工作
 1.实现Spring Cloud Config Client 通用配置
-2.实现Spring Boot MyBatis Redis 二级缓存，不怎么变的
-3.管理员服务、文章服务实现CRUD 功能
+2.管理员服务、文章服务实现CRUD 功能
+3.实现Spring Boot MyBatis Redis 二级缓存，用于缓存一些不太变化的数据
 4.使用FastDFS 实现图片上传
 
-#### 关于通用配置
+##### 1.关于通用配置
 可以通过配置通用配置文件（common-service），使一些通用的配置（如eureka、admin、zipkin等）统一归类
 各项目读取时，在bootstrap.yml中加载common-service即可，如：
 spring:
@@ -791,9 +791,8 @@ spring:
 *有坑，导致service-admin出现sql类型的错误，暂时禁用
 
 
-#### 关于管理员服务、文章服务类的crud功能
-
-##### 前置工作（对原有service-admin项目进行重构）
+##### 2.关于管理员服务、文章服务类的crud功能
+###### 前置工作（对原有service-admin项目进行重构）
 1.创建数据库service-posts（脚本文件于config.sql中）
 2.重构项目中关于sql的代码
     -- 已规定,连接数据库的必然是服务提供者,因此将数据库连接功能移至common-service中;创建generatorConfig.xml进行配置(user和post2个数据库)
@@ -805,8 +804,7 @@ spring:
     -- 基于Restful风格进行api解口的编写
         当访问/v1/admins//page/{pageNum}/{pageSize}时，返回一个带有（user）list,（页码）cursor的结果集
 
-
-##### service-posts 文章服务的提供者
+###### service-posts 文章服务的提供者的具体业务步骤
 1.创建service-posts项目,pom内容基本基于service-admin
 2.创建mapper.TbPostsPostExtendMapper(扩展mapper),和相对应的resources下的mapper.xml
 3.编写service层;写接口,写实现类;
@@ -814,6 +812,45 @@ spring:
 *错误点：因框架布局混乱导致mbg生成的实体类和mapper文件混乱，最后拓展的实体类统一至common-service（基类BaseDomain位于common-domain下）
 且service-posts的config只会读取数据库service-posts（service-admin相同），而讲师的mbg是全读取
 因此生成的实体类文件 @Table(name = "service-posts..tb_posts_post")处不相同
+
+
+##### 3.实现MyBatis Redis 二级缓存功能      对于一个新知识的学习方法:了解技术-实现技术
+了解技术:什么是二级缓存
+###### 先了解什么是一级缓存
+一级缓存是 SqlSession 级别(内存级)的缓存，存在于内存区域，第二次查询时会从一级缓存中查找数据；
+在操作数据库时需要构造 sqlSession 对象，在对象中存在（内存区域）数据结构（HashMap）用于存储缓存数据。
+当一个 sqlSession 结束后该 sqlSession 中的一级缓存也就不存在了。Mybatis 默认开启一级缓存。
+                                                            
+而当服务A与服务B都将查询同一个数据时，服务之间的sqlSession不会进行共享
+因此需要使用二级缓存（第三方缓存），*主要*解决缓存共享的问题
+
+###### 再了解什么是二级缓存
+而二级缓存属于 mapper （接口）级别(磁盘级)的缓存
+多个 SqlSession 去操作同一个 Mapper 的 sql 语句
+多个 SqlSession 去操作数据库得到数据会存在二级缓存区域
+多个 SqlSession 可以共用二级缓存，二级缓存是跨 SqlSession 
+其作用域是 mapper 的同一个 namespace
+不同的 sqlSession 两次执行相同 namespace下的 sql 语句且向 sql 中传递参数也相同即最终执行相同的 sql 语句
+第一次执行完毕会将数据库中查询的数据写到缓存（内存）
+第二次会从缓存中获取数据将不再从数据库查询，从而提高查询效率
+*Mybatis 默认没有开启二级缓存需要在 setting 全局参数中配置开启二级缓存
+
+
+###### 开启二级缓存的步骤
+1.config中开启mybatis的二级缓存
+mybatis:
+  configuration:
+    cache-enabled: true
+
+2.实体类实现序列化接口并声明序列号
+在idea的setting中,勾选Serializable class without SerialVersionUID,使警告显示未声明序列号,然后通过idea自动补完生成序列号
+如:private static final long serialVersionUID = 3619505032895675471L;
+
+3.创建相关工具类
+实现SpringApplicationContextAware接口，用于手动注入Bean(某些bean不会被自动注入,因此需要手动)
+当一个类实现了这个接口（ApplicationContextAware）之后,这个类就可以方便获得 ApplicationContext 中的所有 bean(通过上下文)
+即，该类可以直接获取 Spring 配置文件中所有有引用到的 Bean 对象
+因所有service会使用,所以放在common-service项目中的context目录下
 
 
 

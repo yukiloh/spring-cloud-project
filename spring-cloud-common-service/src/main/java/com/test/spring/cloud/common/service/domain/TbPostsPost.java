@@ -6,6 +6,7 @@ import java.util.Date;
 
 @Table(name = "tb_posts_post")
 public class TbPostsPost extends BaseDomain implements Serializable {
+    private static final long serialVersionUID = 3619505032895675471L;
     /**
      * 文章编码
      */
