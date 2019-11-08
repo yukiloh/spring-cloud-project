@@ -3,8 +3,8 @@ package com.test.spring.cloud.service.admin.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.test.spring.cloud.common.service.domain.TbSysUser;
-import com.test.spring.cloud.common.service.dto.BaseResult;
-import com.test.spring.cloud.common.service.utils.MapperUtils;
+import com.test.spring.cloud.common.dto.BaseResult;
+import com.test.spring.cloud.common.utils.MapperUtils;
 import com.test.spring.cloud.service.admin.service.AdminService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -7,7 +7,7 @@ import tk.mybatis.spring.annotation.MapperScan;
 
 @SpringBootApplication
 @EnableEurekaClient     /*服务提供者*/
-@MapperScan(basePackages = {"com.test.spring.cloud.common.mapper","com.test.spring.cloud.service.posts.mapper"})
+@MapperScan(basePackages = {"com.test.spring.cloud.common.service.mapper","com.test.spring.cloud.service.posts.mapper"})
 public class ServicePostsApplication {
     public static void main(String[] args) {
         SpringApplication.run(ServicePostsApplication.class,args);

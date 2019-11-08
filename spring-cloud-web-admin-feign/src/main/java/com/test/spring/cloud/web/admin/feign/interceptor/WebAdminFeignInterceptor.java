@@ -1,8 +1,8 @@
 package com.test.spring.cloud.web.admin.feign.interceptor;
 
 import com.test.spring.cloud.common.service.domain.TbSysUser;
-import com.test.spring.cloud.common.service.utils.CookieUtils;
-import com.test.spring.cloud.common.service.utils.MapperUtils;
+import com.test.spring.cloud.common.utils.CookieUtils;
+import com.test.spring.cloud.common.utils.MapperUtils;
 import com.test.spring.cloud.web.admin.feign.service.RedisService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;

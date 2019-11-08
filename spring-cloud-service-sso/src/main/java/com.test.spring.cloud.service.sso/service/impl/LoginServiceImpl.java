@@ -1,7 +1,7 @@
 package com.test.spring.cloud.service.sso.service.impl;
 
 import com.test.spring.cloud.common.service.domain.TbSysUser;
-import com.test.spring.cloud.common.service.utils.MapperUtils;
+import com.test.spring.cloud.common.utils.MapperUtils;
 import com.test.spring.cloud.service.sso.mapper.TbSysUserMapper;
 import com.test.spring.cloud.service.sso.service.LoginService;
 import com.test.spring.cloud.service.sso.service.consumer.RedisService;

@@ -1,6 +1,6 @@
 package com.test.spring.cloud.web.admin.feign.service.hystrix;
 
-import com.test.spring.cloud.common.service.hystrix.Fallback;
+import com.test.spring.cloud.common.hystrix.Fallback;
 import com.test.spring.cloud.web.admin.feign.service.AdminService;
 import org.springframework.stereotype.Component;
 
