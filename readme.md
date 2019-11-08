@@ -811,9 +811,9 @@ spring:
 2.创建mapper.TbPostsPostExtendMapper(扩展mapper),和相对应的resources下的mapper.xml
 3.编写service层;写接口,写实现类;
  (类似于adminController,提供保存(更新)文章 根据id获取文章 分页查询的功能;   实际工作中需要*严格*依据API文档,为前端提供功能!!)
-
-
-@Table(name = "service-posts.tb_posts_post"
+*错误点：因框架布局混乱导致mbg生成的实体类和mapper文件混乱，最后拓展的实体类统一至common-service（基类BaseDomain位于common-domain下）
+且service-posts的config只会读取数据库service-posts（service-admin相同），而讲师的mbg是全读取
+因此生成的实体类文件 @Table(name = "service-posts..tb_posts_post")处不相同
 
 
 
