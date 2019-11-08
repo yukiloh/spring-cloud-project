@@ -32,6 +32,12 @@
             <version>${project.parent.version}</version>
         </dependency>
 
+        <!--供redis(lettuce)用的连接池-->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-pool2</artifactId>
+        </dependency>
+
         <!--已在common-service中注释,test内容只会在单元开发过程中使用,因此标注scope-->
         <dependency>
             <groupId>org.springframework.boot</groupId>

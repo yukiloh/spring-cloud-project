@@ -3,9 +3,13 @@ package com.test.spring.cloud.service.posts;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 import tk.mybatis.spring.annotation.MapperScan;
 
-@SpringBootApplication(scanBasePackages = "com.test.spring.cloud")
+
+@EnableSwagger2         /*开启swagger2*/
+@SpringBootApplication(scanBasePackages = {"com.test.spring.cloud"})
+//@SpringBootApplication(scanBasePackages = {"com.test.spring.cloud.common.context","com.test.spring.cloud.common.mapper","com.test.spring.cloud.service"},scanBasePackageClasses = {ApplicationContextHolder.class})
 @EnableEurekaClient     /*服务提供者*/
 @MapperScan(basePackages = {"com.test.spring.cloud.common.mapper","com.test.spring.cloud.service.posts.mapper"})
 public class ServicePostsApplication {

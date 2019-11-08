@@ -7,8 +7,10 @@ import com.test.spring.cloud.common.utils.MapperUtils;
 import com.test.spring.cloud.service.posts.service.PostsService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.UUID;
 

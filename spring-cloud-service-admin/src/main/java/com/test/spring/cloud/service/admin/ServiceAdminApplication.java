@@ -5,9 +5,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import tk.mybatis.spring.annotation.MapperScan;
 
-@SpringBootApplication
+
 @EnableEurekaClient     /*开启eureka Client服务器*/
 /*领域模型的mapper和本项目内的mapper*/
+@SpringBootApplication(scanBasePackages = "com.test.spring.cloud")
 @MapperScan(basePackages = {"com.test.spring.cloud.common.mapper","com.test.spring.cloud.service.admin.mapper"})
 public class ServiceAdminApplication {
 

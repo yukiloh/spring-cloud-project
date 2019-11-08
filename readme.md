@@ -770,11 +770,13 @@ spring:
  
  
 ================================================================================
+================================================================================
 
 #### 后半场的工作
 1.实现Spring Cloud Config Client 通用配置
 2.管理员服务、文章服务实现CRUD 功能
 3.实现Spring Boot MyBatis Redis 二级缓存，用于缓存一些不太变化的数据
+4.swagger2接口文档引擎
 4.使用FastDFS 实现图片上传
 
 ##### 1.关于通用配置
@@ -789,6 +791,9 @@ spring:
       profile: dev
 
 *有坑，导致service-admin出现sql类型的错误，暂时禁用
+
+
+================================================================================
 
 
 ##### 2.关于管理员服务、文章服务类的crud功能
@@ -812,6 +817,9 @@ spring:
 *错误点：因框架布局混乱导致mbg生成的实体类和mapper文件混乱，最后拓展的实体类统一至common-service（基类BaseDomain位于common-domain下）
 且service-posts的config只会读取数据库service-posts（service-admin相同），而讲师的mbg是全读取
 因此生成的实体类文件 @Table(name = "service-posts..tb_posts_post")处不相同
+
+
+================================================================================
 
 
 ##### 3.实现MyBatis Redis 二级缓存功能      对于一个新知识的学习方法:了解技术-实现技术
@@ -866,12 +874,20 @@ mybatis:
  此注解的名称解释:因为二级缓存的作用域是*同一nameSpace*
 
 6.service-posts中的入口类,需要让spring扫描到ApplicationContextHolder,因此添加扫描域
+ @SpringBootApplication(scanBasePackages = "com.test.spring.cloud")
+
+测试过程中,依赖于ApplicationContextHolder中的断言功能(assertContextInjected),可以判断是否成功开启了二级缓存功能
+当有插入/更新功能后,缓存会自动进行数据刷新
+
+*有坑,applicationContext属性注入失败
+================================================================================
 
 
-
-
-
-
+#### 4.swagger2接口文档引擎   缺点:入侵式; spring则是非入侵式
+1.添加依赖;   所有service项目都需要swagger,因此在common-service中添加swagger依赖
+2.在需要的service项目中,配置swagger(每个service的swagger一般不相同)
+    -- 创建config.Swagger2Config,并根据项目的实际需求进行修改
+3.在入口类中,启用swagger   @EnableSwagger2
 
 
 

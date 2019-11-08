@@ -38,6 +38,7 @@
         <nekohtml.version>1.9.22</nekohtml.version>
         <jackson.version>2.10.0</jackson.version>
         <persistence-api.version>1.0.2</persistence-api.version>
+        <swagger2.version>2.9.2</swagger2.version>
 
     </properties>
 
@@ -138,6 +139,19 @@
                 <artifactId>persistence-api</artifactId>
                 <version>${persistence-api.version}</version>
             </dependency>
+
+            <!-- Swagger2 Begin -->
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger2</artifactId>
+                <version>${swagger2.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger-ui</artifactId>
+                <version>${swagger2.version}</version>
+            </dependency>
+            <!-- Swagger2 End -->
         </dependencies>
     </dependencyManagement>
 

@@ -67,6 +67,6 @@ public class ApplicationContextHolder {
      * 断言 Context 已经注入
      */
     private static void assertContextInjected() {
-        Validate.validState(applicationContext != null, "applicationContext 属性未注入，请在 spring-context.xml 配置中定义 SpringContext");
+        Validate.validState(applicationContext != null, "applicationContext属性未注入，请在spring-context.xml配置中定义ApplicationContextHolder");
     }
 }

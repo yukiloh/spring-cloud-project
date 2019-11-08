@@ -4,7 +4,10 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.test.spring.cloud.common.domain.BaseDomain;
 import com.test.spring.cloud.common.service.BaseService;
+import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.MyMapper;
@@ -17,7 +20,7 @@ import java.util.Date;
 public class BaseServiceImpl<T extends BaseDomain,D extends MyMapper<T>> implements BaseService<T> {
 
     @Autowired
-    D dao;
+    private D dao;
 
     /*创建和更新需要填入创建者的id和日期*/
     @Override

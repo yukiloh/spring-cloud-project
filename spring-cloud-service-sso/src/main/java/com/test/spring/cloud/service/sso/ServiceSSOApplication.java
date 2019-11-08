@@ -10,9 +10,9 @@ import tk.mybatis.spring.annotation.MapperScan;
 @EnableDiscoveryClient      /*服务消费者*/
 @EnableEurekaClient
 @EnableFeignClients
-@MapperScan(basePackages = "com.test.spring.cloud.common.mapper")        /*用于dao的注入,告知mybatis路径*/
-@SpringBootApplication(scanBasePackages = "com.test.spring.cloud")
-
+@SpringBootApplication(scanBasePackages = {"com.test.spring.cloud"})
+/*用于dao的注入,告知mybatis路径*/
+@MapperScan(basePackages = {"com.test.spring.cloud.common.mapper","com.test.spring.cloud.service.admin.mapper"})
 public class ServiceSSOApplication {
     public static void main(String[] args) {
         SpringApplication.run(ServiceSSOApplication.class, args);
