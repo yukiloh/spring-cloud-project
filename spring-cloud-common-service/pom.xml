@@ -81,7 +81,17 @@
             <artifactId>mariadb-java-client</artifactId>
         </dependency>
 
+        <!--供SpringContextHolder使用-->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
 
+        <!--redis starter,内包含了lettuce-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

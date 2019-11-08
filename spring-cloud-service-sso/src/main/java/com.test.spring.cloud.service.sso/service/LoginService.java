@@ -1,7 +1,7 @@
 package com.test.spring.cloud.service.sso.service;
 
 
-import com.test.spring.cloud.common.service.domain.TbSysUser;
+import com.test.spring.cloud.common.domain.TbSysUser;
 import org.springframework.stereotype.Service;
 
 @Service

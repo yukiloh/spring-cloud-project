@@ -1,9 +1,9 @@
 package com.test.spring.cloud.service.posts.service.impl;
 
 
-import com.test.spring.cloud.common.service.domain.TbPostsPost;
-import com.test.spring.cloud.common.service.mapper.TbPostsPostMapper;
-import com.test.spring.cloud.common.service.service.impl.BaseServiceImpl;
+import com.test.spring.cloud.common.domain.TbPostsPost;
+import com.test.spring.cloud.common.mapper.TbPostsPostMapper;
+import com.test.spring.cloud.common.service.impl.BaseServiceImpl;
 import com.test.spring.cloud.service.posts.service.PostsService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

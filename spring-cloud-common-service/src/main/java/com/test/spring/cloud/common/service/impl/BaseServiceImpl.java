@@ -1,9 +1,9 @@
-package com.test.spring.cloud.common.service.service.impl;
+package com.test.spring.cloud.common.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.test.spring.cloud.common.service.domain.BaseDomain;
-import com.test.spring.cloud.common.service.service.BaseService;
+import com.test.spring.cloud.common.domain.BaseDomain;
+import com.test.spring.cloud.common.service.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

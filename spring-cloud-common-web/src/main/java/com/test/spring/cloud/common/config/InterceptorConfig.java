@@ -1,6 +1,6 @@
-package com.test.spring.cloud.common.service.web.config;
+package com.test.spring.cloud.common.config;
 
-import com.test.spring.cloud.common.service.web.interceptor.StaticSourcesInterceptor;
+import com.test.spring.cloud.common.interceptor.StaticSourcesInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;

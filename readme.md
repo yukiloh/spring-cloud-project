@@ -846,16 +846,26 @@ mybatis:
 在idea的setting中,勾选Serializable class without SerialVersionUID,使警告显示未声明序列号,然后通过idea自动补完生成序列号
 如:private static final long serialVersionUID = 3619505032895675471L;
 
-3.创建相关工具类
-实现SpringApplicationContextAware接口，用于手动注入Bean(某些bean不会被自动注入,因此需要手动)
+3.创建相关工具类 ApplicationContextHolder  (该工具类为开发人员通用名称,redisCache中也是该名称 )
+需要实现SpringApplicationContextAware接口，用于手动注入Bean(因为某些bean不会被自动注入,因此需要手动)
 当一个类实现了这个接口（ApplicationContextAware）之后,这个类就可以方便获得 ApplicationContext 中的所有 bean(通过上下文)
 即，该类可以直接获取 Spring 配置文件中所有有引用到的 Bean 对象
 因所有service会使用,所以放在common-service项目中的context目录下
+(关于项目的路径,common-XXXX项目的路径都是com.test.spring.cloud.common下
+ 基于maven依赖机制和模块化开发的原理,最终打包时会统一打包在一起
+ 因此才选择扫描common下的mapper路径@MapperScan(basePackages = {"com.test.spring.cloud.common.mapper",....))
 
+4.创建RedisCache(百度也可以搜到此工具包)
+在common-service项目下创建utils.RedisCache
 
+*虽然common项目下也存在utils包,但因maven打包机制所以可以重复创建;
+ 当java类名也相同时,被依赖的项目会根据依赖顺序,后依赖的会覆盖先依赖的类;
+ 可以适用于:引用的某框架下的某个包不适用本程序,可以通过此方法进行覆盖
 
+5.在Mapper接口(posts)中添加注解@CacheNameSpace
+ 此注解的名称解释:因为二级缓存的作用域是*同一nameSpace*
 
-
+6.service-posts中的入口类,需要让spring扫描到ApplicationContextHolder,因此添加扫描域
 
 
 

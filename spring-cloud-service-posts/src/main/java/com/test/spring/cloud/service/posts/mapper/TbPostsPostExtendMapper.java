@@ -1,6 +1,6 @@
 package com.test.spring.cloud.service.posts.mapper;
 
-import com.test.spring.cloud.common.service.domain.TbSysUser;
+import com.test.spring.cloud.common.domain.TbSysUser;
 import org.springframework.stereotype.Repository;
 import tk.mybatis.mapper.MyMapper;
 

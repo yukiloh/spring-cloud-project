@@ -8,7 +8,7 @@ import tk.mybatis.spring.annotation.MapperScan;
 @SpringBootApplication
 @EnableEurekaClient     /*开启eureka Client服务器*/
 /*领域模型的mapper和本项目内的mapper*/
-@MapperScan(basePackages = {"com.test.spring.cloud.common.service.mapper","com.test.spring.cloud.service.admin.mapper"})
+@MapperScan(basePackages = {"com.test.spring.cloud.common.mapper","com.test.spring.cloud.service.admin.mapper"})
 public class ServiceAdminApplication {
 
     public static void main(String[] args) {

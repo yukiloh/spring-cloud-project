@@ -1,6 +1,6 @@
 package com.test.spring.cloud.service.sso.controller;
 
-import com.test.spring.cloud.common.service.domain.TbSysUser;
+import com.test.spring.cloud.common.domain.TbSysUser;
 import com.test.spring.cloud.common.utils.CookieUtils;
 import com.test.spring.cloud.common.utils.MapperUtils;
 import com.test.spring.cloud.service.sso.service.LoginService;

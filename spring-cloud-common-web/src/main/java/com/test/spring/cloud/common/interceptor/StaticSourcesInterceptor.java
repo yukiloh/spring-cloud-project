@@ -1,4 +1,4 @@
-package com.test.spring.cloud.common.service.web.interceptor;
+package com.test.spring.cloud.common.interceptor;
 
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;

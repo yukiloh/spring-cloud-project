@@ -1,7 +1,7 @@
 package com.test.spring.cloud.service.posts.controller;
 
 import com.github.pagehelper.PageInfo;
-import com.test.spring.cloud.common.service.domain.TbPostsPost;
+import com.test.spring.cloud.common.domain.TbPostsPost;
 import com.test.spring.cloud.common.dto.BaseResult;
 import com.test.spring.cloud.common.utils.MapperUtils;
 import com.test.spring.cloud.service.posts.service.PostsService;

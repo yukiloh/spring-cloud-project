@@ -1,4 +1,4 @@
-package com.test.spring.cloud.common.service.domain;
+package com.test.spring.cloud.common.domain;
 
 import lombok.Getter;
 import lombok.Setter;
