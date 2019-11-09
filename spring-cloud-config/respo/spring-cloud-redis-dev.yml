@@ -21,7 +21,7 @@ spring:
 # redis-aws
   redis:
     host: 192.168.1.90
-    port: 32768
+    port: 36379
     password: XqQjF&80gXZANz
     lettuce:
       pool:
