@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: spring-cloud-eureka-client
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://3.113.65.65:8761/eureka/

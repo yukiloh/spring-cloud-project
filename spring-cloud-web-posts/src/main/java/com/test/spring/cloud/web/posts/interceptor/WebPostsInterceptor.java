@@ -44,7 +44,7 @@ public class WebPostsInterceptor implements HandlerInterceptor {
     }
 
     @Autowired
-    RedisService redisService;
+    private RedisService redisService;
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView){
@@ -66,6 +66,7 @@ public class WebPostsInterceptor implements HandlerInterceptor {
                 String loginCode = redisService.get(token);
                 if (StringUtils.isNotBlank(loginCode)) {
                     String json = redisService.get(loginCode);
+                    System.out.println(json);
                     if (StringUtils.isNotBlank(json)) {
                         try {
                             /*存在登录信息*/

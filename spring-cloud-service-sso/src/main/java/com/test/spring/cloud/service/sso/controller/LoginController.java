@@ -3,6 +3,7 @@ package com.test.spring.cloud.service.sso.controller;
 import com.test.spring.cloud.common.domain.TbSysUser;
 import com.test.spring.cloud.common.utils.CookieUtils;
 import com.test.spring.cloud.common.utils.MapperUtils;
+import com.test.spring.cloud.constants.WebConstants;
 import com.test.spring.cloud.service.sso.service.LoginService;
 import com.test.spring.cloud.service.sso.service.consumer.RedisService;
 import org.apache.commons.lang.StringUtils;
@@ -12,7 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,13 +28,6 @@ public class LoginController {
     @Autowired
     private RedisService redisService;
 
-    @ResponseBody
-    @GetMapping("/test")
-    public String test(){
-        System.out.println("success");
-        return "test success!";
-    }
-
     @GetMapping("/")
     public String index(){
         System.out.println("success");
@@ -46,7 +39,7 @@ public class LoginController {
     public String login(@RequestParam(required = false) String url,HttpServletRequest request,Model model){
 
         /*通过token检查是否已经登陆*/
-        String token = CookieUtils.getCookieValue(request, "token");
+        String token = CookieUtils.getCookieValue(request, WebConstants.SESSION_TOKEN);
         /*检查token是否为空*/
         if (StringUtils.isNotBlank(token)) {
             /*获取的loginCode*/
@@ -67,7 +60,7 @@ public class LoginController {
 
                         /*如果没有登陆信息则显示 登陆成功，此处建议模拟,向登录页面返回welcome和user信息*/
                         model.addAttribute("message","welcome");
-                        model.addAttribute("tbSysUser",tbSysUser);
+                        model.addAttribute(WebConstants.SESSION_USER,tbSysUser);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -92,7 +85,7 @@ public class LoginController {
         /*登陆失败*/
         if (tbSysUser == null){
             /*↓ = request.getSession().setAttribute() ,springMVC的功能，因为登录失败后会重定向*/
-            model.addAttribute("message","用户名密码错误"+url);
+            model.addAttribute("message","用户名密码错误   "+url);
 
             /*注释理由：redirectAttributes可以用于跳转后msg传参，但重定向后会向地址栏添加静态资源地址，暂时无法解决，搁置*/
 //            redirectAttributes.addFlashAttribute("message","用户名密码错误"+url);
@@ -105,7 +98,7 @@ public class LoginController {
 
             /*判断是否存放成功(可能触发熔断),成功则进行存放并跳转*/
             if (StringUtils.isNotBlank(result) && "ok".equals(result)) {   /*当result不为空且为ok*/
-                CookieUtils.setCookie(request,response,"token",token,60 * 60 * 24);  /*在cookie中存放token的值*/
+                CookieUtils.setCookie(request,response,WebConstants.SESSION_TOKEN,token,60 * 60 * 24);  /*在cookie中存放token的值*/
                 if (StringUtils.isNotBlank(url)){   /*当存在来访地址时让其返回原地址，否则统一返回login*/
                     return "redirect:"+url;
                 }
@@ -125,7 +118,7 @@ public class LoginController {
     @GetMapping("/logout")
     public String logout(@RequestParam(required = false) String url,HttpServletRequest request,HttpServletResponse response,Model model){
         try {
-            CookieUtils.deleteCookie(request,response,"token");
+            CookieUtils.deleteCookie(request,response,WebConstants.SESSION_TOKEN);
         } catch (Exception e) {
             e.printStackTrace();
         }

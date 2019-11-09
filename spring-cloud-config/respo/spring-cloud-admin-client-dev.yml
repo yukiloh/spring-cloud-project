@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: spring-cloud-admin-client
+  boot:
+    admin:
+      client:
+        url: http://3.113.65.65:8084
+

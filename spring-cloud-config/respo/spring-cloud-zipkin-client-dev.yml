@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: spring-cloud-zipkin-client
+  zipkin:
+    base-url: http://3.113.65.65:9411

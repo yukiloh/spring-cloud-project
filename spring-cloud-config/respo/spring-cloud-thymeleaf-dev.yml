@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: spring-cloud-thymeleaf
+  thymeleaf:
+    cache: false
+    mode: LEGACYHTML5
+    encoding: UTF-8
+    servlet:
+      content-type: text/html

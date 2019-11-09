@@ -71,7 +71,7 @@
                         <br>
                         <div><button type="submit" class="btn btn-info" id= "submit" >提交</button></div>
                         <div th:if="${message} != null"><span th:text="${message}"></span></div>
-                        <div th:if="${tbSysUser} != null"><span th:text="${tbSysUser.getLoginCode()}"></span></div>
+                        <div th:if="${admin} != null"><span th:text="${admin.getLoginCode()}"></span></div>
 
                     </form>
                 </div><br>

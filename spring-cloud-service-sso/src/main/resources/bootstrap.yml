@@ -2,6 +2,6 @@ spring:
   cloud:
     config:
       uri: http://3.113.65.65:8888
-      name: spring-cloud-service-sso
+      name: spring-cloud-eureka-client,spring-cloud-admin-client,spring-cloud-zipkin-client,spring-cloud-maria-service-admin,spring-cloud-thymeleaf,spring-cloud-service-sso
       label: master
       profile: dev

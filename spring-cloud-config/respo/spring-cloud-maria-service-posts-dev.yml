@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: spring-cloud-maria-service-posts
+
+##  maria-aws
+#  datasource:
+#    url: jdbc:mariadb://3.113.65.65:3306/service-posts
+#    hikari:
+#      driver-class-name: org.mariadb.jdbc.Driver
+#      username: root
+#      password: CVQ39Vyt3mg#B5
+
+#  maria-nas
+  datasource:
+    url: jdbc:mariadb://192.168.1.90:3306/service-posts
+    hikari:
+      driver-class-name: org.mariadb.jdbc.Driver
+      username: root
+      password: zou9RYdAGW2MKoBY

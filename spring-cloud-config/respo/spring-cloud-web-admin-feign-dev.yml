@@ -2,29 +2,6 @@ spring:
   application:
     name: spring-cloud-web-admin-feign
 
-  thymeleaf:
-    cache: false
-    mode: LEGACYHTML5
-    encoding: UTF-8
-    servlet:
-      content-type: text/html
-
-  zipkin:
-    base-url: http://3.113.65.65:9411
-  boot:
-    admin:
-      client:
-        url: http://3.113.65.65:8084
-
-  datasource:
-    #    url: jdbc:mariadb://192.168.1.90:3306/service-admin
-    url: jdbc:mariadb://3.113.65.65:3306/service-posts
-    hikari:
-      driver-class-name: org.mariadb.jdbc.Driver
-      username: root
-      #      password: zou9RYdAGW2MKoBY
-      password: CVQ39Vyt3mg#B5
-
 server:
   port: 8765
 
@@ -32,8 +9,3 @@ feign:
 #  开启熔断机制
   hystrix:
     enabled: true
-
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://3.113.65.65:8761/eureka/
