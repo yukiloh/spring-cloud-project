@@ -9,9 +9,8 @@ import tk.mybatis.spring.annotation.MapperScan;
 
 @EnableSwagger2         /*开启swagger2*/
 @EnableEurekaClient     /*服务提供者*/
-@SpringBootApplication(scanBasePackages = {"com.test.spring.cloud.common"})
+@SpringBootApplication(scanBasePackages = {"com.test.spring.cloud"})
 @MapperScan(basePackages = {"com.test.spring.cloud.common.mapper","com.test.spring.cloud.service.posts.mapper"})
-//@MapperScan(basePackageClasses = {TbPostsPostMapper.class})
 public class ServicePostsApplication {
     public static void main(String[] args) {
         SpringApplication.run(ServicePostsApplication.class,args);

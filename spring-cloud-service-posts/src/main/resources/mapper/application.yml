@@ -1,10 +1,10 @@
 spring:
   application:
-    name: spring-cloud-service-admin
-  ##  数据库--maria
+    name: spring-cloud-service-posts
+  #  数据库--maria
   datasource:
     #    url: jdbc:mariadb://192.168.1.90:3306/service-admin
-    url: jdbc:mariadb://3.113.65.65:3306/service-admin
+    url: jdbc:mariadb://3.113.65.65:3306/service-posts
     hikari:
       driver-class-name: org.mariadb.jdbc.Driver
       username: root
@@ -34,10 +34,12 @@ spring:
       nodes: 3.113.65.65:26379, 3.113.65.65:26380, 3.113.65.65:26381
 
 server:
-#  eureka服务器端8761
-#  因需要模拟负载均衡，可勾择idea服务器设置中的Allow parallel run
-  port: 8762
-#  port: 8763
+  port: 8774
+
+# 开启mybatis的二级缓存功能
+mybatis:
+  configuration:
+    cache-enabled: true
 
 eureka:
   client:

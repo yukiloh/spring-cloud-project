@@ -818,6 +818,8 @@ spring:
 且service-posts的config只会读取数据库service-posts（service-admin相同），而讲师的mbg是全读取
 因此生成的实体类文件 @Table(name = "service-posts..tb_posts_post")处不相同
 
+*此处因为创建了第二个mapper，因此将原有的UserMapper一起进行归类，统一继承被BaseService所调用（而BS则会被其他的service所继承）
+犯错点：BaseService应该是抽象类！！！！！
 
 ================================================================================
 
@@ -860,8 +862,8 @@ mybatis:
 即，该类可以直接获取 Spring 配置文件中所有有引用到的 Bean 对象
 因所有service会使用,所以放在common-service项目中的context目录下
 (关于项目的路径,common-XXXX项目的路径都是com.test.spring.cloud.common下
- 基于maven依赖机制和模块化开发的原理,最终打包时会统一打包在一起
- 因此才选择扫描common下的mapper路径@MapperScan(basePackages = {"com.test.spring.cloud.common.mapper",....))
+ -基于maven依赖机制和模块化开发的原理,最终打包时会统一打包在一起
+ -因此才选择扫描common下的mapper路径@MapperScan(basePackages = {"com.test.spring.cloud.common.mapper",....))
 
 4.创建RedisCache(百度也可以搜到此工具包)
 在common-service项目下创建utils.RedisCache
@@ -870,7 +872,7 @@ mybatis:
  当java类名也相同时,被依赖的项目会根据依赖顺序,后依赖的会覆盖先依赖的类;
  可以适用于:引用的某框架下的某个包不适用本程序,可以通过此方法进行覆盖
 
-5.在Mapper接口(posts)中添加注解@CacheNameSpace
+5.在需要的Mapper接口(posts)中添加注解@CacheNameSpace
  此注解的名称解释:因为二级缓存的作用域是*同一nameSpace*
 
 6.service-posts中的入口类,需要让spring扫描到ApplicationContextHolder,因此添加扫描域
@@ -879,7 +881,9 @@ mybatis:
 测试过程中,依赖于ApplicationContextHolder中的断言功能(assertContextInjected),可以判断是否成功开启了二级缓存功能
 当有插入/更新功能后,缓存会自动进行数据刷新
 
-*有坑,applicationContext属性注入失败
+*错误点：
+1.属性未注入：①入口类没有被扫描   ②ApplicationContextHolder没有implements ApplicationContextAware, DisposableBean！！！！！！
+2.Redis put failed：没有在config中正确填写redis信息，或者redis没对齐！！！
 ================================================================================
 
 
@@ -891,12 +895,15 @@ mybatis:
 4.web访问:http://localhost:8764/swagger-ui.html
 
 
-问题点：PostsController中
-    @Autowired
-    private PostsService postsService;
-    无法跳转，同时PostsServiceImpl没有被引用
-优先解决post端口无法正常提供数据的问题
-同时二级缓存开启失败
+
+
+
+
+
+
+
+
+
 
 ================================================================================
 ================================================================================

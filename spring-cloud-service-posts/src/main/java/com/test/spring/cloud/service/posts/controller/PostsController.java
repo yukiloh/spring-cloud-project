@@ -14,7 +14,7 @@ import java.util.UUID;
 
 /*与AdminController类似,都是服务提供者,因此使用rest注解*/
 @RestController
-@RequestMapping("v1/posts")    /*按照restFul风格进行路径设计*/
+@RequestMapping("/v1/posts")    /*按照restFul风格进行路径设计*/
 public class PostsController {
 
 
@@ -22,8 +22,8 @@ public class PostsController {
     private PostsService postsService;
 
     /*根据ID获取文章*/
-    @GetMapping("{postGuid}")
-    public BaseResult get(@PathVariable String postGuid){
+    @GetMapping("/{postGuid}")
+    public BaseResult get(@PathVariable(value = "postGuid") String postGuid){
         TbPostsPost tbPostsPost = new TbPostsPost();
         tbPostsPost.setPostGuid(postGuid);
 
@@ -99,7 +99,7 @@ public class PostsController {
 
         /*分页后的结果集*/
         /*List<TbPostsPost> list = */
-        List list = pageInfo.getList();
+        List<TbPostsPost> list = pageInfo.getList();
 
         /*封装cursor（关于页码的游标）对象*/  /*需要在BaseResult中添加一个带有cursor的重载*/
         BaseResult.Cursor cursor = new BaseResult.Cursor();

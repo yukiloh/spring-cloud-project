@@ -45,7 +45,7 @@ public abstract class BaseServiceImpl<T extends BaseDomain,D extends MyMapper<T>
 
     @Override
     public T selectOne(T t) {
-        return selectOne(t);
+        return dao.selectOne(t);
     }
 
     @Override
