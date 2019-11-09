@@ -78,12 +78,6 @@
         </dependency>
 
 
-        <!--添加熔断器仪表监控-->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-hystrix-dashboard</artifactId>
-        </dependency>
-
         <!--添加spring-cloud-config的客户端-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -115,7 +109,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>com.test.spring.cloud.web.posts.WebPostApplication</mainClass>
+                    <mainClass>com.test.spring.cloud.web.posts.WebPostsApplication</mainClass>
                 </configuration>
             </plugin>
         </plugins>

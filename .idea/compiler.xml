@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="spring-cloud-service-admin" />
         <module name="spring-cloud-web-admin-feign" />
+        <module name="spring-cloud-web-posts" />
         <module name="spring-cloud-eureka" />
         <module name="spring-cloud-config" />
         <module name="spring-cloud-service-posts" />
@@ -21,12 +22,6 @@
         <module name="spring-cloud-zipkin" />
         <module name="spring-cloud-admin" />
         <module name="spring-cloud-common-service" />
-      </profile>
-      <profile name="Annotation profile for spring-cloud-web-posts" enabled="true">
-        <sourceOutputDir name="../spring-cloud-web-post/target/generated-sources/annotations" />
-        <sourceTestOutputDir name="../spring-cloud-web-post/target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <module name="spring-cloud-web-posts" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
