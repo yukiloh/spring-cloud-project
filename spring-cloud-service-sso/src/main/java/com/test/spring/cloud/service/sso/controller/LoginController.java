@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,6 +27,13 @@ public class LoginController {
 
     @Autowired
     private RedisService redisService;
+
+    @ResponseBody
+    @GetMapping("/test")
+    public String test(){
+        System.out.println("success");
+        return "test success!";
+    }
 
     @GetMapping("/")
     public String index(){

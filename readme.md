@@ -923,6 +923,7 @@ swagger可以在扫描的路径下（controller层）
 1.重构单点登陆的跳转方法:  
     -- config中创建通用hosts,抽取sso的登陆地址
     -- 在common-web下创建HttpServletUtils,用于获取完整请求路径，携带请求参数,供跳转使用
+    *错误点：因为项目进行了重构，导致sso入口类没有扫描sso项目内的controller，导致无法跳转！！！
 2.WebConstants    
 
 
