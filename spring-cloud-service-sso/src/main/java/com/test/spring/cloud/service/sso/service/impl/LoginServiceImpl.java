@@ -47,7 +47,7 @@ public class LoginServiceImpl implements LoginService {
             if (tbSysUser != null &&tbSysUser.getPassword().equals(password)) { /*当user存在且密码正确时（遗漏判断user是否存在）*/
                 /*找到tbSysUser，并存入redis,存活时间1天*/
                 try {
-                    redisService.put(loginCode,MapperUtils.obj2json(tbSysUser),60*60*24);
+                    redisService.put(loginCode,MapperUtils.obj2json(tbSysUser),5*60);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

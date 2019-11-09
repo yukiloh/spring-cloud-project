@@ -29,7 +29,7 @@ public class RedisCache implements Cache {
     private final String id; // cache instance id
     private RedisTemplate redisTemplate;
 
-    private static final long EXPIRE_TIME_IN_MINUTES = 30; // redis过期时间
+    private static final long EXPIRE_TIME_IN_MINUTES = 5; // redis过期时间
 
     public RedisCache(String id) {
         if (id == null) {

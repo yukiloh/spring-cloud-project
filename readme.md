@@ -917,17 +917,23 @@ swagger可以在扫描的路径下（controller层）
 ================================================================================
 
 ####  为admin-posts创建服务消费者web-post
-
-创建步骤基本和web-admin相同,因为进行第二次编写,所以需要对原有代码进行重构
-
-1.重构单点登陆的跳转方法:  
+创建步骤基本和web-admin相同
+因为进行第二次编写,所以先对原有代码进行重构
     -- config中创建通用hosts,抽取sso的登陆地址
-    -- 在common-web下创建HttpServletUtils,用于获取完整请求路径，携带请求参数,供跳转使用
-    *错误点：因为项目进行了重构，导致sso入口类没有扫描sso项目内的controller，导致无法跳转！！！
-2.WebConstants    
+    -- config中进行共性抽取，将每个项目内的config配置进行分离，并配置在每个项目的bootstrap.yml中（name: spring-cloud-eureka-client,spring-cloud-admin-client...） 
+    -- 在common-web下创建HttpServletUtils,用于获取完整请求路径，携带请求参数,供跳转使用（外部utils，修复了数组越界的问题）
+    -- 对于多次获取页面内的数据（admin，token），进行共性抽取，创建WebConstants，提供修改字符串为常量值（WebConstants.SESSION_TOKEN）
+*错误点：
+1.因为项目进行了重构，导致sso入口类没有扫描sso项目内的controller，导致无法跳转！！！
+2.配置文件混乱，依赖包混乱导致许多项目无法启动，因此对config进行了重构
+3.远程服务器出现数据读取错误（redis），迁移至本地服务器
+
+具体创建步骤：（基本复制自web-admin-feign）
+1.创建拦截器，用于拦截未登录账号
+2.创建RedisService(和fallback)，通过feign指向service-redis
 
 
-
+##### 创建消费者分页功能 PostService
 
 
 

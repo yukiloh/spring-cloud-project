@@ -2,6 +2,6 @@ spring:
   cloud:
     config:
       uri: http://3.113.65.65:8888
-      name: spring-cloud-eureka-client,spring-cloud-admin-client,spring-cloud-zipkin-client,spring-cloud-service-redis
+      name: spring-cloud-eureka-client,spring-cloud-admin-client,spring-cloud-zipkin-client,spring-cloud-redis,spring-cloud-service-redis
       label: master
       profile: dev
