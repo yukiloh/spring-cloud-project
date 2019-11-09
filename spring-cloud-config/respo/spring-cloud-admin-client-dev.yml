@@ -1,3 +1,4 @@
+# -client用于本地配置 无-则为远程配置
 spring:
   application:
     name: spring-cloud-admin-client
