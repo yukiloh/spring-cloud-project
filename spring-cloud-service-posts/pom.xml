@@ -38,6 +38,12 @@
             <artifactId>commons-pool2</artifactId>
         </dependency>
 
+        <!--redis starter,内包含了lettuce-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+
         <!--已在common-service中注释,test内容只会在单元开发过程中使用,因此标注scope-->
         <dependency>
             <groupId>org.springframework.boot</groupId>

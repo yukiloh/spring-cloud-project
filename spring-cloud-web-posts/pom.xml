@@ -31,11 +31,6 @@
             <scope>compile</scope>
         </dependency>
 
-        <dependency>
-            <groupId>com.test</groupId>
-            <artifactId>spring-cloud-common-service</artifactId>
-            <version>${parent.version}</version>
-        </dependency>
         <!-- Spring Boot Begin -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

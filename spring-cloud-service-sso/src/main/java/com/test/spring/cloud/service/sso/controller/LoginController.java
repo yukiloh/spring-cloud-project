@@ -29,6 +29,7 @@ public class LoginController {
 
     @GetMapping("/")
     public String index(){
+        System.out.println("success");
         return "index";
     }
 

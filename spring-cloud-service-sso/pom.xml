@@ -37,6 +37,13 @@
             <groupId>com.test</groupId>
             <artifactId>spring-cloud-common-service</artifactId>
             <version>${project.parent.version}</version>
+            <!-- 去除某些特定的依赖 -->
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.springframework.data</groupId>
+                        <artifactId>spring-data-redis</artifactId>
+                    </exclusion>
+                </exclusions>
         </dependency>
         <!--project end-->
 

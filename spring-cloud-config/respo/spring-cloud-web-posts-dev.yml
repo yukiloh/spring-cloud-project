@@ -15,30 +15,7 @@ spring:
     admin:
       client:
         url: http://3.113.65.65:8084
-  #redis相关配置
-  redis:
-    password: pQxWfm339xbT@#
-    lettuce:
-      pool:
-        max-active: 8
-        max-idle: 8
-        max-wait: -1ms
-        min-idle: 0
-    sentinel:
-      #      sentinel的master名称,为自定义
-      master: mymaster
-      #      sentinel的各节点地址&端口
-      #      nodes: 192.168.2.110:26379, 192.168.2.110:26380, 192.168.2.110:26381
-      nodes: 3.113.65.65:26379, 3.113.65.65:26380, 3.113.65.65:26381
 
-  datasource:
-    #    url: jdbc:mariadb://192.168.1.90:3306/service-admin
-    url: jdbc:mariadb://3.113.65.65:3306/service-posts
-    hikari:
-      driver-class-name: org.mariadb.jdbc.Driver
-      username: root
-      #      password: zou9RYdAGW2MKoBY
-      password: CVQ39Vyt3mg#B5
 server:
   port: 8766
 
