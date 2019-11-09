@@ -5,6 +5,9 @@ import com.test.spring.cloud.common.domain.TbPostsPost;
 import com.test.spring.cloud.common.dto.BaseResult;
 import com.test.spring.cloud.common.utils.MapperUtils;
 import com.test.spring.cloud.service.posts.service.PostsService;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -72,7 +75,13 @@ public class PostsController {
         return BaseResult.ok("保存文章失败");
     }
 
-
+    /*swagger的接口说明，通过注解实现*/
+    @ApiOperation("文章服务的分页查询接口")    /*对接口/类/方法进行描述*/
+    @ApiImplicitParams({    /*对接口中的参数进行描述*/                                                         /*如果参数是int，必须加上example属性*/
+            @ApiImplicitParam(name = "pageNum", value = "页码", required = true, dataType = "int", paramType = "path",example = "1"),
+            @ApiImplicitParam(name = "pageSize", value = "总页数", required = true, dataType = "int", paramType = "path",example = "10"),
+            @ApiImplicitParam(name = "tbPostsPostJson", value = "文章的 JSON 字符串", required = false, dataTypeClass = String.class, paramType = "json")
+    })
     /*分页查询*/
     @GetMapping("/page/{pageNum}/{pageSize}")
     public BaseResult page(

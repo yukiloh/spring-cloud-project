@@ -47,7 +47,7 @@
 <!--        </dependency>-->
 <!--        <dependency>-->
 <!--            <groupId>com.sun.xml.bind</groupId>-->
-<!--            <artifactId>jaxb-impl</artifactId>-->
+<!--            <artifactId>jaxb-fallback</artifactId>-->
 <!--            <version>2.3.1</version>-->
 <!--        </dependency>-->
 

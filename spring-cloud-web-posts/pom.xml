@@ -10,14 +10,32 @@
         <relativePath>../spring-cloud-dependencies/pom.xml</relativePath>
     </parent>
 
-    <artifactId>spring-cloud-config</artifactId>
+    <artifactId>spring-cloud-web-posts</artifactId>
     <packaging>jar</packaging>
 
-    <name>spring-cloud-config</name>
-<!--    <url>http://www.funtl.com</url>-->
-<!--    <inceptionYear>2018-Now</inceptionYear>-->
+    <name>spring-cloud-web-posts</name>
+    <!--    <url>http://www.funtl.com</url>-->
+    <!--    <inceptionYear>2018-Now</inceptionYear>-->
 
     <dependencies>
+        <dependency>
+            <groupId>com.test</groupId>
+            <artifactId>spring-cloud-common-web</artifactId>
+            <version>${parent.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.test</groupId>
+            <artifactId>spring-cloud-common-domain</artifactId>
+            <version>${parent.version}</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.test</groupId>
+            <artifactId>spring-cloud-common-service</artifactId>
+            <version>${parent.version}</version>
+        </dependency>
         <!-- Spring Boot Begin -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -26,6 +44,10 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -41,13 +63,32 @@
         <!-- Spring Cloud Begin -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-config-server</artifactId>
+            <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
         <!-- Spring Cloud End -->
+
+        <!-- 解决 thymeleaf 模板引擎一定要执行严格的 html5 格式校验问题 -->
+        <dependency>
+            <groupId>net.sourceforge.nekohtml</groupId>
+            <artifactId>nekohtml</artifactId>
+        </dependency>
+
+
+        <!--添加熔断器仪表监控-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-hystrix-dashboard</artifactId>
+        </dependency>
+
+        <!--添加spring-cloud-config的客户端-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-config</artifactId>
+        </dependency>
 
         <!--zipkin链路追踪-->
         <dependency>
@@ -64,6 +105,8 @@
             <groupId>de.codecentric</groupId>
             <artifactId>spring-boot-admin-starter-client</artifactId>
         </dependency>
+
+
     </dependencies>
 
     <build>
@@ -72,7 +115,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>com.test.spring.cloud.com.test.spring.cloud.web.posts.config.ConfigApplication</mainClass>
+                    <mainClass>com.test.spring.cloud.web.posts.WebPostApplication</mainClass>
                 </configuration>
             </plugin>
         </plugins>

@@ -16,6 +16,7 @@
       <module fileurl="file://$PROJECT_DIR$/spring-cloud-service-sso/spring-cloud-service-sso.iml" filepath="$PROJECT_DIR$/spring-cloud-service-sso/spring-cloud-service-sso.iml" />
       <module fileurl="file://$PROJECT_DIR$/spring-cloud-web-admin-feign/spring-cloud-web-admin-feign.iml" filepath="$PROJECT_DIR$/spring-cloud-web-admin-feign/spring-cloud-web-admin-feign.iml" />
       <module fileurl="file://$PROJECT_DIR$/spring-cloud-web-admin-ribbon/spring-cloud-web-admin-ribbon.iml" filepath="$PROJECT_DIR$/spring-cloud-web-admin-ribbon/spring-cloud-web-admin-ribbon.iml" />
+      <module fileurl="file://$PROJECT_DIR$/spring-cloud-web-posts/spring-cloud-web-posts.iml" filepath="$PROJECT_DIR$/spring-cloud-web-posts/spring-cloud-web-posts.iml" />
       <module fileurl="file://$PROJECT_DIR$/spring-cloud-zipkin/spring-cloud-zipkin.iml" filepath="$PROJECT_DIR$/spring-cloud-zipkin/spring-cloud-zipkin.iml" />
       <module fileurl="file://$PROJECT_DIR$/spring-cloud-zuul/spring-cloud-zuul.iml" filepath="$PROJECT_DIR$/spring-cloud-zuul/spring-cloud-zuul.iml" />
     </modules>

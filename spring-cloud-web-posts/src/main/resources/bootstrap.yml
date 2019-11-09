@@ -1,0 +1,7 @@
+spring:
+  cloud:
+    config:
+      uri: http://3.113.65.65:8888
+      name: spring-cloud-web-posts,spring-cloud-common-hosts
+      label: master
+      profile: dev

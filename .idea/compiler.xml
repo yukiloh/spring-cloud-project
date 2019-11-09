@@ -22,6 +22,12 @@
         <module name="spring-cloud-admin" />
         <module name="spring-cloud-common-service" />
       </profile>
+      <profile name="Annotation profile for spring-cloud-web-posts" enabled="true">
+        <sourceOutputDir name="../spring-cloud-web-post/target/generated-sources/annotations" />
+        <sourceTestOutputDir name="../spring-cloud-web-post/target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="spring-cloud-web-posts" />
+      </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="spring-cloud-admin" target="1.8" />
@@ -39,6 +45,7 @@
       <module name="spring-cloud-test" target="1.8" />
       <module name="spring-cloud-web-admin-feign" target="1.8" />
       <module name="spring-cloud-web-admin-ribbon" target="1.8" />
+      <module name="spring-cloud-web-posts" target="1.8" />
       <module name="spring-cloud-zipkin" target="1.8" />
       <module name="spring-cloud-zuul" target="1.8" />
     </bytecodeTargetLevel>
@@ -59,6 +66,7 @@
       <module name="spring-cloud-test" options="-parameters" />
       <module name="spring-cloud-web-admin-feign" options="-parameters" />
       <module name="spring-cloud-web-admin-ribbon" options="-parameters" />
+      <module name="spring-cloud-web-posts" options="-parameters" />
       <module name="spring-cloud-zipkin" options="-parameters" />
       <module name="spring-cloud-zuul" options="-parameters" />
     </option>

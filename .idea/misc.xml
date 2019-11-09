@@ -25,6 +25,7 @@
         <option value="$PROJECT_DIR$/spring-cloud-service-sso/pom.xml" />
         <option value="$PROJECT_DIR$/spring-cloud-common-domain/pom.xml" />
         <option value="$PROJECT_DIR$/spring-cloud-service-posts/pom.xml" />
+        <option value="$PROJECT_DIR$/spring-cloud-web-post/pom.xml" />
       </list>
     </option>
   </component>
