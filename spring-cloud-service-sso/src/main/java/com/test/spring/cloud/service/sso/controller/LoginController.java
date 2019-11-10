@@ -64,13 +64,11 @@ public class LoginController {
                         e.printStackTrace();
                     }
                 }
-
             }
         }
         if (StringUtils.isNotBlank(url)) {
             model.addAttribute("url",url);
         }
-
         return "login";
     }
 
@@ -92,23 +90,29 @@ public class LoginController {
 
         /*登陆成功,则设置一个全局的token，存放loginCode供其他服务端调取*/
         else {
+
             String token = UUID.randomUUID().toString();
-            String result = redisService.put(token, loginCode, 10 * 60);   /*在redis中存放token（内含loginCode）,结果为"ok"或者null*/
-
-            /*判断是否存放成功(可能触发熔断),成功则进行存放并跳转*/
-            if (StringUtils.isNotBlank(result) && "ok".equals(result)) {   /*当result不为空且为ok*/
-                CookieUtils.setCookie(request,response,WebConstants.SESSION_TOKEN,token,10 * 60);  /*在cookie中存放token的值*/
-                if (StringUtils.isNotBlank(url)){   /*当存在来访地址时让其返回原地址，否则统一返回login*/
-                    return "redirect:"+url;
-                }
-                model.addAttribute("message","welcome");
-                model.addAttribute(WebConstants.SESSION_USER,tbSysUser);
-            }else { /*熔断的处理*/
-//                redirectAttributes.addFlashAttribute("message","服务器异常，稍后重试"+url);
-                model.addAttribute("message","服务器异常，稍后重试"+url);
+            String result1 = redisService.put(token, loginCode, 30 * 60);/*在redis中存放token（内含loginCode）,结果为"ok"或者null*/
 
 
+
+            /*在cookie中存放token的值*/
+            CookieUtils.setCookie(request,response,WebConstants.SESSION_TOKEN,token,30 * 60);
+
+            /*将json数据放入redis    存在bug，无法放入！原因未知，可能是机器性能问题*/
+            try {
+                String result2 = redisService.put(loginCode, MapperUtils.obj2json(tbSysUser), 30 * 60);
+                Thread.sleep(1000);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
+
+            if (StringUtils.isNotBlank(url)){   /*当存在来访地址时让其返回原地址，否则统一返回login*/
+                return "redirect:"+url;
+            }
+
+            model.addAttribute("message","welcome");
+            model.addAttribute(WebConstants.SESSION_USER,tbSysUser);
         }
         /*如果登陆错误,返回至login(并返回错误信息,暂时略)*/
         return "login";
@@ -123,7 +127,6 @@ public class LoginController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return login(url,request,model);
     }
 }
