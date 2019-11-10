@@ -1,7 +1,3 @@
 # 用于提供跳转的地址
-spring:
-  application:
-    name: spring-cloud-common-hosts
-
 hosts:
   sso: http://localhost:8773
