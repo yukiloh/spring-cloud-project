@@ -1,5 +1,6 @@
 package com.test.spring.cloud.web.posts.interceptor;
 
+
 import com.test.spring.cloud.common.domain.TbSysUser;
 import com.test.spring.cloud.common.utils.CookieUtils;
 import com.test.spring.cloud.common.utils.MapperUtils;
@@ -36,6 +37,7 @@ public class WebPostsInterceptor implements HandlerInterceptor {
 
                 /*使用httpServletUtils获取完整路径跳转*/
                 response.sendRedirect(String.format("%s/login?url=%s",host_sso, HttpServletUtils.getFullPath(request)));
+                return false;
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -66,7 +68,6 @@ public class WebPostsInterceptor implements HandlerInterceptor {
                 String loginCode = redisService.get(token);
                 if (StringUtils.isNotBlank(loginCode)) {
                     String json = redisService.get(loginCode);
-                    System.out.println(json);
                     if (StringUtils.isNotBlank(json)) {
                         try {
                             /*存在登录信息*/

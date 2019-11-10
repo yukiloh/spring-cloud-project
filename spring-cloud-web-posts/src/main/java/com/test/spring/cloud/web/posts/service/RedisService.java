@@ -14,10 +14,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface RedisService {
 
     @PostMapping("/put")
-    String put(@RequestParam("key") String key, @RequestParam("value") String value, @RequestParam("seconds") long seconds);
+    String put(@RequestParam(value = "key") String key,
+               @RequestParam(value = "value") String value,
+               @RequestParam(value = "seconds") long seconds);
 
     @GetMapping("/get")
-    String get(@RequestParam("key") String key);
+    String get(@RequestParam(value = "key") String key);
 
 
 

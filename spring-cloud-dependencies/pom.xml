@@ -103,7 +103,7 @@
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
                 <version>${lombok.version}</version>
-                <scope>provided</scope>
+<!--                <scope>provided</scope>-->
             </dependency>
 
             <!-- https://mvnrepository.com/artifact/com.google.guava/guava Java API的补充，对Java开发中常用功能进行更优雅的实现-->

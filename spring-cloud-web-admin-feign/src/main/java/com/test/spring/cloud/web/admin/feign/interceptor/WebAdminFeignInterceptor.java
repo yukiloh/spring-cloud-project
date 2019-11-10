@@ -34,6 +34,7 @@ public class WebAdminFeignInterceptor implements HandlerInterceptor {
             /*重定向至单点登陆sso,并携带自身的url; 此处的常量值用@Value获取*/
             try {
                 response.sendRedirect(String.format("%s/login?url=%s",host_sso, HttpServletUtils.getFullPath(request)));
+                return false;
             } catch (IOException e) {
                 e.printStackTrace();
             }

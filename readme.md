@@ -933,8 +933,19 @@ swagger可以在扫描的路径下（controller层）
 2.创建RedisService(和fallback)，通过feign指向service-redis
 
 
-##### 创建消费者分页功能 PostService
-
+##### 创建消费者分页功能 PostService     创建页面
+页面模板方面（thymeleaf）:
+    -- 为静态js资源共性抽取 在common-web的resources下创建static.assets.app,存放所有js资源
+       (打包时利用maven的打包机制 <script src="/assets/app/validate.js"></script> 直接从根目录引用)
+    -- 为页面进行共性抽取,使用thymeleaf的include功能  <th:block th:include="includes/head :: head"></th:block>  
+       从其他页面引入模块资源  模块资源统一放置在common-web的templates.includes下
+       
+controller方面:
+    -- 创建BaseController,使其他controller去继承他,并创建BaseClientService和DataTablesResult
+    -- 进行共性抽取,重构service 创建BaseClientService,使其他service继承他
+    -- 创建DataTablesResult,用于接收page方法的结果集
+       (注意,他继承了BaseResult,并将需要的属性集进行了封装,无论从哪里请求结果都可以拿到完整,并附带额外需要的结果)
+       (面向对象的修改原则  里氏替换原则 概括:子类可以扩展父类的功能，但是不能改变父类原有的功能,即所有父类出现的地方,都可以用子类代替)
 
 
 

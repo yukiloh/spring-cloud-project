@@ -7,8 +7,9 @@ import org.springframework.stereotype.Component;
 /*触发熔断后的业务*/
 @Component
 public class AdminServiceHystrix implements AdminService {
+
     @Override
-    public String login(String loginCode, String password) {
+    public String page(int pageNum, int pageSize, String tbSysUserJson) {
         return Fallback.badGateway();
     }
 
@@ -23,13 +24,8 @@ public class AdminServiceHystrix implements AdminService {
 
 
 
-
-
-
-
-
-
     /*===下方为测试用===*/
+
 
     @Override
     public String sayHi(String message) {
