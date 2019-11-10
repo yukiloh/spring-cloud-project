@@ -10,4 +10,6 @@ mybatis:
   configuration:
     cache-enabled: true
 
+foo:
+  foo2: http://localhost:8773
 
