@@ -78,6 +78,9 @@ public class LoginController {
                         @RequestParam(required = false) String url,     /*用于获取来访地址（并在登陆成功后跳转），设定默认可以没有（false）*/
                         HttpServletRequest request, HttpServletResponse response,Model model/*, RedirectAttributes  redirectAttributes*/){
         TbSysUser tbSysUser = loginService.login(loginCode, password);
+        /*redis存入会失败，设置重试次数*/
+        int retrial = 10;
+
 
         /*登陆失败*/
         if (tbSysUser == null){
@@ -92,17 +95,16 @@ public class LoginController {
         else {
 
             String token = UUID.randomUUID().toString();
-            String result1 = redisService.put(token, loginCode, 30 * 60);/*在redis中存放token（内含loginCode）,结果为"ok"或者null*/
 
-
+//            String result = redisService.put(token, loginCode, 30 * 60);/*在redis中存放token（内含loginCode）,结果为"ok"或者null*/
+            tryToPutDataIntoRedis(token, loginCode, retrial);
 
             /*在cookie中存放token的值*/
             CookieUtils.setCookie(request,response,WebConstants.SESSION_TOKEN,token,30 * 60);
 
             /*将json数据放入redis    存在bug，无法放入！原因未知，可能是机器性能问题*/
             try {
-                String result2 = redisService.put(loginCode, MapperUtils.obj2json(tbSysUser), 30 * 60);
-                Thread.sleep(1000);
+                tryToPutDataIntoRedis(loginCode,MapperUtils.obj2json(tbSysUser),retrial);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -116,6 +118,21 @@ public class LoginController {
         }
         /*如果登陆错误,返回至login(并返回错误信息,暂时略)*/
         return "login";
+    }
+
+    /*失败后重试*/
+    private void tryToPutDataIntoRedis(String key, String value, int retrial) {
+        for (int i = 0; i < retrial; i++) {
+            String result = redisService.put(key, value, 30 * 60);
+            if (StringUtils.isNotBlank(result) && "ok".equals(result)){
+                break;
+            }
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 
