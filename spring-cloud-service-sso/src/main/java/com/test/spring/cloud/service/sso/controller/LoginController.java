@@ -97,44 +97,32 @@ public class LoginController {
             String token = UUID.randomUUID().toString();
 
 //            String result = redisService.put(token, loginCode, 30 * 60);/*在redis中存放token（内含loginCode）,结果为"ok"或者null*/
-            tryToPutDataIntoRedis(token, loginCode, retrial);
+            Boolean flag = tryToPutDataIntoRedis(token, loginCode, retrial);
+            /*如果存放成功*/
+            if (flag){
+                /*在cookie中存放token的值*/
+                CookieUtils.setCookie(request,response,WebConstants.SESSION_TOKEN,token,30 * 60);
 
-            /*在cookie中存放token的值*/
-            CookieUtils.setCookie(request,response,WebConstants.SESSION_TOKEN,token,30 * 60);
+                /*将json数据放入redis    存在bug，无法放入！原因未知，可能是机器性能问题*/
+                try {
+                    tryToPutDataIntoRedis(loginCode,MapperUtils.obj2json(tbSysUser),retrial);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
-            /*将json数据放入redis    存在bug，无法放入！原因未知，可能是机器性能问题*/
-            try {
-                tryToPutDataIntoRedis(loginCode,MapperUtils.obj2json(tbSysUser),retrial);
-            } catch (Exception e) {
-                e.printStackTrace();
+                if (StringUtils.isNotBlank(url)){   /*当存在来访地址时让其返回原地址，否则统一返回login*/
+                    return "redirect:"+url;
+                }
+
+                model.addAttribute("message","welcome");
+                model.addAttribute(WebConstants.SESSION_USER,tbSysUser);
+                return "login";
             }
-
-            if (StringUtils.isNotBlank(url)){   /*当存在来访地址时让其返回原地址，否则统一返回login*/
-                return "redirect:"+url;
-            }
-
-            model.addAttribute("message","welcome");
-            model.addAttribute(WebConstants.SESSION_USER,tbSysUser);
         }
-        /*如果登陆错误,返回至login(并返回错误信息,暂时略)*/
+        /*如果登陆错误,返回至login(并返回错误信息)*/
+        model.addAttribute("message","服务器异常，无法登陆");
         return "login";
     }
-
-    /*失败后重试*/
-    private void tryToPutDataIntoRedis(String key, String value, int retrial) {
-        for (int i = 0; i < retrial; i++) {
-            String result = redisService.put(key, value, 30 * 60);
-            if (StringUtils.isNotBlank(result) && "ok".equals(result)){
-                break;
-            }
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
 
     /*登出功能，删除cookie 返回一个login的方法（比较新奇）*/
     @GetMapping("/logout")
@@ -146,4 +134,31 @@ public class LoginController {
         }
         return login(url,request,model);
     }
+
+
+
+
+    /*失败后重试*/
+    private Boolean tryToPutDataIntoRedis(String key, String value, int retrial) {
+        try {
+            for (int i = 0; i < retrial; i++) {
+                String result = redisService.put(key, value, 30 * 60);
+                if (StringUtils.isNotBlank(result) && "ok".equals(result)){
+                    return true;
+                }
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("####redis存储数据失败，超过重试次数上限！####");
+        }
+        return false;
+
+    }
+
+
+
 }

@@ -6,6 +6,12 @@
 </head>
 <body>
     Hello world! posts index<br>
+
+    <div th:if="${json} != null"><span th:text="${json}"></span></div>
+    <div th:if="${post} != null"><span th:text="${post}"></span></div>
+
+    <a href="/page">测试访问page的链接</a>
+
 </body>
 </html>
 

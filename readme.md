@@ -284,6 +284,8 @@ Annotation：描述一个事件的情况；通常发生阻塞可以查看到各�
 #### 微服务逻辑关系
 本章节会着重对架构方面知识进行学习
 
+
+
 服务提供者1  服务提供者2  服务提供者3
     ↓           ↓           ↓
 服务消费者1  服务消费者2  服务消费者3
@@ -292,6 +294,7 @@ Annotation：描述一个事件的情况；通常发生阻塞可以查看到各�
                 ↓
 -            前台调用
 
+聚合微服务的结构图：/config/images/聚合微服务结构图.jpg
 服务消费者 ← 服务提供者         ←   数据库
 (feign)     (service-admin)
 所有的服务提供者都会获取数据库信息,因此需要创建一个提供给服务提供者专用的common-service通用接口
@@ -690,7 +693,8 @@ spring:
 ##### 使用redis实现单点登录SSO（SingleSignOn）    既是服务消费者，也是提供者
 使用传统的cookie可以通过共享域名来交换会话，但缺点1.域名必须统一；2.无法实现跨语言；3.cookie本身不安全
 
-单点登录示意图          
+
+示意图：/config/images/单点登录示意图.jpg          
                       局部会话          全局会话
 网页（客户端）     →     服务端     →     SSO（需要获取客户端地址用于返回跳转页面）
                 登陆             校验   授权
@@ -719,7 +723,8 @@ spring:
 3.cookie本身不安全      →redis中使用uuid,通过uuid来验证loginCode
 因此需要在loginController中完善cookie的问题3
 
-关于loginController的逻辑:
+关于loginController的逻辑:/config/images/loginController登陆逻辑示意图.jpg
+
 登陆后进行判断     →   有token  →   查找loginCode     →   匹配则回传user对象
                  →    无token  →     进行登录,验证用户名密码    →   登陆完成后赋予token
 *错误点:获取user时使用了错误的变量!
@@ -772,12 +777,16 @@ spring:
 ================================================================================
 ================================================================================
 
-#### 后半场的工作
+### 后半场的工作
 1.实现Spring Cloud Config Client 通用配置
-2.管理员服务、文章服务实现CRUD 功能
-3.实现Spring Boot MyBatis Redis 二级缓存，用于缓存一些不太变化的数据
-4.swagger2接口文档引擎
-4.使用FastDFS 实现图片上传
+2.实现Spring Boot MyBatis Redis 二级缓存，用于缓存一些不太变化的数据
+3.swagger2接口文档引擎
+4.管理员服务、文章服务实现CRUD 功能
+5.使用FastDFS 实现图片上传
+
+
+================================================================================
+================================================================================
 
 ##### 1.关于通用配置
 可以通过配置通用配置文件（common-service），使一些通用的配置（如eureka、admin、zipkin等）统一归类
@@ -790,41 +799,13 @@ spring:
       label: master
       profile: dev
 
-*有坑，导致service-admin出现sql类型的错误，暂时禁用
+*有坑，导致service-admin出现sql类型的错误，暂时禁用（已解决）
 
 
 ================================================================================
 
 
-##### 2.关于管理员服务、文章服务类的crud功能
-###### 前置工作（对原有service-admin项目进行重构）
-1.创建数据库service-posts（脚本文件于config.sql中）
-2.重构项目中关于sql的代码
-    -- 已规定,连接数据库的必然是服务提供者,因此将数据库连接功能移至common-service中;创建generatorConfig.xml进行配置(user和post2个数据库)
-    -- 进行共性抽取,在common-domain中创建领域模型BaseDomain和2个衍生实体类post&user(注意需要继承领域模型)
-3.在common-service中编写领域模型crud业务逻辑
-    -- 创建接口类BaseService和实体类BaseServiceImpl,编写领域模型的crud业务逻辑(注意勿忘事务管理!)
-4.在service-admin中继承领域模型的crud类
-5.在service-admin中的controller编写业务
-    -- 基于Restful风格进行api解口的编写
-        当访问/v1/admins//page/{pageNum}/{pageSize}时，返回一个带有（user）list,（页码）cursor的结果集
-
-###### service-posts 文章服务的提供者的具体业务步骤
-1.创建service-posts项目,pom内容基本基于service-admin
-2.创建mapper.TbPostsPostExtendMapper(扩展mapper),和相对应的resources下的mapper.xml
-3.编写service层;写接口,写实现类;
- (类似于adminController,提供保存(更新)文章 根据id获取文章 分页查询的功能;   实际工作中需要*严格*依据API文档,为前端提供功能!!)
-*错误点：因框架布局混乱导致mbg生成的实体类和mapper文件混乱，最后拓展的实体类统一至common-service（基类BaseDomain位于common-domain下）
-且service-posts的config只会读取数据库service-posts（service-admin相同），而讲师的mbg是全读取
-因此生成的实体类文件 @Table(name = "service-posts..tb_posts_post")处不相同
-
-*此处因为创建了第二个mapper，因此将原有的UserMapper一起进行归类，统一继承被BaseService所调用（而BS则会被其他的service所继承）
-犯错点：BaseService应该是抽象类！！！！！
-
-================================================================================
-
-
-##### 3.实现MyBatis Redis 二级缓存功能      对于一个新知识的学习方法:了解技术-实现技术
+##### 2.实现MyBatis Redis 二级缓存功能      对于一个新知识的学习方法:了解技术-实现技术
 了解技术:什么是二级缓存
 ###### 先了解什么是一级缓存
 一级缓存是 SqlSession 级别(内存级)的缓存，存在于内存区域，第二次查询时会从一级缓存中查找数据；
@@ -887,7 +868,7 @@ mybatis:
 ================================================================================
 
 
-#### 4.swagger2接口文档引擎   
+#### 3.swagger2接口文档引擎   
 主要作用：免去写文档的工作量
 缺点:入侵式; spring则是非入侵式
 
@@ -916,7 +897,34 @@ swagger可以在扫描的路径下（controller层）
 
 ================================================================================
 
-####  为admin-posts创建服务消费者web-post
+
+##### 4.关于管理员服务、文章服务类的crud功能
+###### 前置工作（对原有service-admin项目进行重构）
+1.创建数据库service-posts（脚本文件于config.sql中）
+2.重构项目中关于sql的代码
+    -- 已规定,连接数据库的必然是服务提供者,因此将数据库连接功能移至common-service中;创建generatorConfig.xml进行配置(user和post2个数据库)
+    -- 进行共性抽取,在common-domain中创建领域模型BaseDomain和2个衍生实体类post&user(注意需要继承领域模型)
+3.在common-service中编写领域模型crud业务逻辑
+    -- 创建接口类BaseService和实体类BaseServiceImpl,编写领域模型的crud业务逻辑(注意勿忘事务管理!)
+4.在service-admin中继承领域模型的crud类
+5.在service-admin中的controller编写业务
+    -- 基于Restful风格进行api解口的编写
+        当访问/v1/admins//page/{pageNum}/{pageSize}时，返回一个带有（user）list,（页码）cursor的结果集
+
+###### service-posts 文章服务的提供者的具体业务步骤
+1.创建service-posts项目,pom内容基本基于service-admin
+2.创建mapper.TbPostsPostExtendMapper(扩展mapper),和相对应的resources下的mapper.xml
+3.编写service层;写接口,写实现类;
+ (类似于adminController,提供保存(更新)文章 根据id获取文章 分页查询的功能;   实际工作中需要*严格*依据API文档,为前端提供功能!!)
+*错误点：因框架布局混乱导致mbg生成的实体类和mapper文件混乱，最后拓展的实体类统一至common-service（基类BaseDomain位于common-domain下）
+且service-posts的config只会读取数据库service-posts（service-admin相同），而讲师的mbg是全读取
+因此生成的实体类文件 @Table(name = "service-posts..tb_posts_post")处不相同
+
+*此处因为创建了第二个mapper，因此将原有的UserMapper一起进行归类，统一继承被BaseService所调用（而BS则会被其他的service所继承）
+犯错点：BaseService应该是抽象类！！！！！
+
+
+#####  为admin-posts创建服务消费者web-post
 创建步骤基本和web-admin相同
 因为进行第二次编写,所以先对原有代码进行重构
     -- config中创建通用hosts,抽取sso的登陆地址
@@ -933,33 +941,60 @@ swagger可以在扫描的路径下（controller层）
 2.创建RedisService(和fallback)，通过feign指向service-redis
 
 
-##### 创建消费者分页功能 PostService     创建页面
-页面模板方面（thymeleaf）:
+##### 创建消费者分页功能 PostService     创建前端的页面，并展示效果
+提供的服务内容： 分页查看（√），文章查看（√），创建文章（×）
+页面模板方面（thymeleaf）:  (因html页面无法创建成功，此处是概念，没有实际内容)
     -- 为静态js资源共性抽取 在common-web的resources下创建static.assets.app,存放所有js资源
        (打包时利用maven的打包机制 <script src="/assets/app/validate.js"></script> 直接从根目录引用)
     -- 为页面进行共性抽取,使用thymeleaf的include功能  <th:block th:include="includes/head :: head"></th:block>  
        从其他页面引入模块资源  模块资源统一放置在common-web的templates.includes下
        
 controller方面:
-    -- 创建BaseController,使其他controller去继承他,并创建BaseClientService和DataTablesResult
+    -- 创建BaseController,使其他controller去继承他,并创建为bc服务的BaseClientService和DataTablesResult
     -- 进行共性抽取,重构service 创建BaseClientService,使其他service继承他
     -- 创建DataTablesResult,用于接收page方法的结果集
        (注意,他继承了BaseResult,并将需要的属性集进行了封装,无论从哪里请求结果都可以拿到完整,并附带额外需要的结果)
-       (面向对象的修改原则  里氏替换原则 概括:子类可以扩展父类的功能，但是不能改变父类原有的功能,即所有父类出现的地方,都可以用子类代替)
+       (面向对象的修改原则，里氏替换原则
+        里氏的概括:子类可以扩展父类的功能，但是不能改变父类原有的功能,即所有父类出现的地方,都可以用子类代替)
+    -- 开发html，读取BaseController提供的页面
 
-
-redis存在写入/读取失败的问题，已在sso中插入存入重试器，考虑可以放入utils中并考虑创建读取重试器
-
-
-
-
-
-
-
-
-
+*redis存在写入/读取失败的问题，已在需要读取/存放redis的代码处插入了重试器；    或者可以通过设置feign的等待时间来解决（待开发）
+*html内容跨度过大，略过，只提供返回前台简单的json数据
 
 
 ================================================================================
+
+
+#### 5.FastDFS  分布式文件系统     为微服务提供文件上传下载功能
+FastDFS是一个开源的轻量级分布式文件系统，提供文件存储、文件同步、文件访问（文件上传、文件下载）等功能
+主要解决了*大容量存储*和*负载均衡*的问题
+
+服务端有2个角色：跟踪器（tracker）和存储节点（storage）
+-- 跟踪器主要完成调度工作，在访问上起负载均衡的作用
+-- 存储节点则进行存储、同步和提供存取接口的功能
+
+*fastDFS需要与nginx相结合：
+-- FastDFS的客户端可进行文件的上传、下载、删除等操作，同时通过 FastDFS 的 HTTP 服务器来提供 HTTP 服务
+   但是 FastDFS 的 HTTP 服务较为简单，无法提供负载均衡等高性能的服务，我们需要使用 FastDFS 的 Nginx 模块来弥补这一缺陷
+
+FastDFS架构图：/config/images/FastDFS结构示意图.jpg
+
+关于追踪器的功能示意图：/config/images/FastDFS追踪器的功能示意图.jpg
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ================================================================================
 ================================================================================
