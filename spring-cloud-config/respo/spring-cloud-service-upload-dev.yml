@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: spring-cloud-service-upload
+server:
+  #  eureka服务器端8761
+  port: 8775
+
+# fastDFS的自定义配置
+fastdfs.base.url: http://3.113.65.65:8899/
+storage:
+  type: fastdfs
+  fastdfs:
+    tracker_server: 3.113.65.65:22122
