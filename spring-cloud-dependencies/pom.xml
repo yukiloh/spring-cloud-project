@@ -39,6 +39,7 @@
         <jackson.version>2.10.0</jackson.version>
         <persistence-api.version>1.0.2</persistence-api.version>
         <swagger2.version>2.9.2</swagger2.version>
+        <fastDFS.version>1.27-SNAPSHOT</fastDFS.version>
 
     </properties>
 
@@ -162,6 +163,15 @@
 
             </dependency>
             <!-- Swagger2 End -->
+
+
+            <!--fastDFS-->
+            <dependency>
+                <groupId>org.csource</groupId>
+                <artifactId>fastdfs-client-java</artifactId>
+                <version>${fastDFS.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 

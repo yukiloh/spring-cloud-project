@@ -12,4 +12,9 @@ public class PostsServiceFallback implements PostsService {
         return Fallback.badGateway();
 
     }
+
+    @Override
+    public String get(String postGuid) {
+        return Fallback.badGateway();
+    }
 }

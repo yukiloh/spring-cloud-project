@@ -20,6 +20,7 @@
         <module name="spring-cloud-service-sso" />
         <module name="spring-cloud-service-redis" />
         <module name="spring-cloud-zipkin" />
+        <module name="spring-cloud-service-upload" />
         <module name="spring-cloud-admin" />
         <module name="spring-cloud-common-service" />
       </profile>
@@ -37,6 +38,7 @@
       <module name="spring-cloud-service-posts" target="1.8" />
       <module name="spring-cloud-service-redis" target="1.8" />
       <module name="spring-cloud-service-sso" target="1.8" />
+      <module name="spring-cloud-service-upload" target="1.8" />
       <module name="spring-cloud-test" target="1.8" />
       <module name="spring-cloud-web-admin-feign" target="1.8" />
       <module name="spring-cloud-web-admin-ribbon" target="1.8" />
@@ -58,6 +60,7 @@
       <module name="spring-cloud-service-posts" options="-parameters" />
       <module name="spring-cloud-service-redis" options="-parameters" />
       <module name="spring-cloud-service-sso" options="-parameters" />
+      <module name="spring-cloud-service-upload" options="-parameters" />
       <module name="spring-cloud-test" options="-parameters" />
       <module name="spring-cloud-web-admin-feign" options="-parameters" />
       <module name="spring-cloud-web-admin-ribbon" options="-parameters" />

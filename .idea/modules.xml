@@ -14,6 +14,7 @@
       <module fileurl="file://$PROJECT_DIR$/spring-cloud-service-posts/spring-cloud-service-posts.iml" filepath="$PROJECT_DIR$/spring-cloud-service-posts/spring-cloud-service-posts.iml" />
       <module fileurl="file://$PROJECT_DIR$/spring-cloud-service-redis/spring-cloud-service-redis.iml" filepath="$PROJECT_DIR$/spring-cloud-service-redis/spring-cloud-service-redis.iml" />
       <module fileurl="file://$PROJECT_DIR$/spring-cloud-service-sso/spring-cloud-service-sso.iml" filepath="$PROJECT_DIR$/spring-cloud-service-sso/spring-cloud-service-sso.iml" />
+      <module fileurl="file://$PROJECT_DIR$/spring-cloud-service-upload/spring-cloud-service-upload.iml" filepath="$PROJECT_DIR$/spring-cloud-service-upload/spring-cloud-service-upload.iml" />
       <module fileurl="file://$PROJECT_DIR$/spring-cloud-web-admin-feign/spring-cloud-web-admin-feign.iml" filepath="$PROJECT_DIR$/spring-cloud-web-admin-feign/spring-cloud-web-admin-feign.iml" />
       <module fileurl="file://$PROJECT_DIR$/spring-cloud-web-admin-ribbon/spring-cloud-web-admin-ribbon.iml" filepath="$PROJECT_DIR$/spring-cloud-web-admin-ribbon/spring-cloud-web-admin-ribbon.iml" />
       <module fileurl="file://$PROJECT_DIR$/spring-cloud-web-posts/spring-cloud-web-posts.iml" filepath="$PROJECT_DIR$/spring-cloud-web-posts/spring-cloud-web-posts.iml" />

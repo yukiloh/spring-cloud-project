@@ -981,6 +981,59 @@ FastDFS架构图：/config/images/FastDFS结构示意图.jpg
 
 关于追踪器的功能示意图：/config/images/FastDFS追踪器的功能示意图.jpg
 
+##### 在服务器端安装FastDFS
+1.下载FastDFS.zip(/config/apps/)
+2.创建并配置docker-compost.yml
+
+version: '3.1'
+services:
+  fastdfs:
+    build: environment
+    restart: always
+    container_name: fastdfs
+    volumes:
+      - ./storage:/fastdfs/storage
+    # 主机模式,将容器的所有端口都暴露
+    network_mode: host
+    
+3. ./environment下创建并配置Dockerfile    (FastDFS.zip中存在,注意修改port的端口)
+4.修改storage.conf 中跟踪器的ip地址(修改为服务器端的ip地址)
+5.修改client.conf中追踪器的ip地址
+6.修改mod_fastdfs.conf中追踪器的ip地址
+*4 5 6类似于服务发现与注册,FastDFS自带服务器端和客户端,需要让二者互相发现对方
+
+7.修改nginx.conf中的端口(例如:8888→8899)
+8.构建,并运行  
+ -- docker-compose build        -- docker-compost up -d
+9.测试上传功能
+ --   上传命令↓         上传的文件↓                上传地址至
+ -- fdfs_upload_file /etc/fdfs/client.conf /usr/local/src/fastdfs-5.11/INSTALL
+
+上传完成后会返回文件的uri
+本案例参考:  http://3.113.65.65:8899/group1/M00/00/00/rB8AkF3JFUKAQmogAAAeSwu9TgM2083402
+补充:     宿主机的文件夹路径 /root/docker/fastDFS/environment      
+          docker中的地址    /etc/fdfs/
+
+##### 创建service-upload FastDFS的服务上传模块       只负责上传功能
+1.创建pom文件(可以从redis中复制)
+2.引入依赖:fastdfs-client-java; 可以参考:https://www.jianshu.com/p/c39ca1ee222b
+3.添加工具类 (fastdfs包下)
+4.添加云配置,此为自定义配置,需要根据服务器情况进行更改
+
+fastdfs.base.url: http://3.113.65.65:8899/
+storage:
+  type: fastdfs
+  fastdfs:
+    tracker_server: 3.113.65.65:22122
+
+5.创建UploadController(提供文件上传功能)
+测试页面为web-posts下的index.html
+再引入必要的js&css资源后可以正常使用
+参考连接: http://3.113.65.65:8899/group1/M00/00/00/rB8AkF3JdWiAWQHoAAMLrbVliv8146.jpg
+上传成功后会返回文件名
+
+
+================================================================================\
 
 
 
@@ -996,5 +1049,15 @@ FastDFS架构图：/config/images/FastDFS结构示意图.jpg
 
 
 
+
+
+
+
+
+
+
+================================================================================
+================================================================================
+================================================================================
 ================================================================================
 ================================================================================
