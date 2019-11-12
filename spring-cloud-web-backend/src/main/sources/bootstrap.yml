@@ -1,0 +1,7 @@
+spring:
+  cloud:
+    config:
+      uri: http://3.113.65.65:8888
+      name: spring-cloud-eureka-client,spring-cloud-admin-client,spring-cloud-zipkin-client,spring-cloud-thymeleaf,spring-cloud-web-backend,spring-cloud-common-hosts
+      label: master
+      profile: dev

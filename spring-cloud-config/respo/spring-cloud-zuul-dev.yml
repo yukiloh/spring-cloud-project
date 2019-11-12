@@ -17,9 +17,14 @@ zuul:
     api-a:
       path: /api/a/**
       serviceId: spring-cloud-web-admin-ribbon
-    api-b:
-      path: /api/b/**
+#    feign适用于后续项目，进行改名backend后台
+    backend-admin:
+      path: /backend/admin/**
       serviceId: spring-cloud-web-admin-feign
+    backend-posts:
+      path: /backend/posts/**
+      serviceId: spring-cloud-web-psosts
+
 
 eureka:
   client:

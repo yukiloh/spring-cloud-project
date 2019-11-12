@@ -16,6 +16,7 @@
     <file url="file://$PROJECT_DIR$/spring-cloud-service-upload" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/spring-cloud-web-admin-feign" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/spring-cloud-web-admin-ribbon" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-cloud-web-backend" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/spring-cloud-web-posts" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/spring-cloud-zipkin" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/spring-cloud-zuul" charset="UTF-8" />
