@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: spring-cloud-web-backend
+
+server:
+  port: 8767

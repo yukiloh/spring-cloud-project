@@ -1,8 +1,12 @@
-# spring cloud 测试项目
+# spring cloud 
 关于分布式：所有项目可单独运行，而非单个模块。
 面向对象的设计:最少知识原则（Least Knowledge Principle）
 (参考：https://www.cnblogs.com/gaochundong/p/least_knowledge_principle.html)
 极限编程:只管当下
+
+spring cloud提供了快速构建分布式系统中的常用工具（配置管理，服务发现注册，断路器...）
+因此产生了一个样板模型、思想、标准
+其余例如spring cloud netflix 或者spring cloud alibaba等都是基于spring cloud的思想创建的分布式构建模板
 
 ##### 关于restful风格设计的一些原则:
 幂等性:HTTP 幂等方法，是指无论调用多少次都不会有不同结果的 HTTP 方法。例如:
@@ -1121,6 +1125,59 @@ RMQ中的交换机exchange类似于数据通信中的交换机
 
 *RMQ类似于网络组网,总RMQServer即三层交换机,MiniRMQServer即下层的交换机,消费者则为最下层的各主机
 
+##### 创建RMQ服务器端 通过docker
+基于docker，创建docker-compose.yml
+
+version: '3.1'
+services:
+  rabbitmq:
+    restart: always
+    image: rabbitmq:management
+    container_name: rabbitmq
+    ports:
+      - 5672:5672
+      - 15672:15672
+    environment:
+      TZ: Asia/Shanghai
+      RABBITMQ_DEFAULT_USER: rabbit
+      RABBITMQ_DEFAULT_PASS: dhnB0v42aAVs
+    volumes:
+      - ./data:/var/lib/rabbitmq
+# 注意修改用户名密码和容器位置即可
+
+RMQ默认地址:http://3.113.65.65:15672
+
+
+##### 使用rabbitMQ    基于spring提供的amqpTemplate
+服务提供者部分:
+1.创建配置类RabbitConfiguration,在其中创建队列
+2.创建服务提供者RabbitProvider,使用amqpTemplate发送至rabbitMQ服务器端
+3.创建配置文件yml,告知amqpTemplate服务器端的地址
+*可以使用此处使用测试类进行消息发送的测试
+
+服务消费者部分:
+1.创建RabbitConsumer,使用注解@RabbitListener(queues = "hello-rabbit")监听队列
+2.通过@RabbitHandler 创建方法，对监听的消息进行消费
+
+
+================================================================================
+
+#### Quartz 任务调度
+使用cron表示，指定一个计划周期来执行任务  spring提供了Quartz的配套模板
+-- cron表达式：通过规定的式子来表达执行周期，可以使用工具插件
+
+开启步骤：
+1.入口类添加@EnableScheduling 开启任务调度
+2.创建Quartz的执行类  方法上添加    @Scheduled(cron = "0/2 * * * * ?")，通过cron表达式来指定执行周期
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1140,8 +1197,6 @@ RMQ中的交换机exchange类似于数据通信中的交换机
 
 
 
-
-================================================================================
 ================================================================================
 ================================================================================
 ================================================================================

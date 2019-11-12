@@ -9,6 +9,8 @@
     <file url="file://$PROJECT_DIR$/spring-cloud-config" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/spring-cloud-dependencies" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/spring-cloud-eureka" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-cloud-hello-rabbit" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-cloud-quartz" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/spring-cloud-service-admin" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/spring-cloud-service-posts" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/spring-cloud-service-redis" charset="UTF-8" />

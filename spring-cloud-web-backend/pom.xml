@@ -14,15 +14,25 @@
     <packaging>jar</packaging>
 
     <name>spring-cloud-web-backend</name>
-<!--    <url>http://www.funtl.com</url>-->
-<!--    <inceptionYear>2018-Now</inceptionYear>-->
+    <!--    <url>http://www.funtl.com</url>-->
+    <!--    <inceptionYear>2018-Now</inceptionYear>-->
 
     <dependencies>
+        <dependency>
+            <groupId>com.test</groupId>
+            <artifactId>spring-cloud-common</artifactId>
+            <version>${parent.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>com.test</groupId>
             <artifactId>spring-cloud-common-web</artifactId>
             <version>${parent.version}</version>
         </dependency>
+
+
+
+
     </dependencies>
 
     <build>

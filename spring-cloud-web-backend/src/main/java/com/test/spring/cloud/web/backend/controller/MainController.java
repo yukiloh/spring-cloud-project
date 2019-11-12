@@ -8,7 +8,7 @@ public class MainController {
 
     /*用于聚合所有模块的主页面*/
     @GetMapping("/")
-    public String main(){
+    public String main() {
         return "main";
     }
 }
