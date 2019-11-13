@@ -20,12 +20,15 @@ public class WebPostsInterceptor implements HandlerInterceptor {
     @Value("${hosts.sso}")
     private String HOSTS_SSO;
 
+    @Value("${server.port}")
+    private String SERVER_PORT;
+
     @Autowired
     private RedisService redisService;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-        return BaseInterceptorMethods.preHandleForLogin(request, response, handler, "http://localhost:8766" + request.getServletPath(),HOSTS_SSO);
+        return BaseInterceptorMethods.preHandleForLogin(request, response, handler, "http://localhost:"+SERVER_PORT+"/" + request.getServletPath(),HOSTS_SSO);
     }
 
     @Override
@@ -37,7 +40,7 @@ public class WebPostsInterceptor implements HandlerInterceptor {
             if (StringUtils.isNotBlank(loginCode)){
                 String tbSysUserJson = tryToGetDataFromRedis(loginCode, retrial);
                 if (StringUtils.isNotBlank(loginCode)) {
-                    BaseInterceptorMethods.postHandleForLogin(request, response, handler, modelAndView, tbSysUserJson, "http://localhost:8766/" + request.getServletPath(), HOSTS_SSO);
+                    BaseInterceptorMethods.postHandleForLogin(request, response, handler, modelAndView, tbSysUserJson, "http://localhost:" + SERVER_PORT + "/" + request.getServletPath(), HOSTS_SSO);
                 }
             }
         }
@@ -47,9 +50,6 @@ public class WebPostsInterceptor implements HandlerInterceptor {
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
 
     }
-
-
-
 
     /*失败后重试*/
     private String tryToGetDataFromRedis(String key, int retrial) {

@@ -1,13 +1,18 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset = "UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<div th:insert="~{navBar::navBar}"></div>
 
-<!--<th:block th:include="includes/header :: header"></th:block>-->
+<!--插入（web-common模块下）includes下的head.html-->
+<head th:insert="~{includes/head::head}"></head>
+<!--貌似可以进行覆盖,来重写title-->
+<head><title>Main</title></head>
+
+<body>
+<!--插入navbar-->
+<!--th:block:thymeleaf处理模板引擎时会去除th:block模块,直接引入本身的内容-->
+<th:block th:insert="~{/includes/navbar::navbar}"></th:block>
+
+<th:block th:include="~{/includes/menu :: menu}"></th:block>
+
 <!--<th:block th:include="includes/menu :: menu"></th:block>-->
 
 

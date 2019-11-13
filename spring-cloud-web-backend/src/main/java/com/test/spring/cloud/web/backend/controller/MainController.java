@@ -17,4 +17,9 @@ public class MainController {
         return "welcome";
     }
 
+    @GetMapping("/navbar")
+    public String navbar() {
+        return "navbar";
+    }
+
 }
