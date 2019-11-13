@@ -6,7 +6,7 @@ spring:
     check-template-location: true  #check-tempate-location: 检查模板路径是否存在
     suffix:  .html
     cache: false
-    mode: HTML5
+    mode: HTML
     encoding: UTF-8
     servlet:
       content-type: text/html
