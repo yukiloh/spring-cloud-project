@@ -8,6 +8,10 @@ spring cloud提供了快速构建分布式系统中的常用工具（配置管�
 因此产生了一个样板模型、思想、标准
 其余例如spring cloud netflix 或者spring cloud alibaba等都是基于spring cloud的思想创建的分布式构建模板
 
+
+#### bug 狗屁问题 乱七八糟
+找不到.iml时候:  mvn idea:module
+
 ##### 关于restful风格设计的一些原则:
 幂等性:HTTP 幂等方法，是指无论调用多少次都不会有不同结果的 HTTP 方法。例如:
 GET     /tickets       # 获取ticket列表

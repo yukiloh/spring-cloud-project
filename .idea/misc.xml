@@ -32,6 +32,7 @@
         <option value="$PROJECT_DIR$/hello-quartz/pom.xml" />
         <option value="$PROJECT_DIR$/spring-cloud-quartz/pom.xml" />
         <option value="$PROJECT_DIR$/spring-cloud-web-backend/pom.xml" />
+        <option value="$PROJECT_DIR$/spring-cloud-rabbit/pom.xml" />
       </list>
     </option>
   </component>
