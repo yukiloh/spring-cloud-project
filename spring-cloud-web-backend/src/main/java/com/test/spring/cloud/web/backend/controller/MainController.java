@@ -11,4 +11,10 @@ public class MainController {
     public String main() {
         return "main";
     }
+
+    @GetMapping("/welcome")
+    public String welcome() {
+        return "welcome";
+    }
+
 }
