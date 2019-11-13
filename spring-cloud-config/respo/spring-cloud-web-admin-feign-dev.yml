@@ -10,6 +10,3 @@ feign:
   hystrix:
     enabled: true
 
-  #  允许bean被复写,暂时搁置
-  main:
-    allow-bean-definition-overriding: true
