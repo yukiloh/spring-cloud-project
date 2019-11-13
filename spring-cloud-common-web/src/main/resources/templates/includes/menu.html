@@ -5,36 +5,33 @@
     <title>Title</title>
 </head>
 <body th:fragment="menu">
-<aside class="main-sidebar">
+<side class="main-sidebar">
     <section class="sidebar">
-        <ul class="sidebar-menu" data-widget="tree">
-            <li class="header">功能菜单</li>
-            <li class="active treeview">
-                <a href="#">
-                    <i class="fa fa-users"></i> <span>管理员管理</span>
-                    <span class="pull-right-container">
-                      <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="/index"><i class="fa fa-circle-o"></i> 管理员列表</a></li>
-                    <li><a href="/form"><i class="fa fa-circle-o"></i> 新增管理员</a></li>
-                </ul>
-            </li>
-            <li class="active treeview">
-                <a href="#">
-                    <i class="fa fa-book"></i> <span>文章管理</span>
-                    <span class="pull-right-container">
-                      <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="#"><i class="fa fa-circle-o"></i> 文章列表</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o"></i> 新增文章</a></li>
-                </ul>
-            </li>
-        </ul>
+        <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
+            <ul>
+                <li>
+                    <a href="#">
+                        <span>页面局部信息刷新功能展示</span>
+                    </a>
+                    <ul >
+                        <li><a href="javascript:void(0);" id="btnAdminIndex" onclick="show(this.id)">页面一</a></li>
+                        <li><a href="javascript:void(0);" id="btnAdminNew" onclick="show(this.id)">页面二</a></li>
+                    </ul>
+                </li>
+<!--                <li>-->
+<!--                    <a href="#">-->
+<!--                        <span></span>-->
+<!--                        <span>文章管理</span>-->
+<!--                    </a>-->
+<!--                    <ul >-->
+<!--                        <li><a href="/index"></a></li>-->
+<!--                        <li><a href="/form"></a></li>-->
+<!--                    </ul>-->
+<!--                </li>-->
+            </ul>
+        </div>
+
     </section>
-</aside>
+</side>
 </body>
 </html>

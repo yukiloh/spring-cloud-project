@@ -2,24 +2,52 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
 <!--插入（web-common模块下）includes下的head.html-->
-<head th:insert="~{includes/head::head}"></head>
+<head>
+    <th:block th:insert="~{includes/head::head}"></th:block>
 <!--貌似可以进行覆盖,来重写title-->
-<head><title>Main</title></head>
+    <title>Main</title>
+    <style>
+        .page-height{height: 650px}
+        .right-border{border-right:5px solid #496168}
+        .all-border{border:5px solid #000068}
+    </style>
+</head>
 
 <body>
 <!--插入navbar-->
 <!--th:block:thymeleaf处理模板引擎时会去除th:block模块,直接引入本身的内容-->
 <th:block th:insert="~{/includes/navbar::navbar}"></th:block>
 
-<th:block th:include="~{/includes/menu :: menu}"></th:block>
 
-<!--<th:block th:include="includes/menu :: menu"></th:block>-->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-3 right-border page-height">
+            <th:block th:insert="~{/includes/menu :: menu}"></th:block>
+        </div>
+
+        <div class="col-md-9 all-border page-height">
+<!--            <iframe src="/welcome" id="iframe" name="iframe" onclick="show(this.id)" frameborder="0" style="width: 100%; heigh = 768px;"></iframe>-->
+            <iframe src="/welcome" id="iframe" name="iframe" onclick="show(this.id)" frameborder="0" style="width: 100%; heigh = 768px;"></iframe>
+        </div>
+
+    </div>
+</div>
 
 
-Hello world!
+<th:block th:insert="~{/includes/copyright :: copyright}"></th:block>
+<script>
+    var show = function (id) {
+        var iframe = document.getElementById("iframe");
+        if (id ==="btnAdminIndex") {
+            iframe.src = "/adminIndex/0/0";
+        }
+        else if(id ==="btnAdminNew") {
+            iframe.src = "/adminForm/null";
+        }
+    }
 
-
-<iframe src="/welcome" name="iframe" frameborder="0" style="width: 100%; heigh= 768px;" />
-
+</script>
 </body>
+
+
 </html>

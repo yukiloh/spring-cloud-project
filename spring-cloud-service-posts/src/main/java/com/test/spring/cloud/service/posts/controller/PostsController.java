@@ -32,7 +32,7 @@ public class PostsController {
 
         /*此处底层查询原理是tk.mybatis利用给予的属性(postGuid)来查询,如果遇到多个属性则使用and来拼接;
         * 如遇到需要使用or来查询的情况需要自行使用example方法来查询*/
-        /*一般性此种功能可以查询api文档,%但实际工作中大多数情况需要自己来猜%*/
+        /*一般性此种功能可以查询api文档, *但实际工作中大多数情况需要自己来猜* */
         TbPostsPost obj = postsService.selectOne(tbPostsPost);
         return BaseResult.ok(obj);
     }

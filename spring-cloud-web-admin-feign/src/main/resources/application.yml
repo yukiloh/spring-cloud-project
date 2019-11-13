@@ -1,36 +1,4 @@
-#spring:
-#  cloud:
-#    config:
-##      分布式配置中心的地址
-#      uri: http://localhost:8888
-##      配置文件的名称
-#      name: spring-cloud-web-admin-feign
-#      label: master
-#      profile: dev
-##      通过切换profile的方式来快速切换环境所对应配置
-##      profile: prod
-
-
-#当启用cloud云配置后下方配置不再使用
-#  application:
-#    name: spring-cloud-web-admin-feign
-#  thymeleaf:
-#    cache: false
-#    mode: LEGACYHTML5
-#    encoding: UTF-8
-#    servlet:
-#      content-type: text/html
-#
-#server:
-#  port: 8765
-#
-#eureka:
-#  client:
-#    serviceUrl:
-#      defaultZone: http://localhost:8761/eureka/
-#
-#
-#feign:
-##  开启熔断机制
-#  hystrix:
-#    enabled: true
+spring:
+  #  允许bean被复写,暂时搁置
+  main:
+    allow-bean-definition-overriding: true

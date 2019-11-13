@@ -1,9 +1,11 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
 
+</head>
 
 <!--定义一个名为head的模板片段-->
-<head th:fragment="head">
+<th:block th:fragment="head">
     <!--/*@thymesVar id="staticCSS" type="com.test.spring.cloud.common.web.interceptor"*/-->
     <link th:href="@{${staticCSS}+'bootstrap.min.css'}" rel="stylesheet">
 
@@ -14,12 +16,12 @@
     <script src="https://cdn.bootcss.com/wangEditor/10.0.13/wangEditor.min.js"></script>
 
     <!--/*@thymesVar id="staticJS" type="com.test.spring.cloud.common.interceptor.StaticSourcesInterceptor"*/-->
-    <script th:src="@{${staticJS}+'app.js'}"></script>
+<!--    <script th:src="@{${staticJS}+'app.js'}"></script>-->
     <script th:src="@{${staticJS}+'jquery.min.js'}"></script>
     <script th:src="@{${staticJS}+'bootstrap.min.js'}"></script>
     <script th:src="@{${staticJS}+'html5shiv.min.js'}"></script>
     <script th:src="@{${staticJS}+'respond.min.js'}"></script>
-</head>
+</th:block>
 <body>
 
 </body>
