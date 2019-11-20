@@ -1,7 +1,7 @@
 package com.test.spring.cloud.common.constants;
 
 public enum  HttpStatusConstants {
-    BAD_GATWAY(502,"从上游服务器接收到无效相应");
+    BAD_GATEWAY(502,"从上游服务器接收到无效相应");
 
     private int status;
     private String constant;

@@ -12,8 +12,8 @@ public class Fallback {
         BaseResult baseResult = BaseResult.notOk(Lists.newArrayList(
 //                new BaseResult.Error("502", "从上游服务器接收到无效相应")  /*常规写法*/
                 new BaseResult.Error(
-                        String.valueOf(HttpStatusConstants.BAD_GATWAY.getStatus()),
-                        HttpStatusConstants.BAD_GATWAY.getConstant())    /*使用枚举，只写一次*/
+                        String.valueOf(HttpStatusConstants.BAD_GATEWAY.getStatus()),
+                        HttpStatusConstants.BAD_GATEWAY.getConstant())    /*使用枚举，只写一次*/
         ));
         try {
             return MapperUtils.obj2json(baseResult);

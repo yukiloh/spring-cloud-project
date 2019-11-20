@@ -10,7 +10,6 @@
       <module fileurl="file://$PROJECT_DIR$/spring-cloud-config/spring-cloud-config.iml" filepath="$PROJECT_DIR$/spring-cloud-config/spring-cloud-config.iml" />
       <module fileurl="file://$PROJECT_DIR$/spring-cloud-dependencies/spring-cloud-dependencies.iml" filepath="$PROJECT_DIR$/spring-cloud-dependencies/spring-cloud-dependencies.iml" />
       <module fileurl="file://$PROJECT_DIR$/spring-cloud-eureka/spring-cloud-eureka.iml" filepath="$PROJECT_DIR$/spring-cloud-eureka/spring-cloud-eureka.iml" />
-      <module fileurl="file://$PROJECT_DIR$/spring-cloud-rabbit/spring-cloud-hello-rabbit.iml" filepath="$PROJECT_DIR$/spring-cloud-rabbit/spring-cloud-hello-rabbit.iml" />
       <module fileurl="file://$PROJECT_DIR$/spring-cloud-quartz/spring-cloud-quartz.iml" filepath="$PROJECT_DIR$/spring-cloud-quartz/spring-cloud-quartz.iml" />
       <module fileurl="file://$PROJECT_DIR$/spring-cloud-rabbit/spring-cloud-rabbit.iml" filepath="$PROJECT_DIR$/spring-cloud-rabbit/spring-cloud-rabbit.iml" />
       <module fileurl="file://$PROJECT_DIR$/spring-cloud-service-admin/spring-cloud-service-admin.iml" filepath="$PROJECT_DIR$/spring-cloud-service-admin/spring-cloud-service-admin.iml" />
