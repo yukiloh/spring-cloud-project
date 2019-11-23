@@ -11,4 +11,5 @@ spring:
     servlet:
       content-type: text/html
 
-
+  mvc:
+    static-path-pattern: /static/**   # 配置静态资源目录

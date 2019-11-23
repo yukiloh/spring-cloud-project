@@ -1,83 +1,154 @@
-<!DOCTYPE html>
-<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html lang = "en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset = "UTF-8">
-    <title>nav bar</title>
+    <title>navbar</title>
 </head>
 <body>
 
-<!--使用thymeleaf的fragment分段，抽取页面中的共同部位-->
-<div th:fragment="navbar">
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
+<!--
+插入语句
+<th:block th:insert="~{includes/navbar::navbar}" />
+-->
+<th:block th:fragment="navbar">
+    <nav class="main-header navbar navbar-expand navbar-white navbar-light" >
+        <!-- Left navbar links -->
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
+            </li>
+            <li class="nav-item d-none d-sm-inline-block">
+                <a href="/index" class="nav-link">主页</a>
+            </li>
+            <li class="nav-item d-none d-sm-inline-block">
+                <a href="#" class="nav-link">占位</a>
+            </li>
+        </ul>
 
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                    <span class="sr-only">Toggle navigation</span>
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="/homepage">主页</a>
+        <!-- SEARCH FORM -->
+        <form class="form-inline ml-3">
+            <div class="input-group input-group-sm">
+                <input class="form-control form-control-navbar" type="search" placeholder="查找" aria-label="Search">
+                <div class="input-group-append">
+                    <button class="btn btn-navbar" type="submit">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
             </div>
+        </form>
 
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-<!--                            <ul class="nav navbar-nav">
-                                <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
-                                <li><a href="#">Link</a></li>
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="#">Action</a></li>
-                                        <li><a href="#">Another action</a></li>
-                                        <li><a href="#">Something else here</a></li>
-                                        <li role="separator" class="divider"></li>
-                                        <li><a href="#">Separated link</a></li>
-                                        <li role="separator" class="divider"></li>
-                                        <li><a href="#">One more separated link</a></li>
-                                    </ul>
-                                </li>
-                            </ul>-->
-                <form class="navbar-form navbar-left" action="/search" method="get">
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="搜索问题" name="keyword">
+        <!-- Right navbar links -->
+        <ul class="navbar-nav ml-auto">
+            <!-- 消息Messages Dropdown Menu -->
+            <li class="nav-item dropdown" id="messages" v-cloak>
+                <a class="nav-link" data-toggle="dropdown" href="#">
+                    <i class="far fa-comments"></i>
+                    <span class="badge badge-danger navbar-badge" v-if="messages.total > 1 ">{{messages.total}}</span>
+                    <span class="badge badge-danger navbar-badge" v-else></span>
+                </a>
+
+                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" >
+                    <!--当无消息时-->
+                    <div v-if="messages.total < 1" >
+                        <div href="#" class="dropdown-footer greyFont">没有消息</div>
+                        <div class="dropdown-divider"></div>
                     </div>
-                    <button type="submit" class="btn btn-default">搜索</button>
-                </form>
 
-                <ul class="nav navbar-nav navbar-right">
-                    <!--传入GitHub的登陆连接--><!--url中,第一个参数使用?分割,之后使用&-->
-                    <!--client_id:传入服务器id-->    <!--redirect_uri= 获取返回的登陆页面-->
-                    <!--scope:获取user信息-->   <!--state: 生成随机字符串,防止跨站攻击-->
-                    <!--thymeleaf的if表达式,从session中获取user属性,为空则显示-->
-                    <li th:if="${session.communityUser == null }">
-                        <a href="/login">登陆</a>
-                    </li>
 
-                    <li class="dropdown" th:if="${session.communityUser != null }">
-                        <!--关于session.user.getLogin()获取用户账户,如果无法获取会出现404页面;此处get方法基于JavaBean-->
-                        <!--之后问题在于:无法持久化存储登录状态-->
-                        <a href="#" class="dropdown-toggle dropdown" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" >
-                            <span th:text="${session.communityUser.getUsername()}"></span>
-                            <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="/profile/newIssue">发布</a></li>
-                            <li><a href="/profile">我的问题</a></li>
-<!--                            <li><a href="#">项目3</a></li>-->
-                            <li role="separator" class="divider"></li>
-                            <li>
-                                <a href="/logout" >退出</a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div><!-- /.navbar-collapse -->
-        </div><!-- /.container-fluid -->
+
+                    <!-- 有消息时 Message Start -->
+                    <div v-else>
+                        <div v-if="messages.first.username != '' ">
+                            <a href="#" class="dropdown-item" >
+                                <div class="media" >
+                                    <img :src="messages.first.avatar" alt="User Avatar" class="img-size-50 mr-3 img-circle">
+                                    <div class="media-body">
+                                        <h3 class="dropdown-item-title">
+                                            {{messages.first.username}}
+                                            <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
+                                        </h3>
+                                        <p class="text-sm">{{messages.first.message}}</p>
+                                        <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i>{{messages.first.time}}</p>
+                                    </div>
+                                </div>
+                            </a>
+                            <div class="dropdown-divider"></div>
+                        </div>
+                        <div v-if="messages.second.username != '' ">
+                            <a href="#" class="dropdown-item" >
+                                <div class="media" >
+                                    <img :src="messages.second.avatar" alt="User Avatar" class="img-size-50 mr-3 img-circle">
+                                    <div class="media-body">
+                                        <h3 class="dropdown-item-title">
+                                            {{messages.second.username}}
+                                            <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
+                                        </h3>
+                                        <p class="text-sm">{{messages.second.message}}</p>
+                                        <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i>{{messages.second.time}}</p>
+                                    </div>
+                                </div>
+                            </a>
+                            <div class="dropdown-divider"></div>
+                        </div>
+                        <div v-if="messages.third.username != '' ">
+                            <a href="#" class="dropdown-item" >
+                                <div class="media" >
+                                    <img :src="messages.third.avatar" alt="User Avatar" class="img-size-50 mr-3 img-circle">
+                                    <div class="media-body">
+                                        <h3 class="dropdown-item-title">
+                                            {{messages.third.username}}
+                                            <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
+                                        </h3>
+                                        <p class="text-sm">{{messages.third.message}}</p>
+                                        <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i>{{messages.third.time}}</p>
+                                    </div>
+                                </div>
+                            </a>
+                            <div class="dropdown-divider"></div>
+                        </div>
+                    </div>
+                    <a href="#" class="dropdown-item dropdown-footer">查看所有消息</a>
+                </div>
+            </li>
+            <!-- 通知Notifications Dropdown Menu -->
+            <li class="nav-item dropdown" id="notifications" v-cloak>
+                <a class="nav-link" data-toggle="dropdown" href="#">
+                    <i class="far fa-bell"></i>
+                    <span class="badge badge-warning navbar-badge" v-if="notifications.messages.total+notifications.responses.total+notifications.reports.total > 0">{{notifications.messages.total+notifications.responses.total+notifications.reports.total}}</span>
+                    <span class="badge navbar-badge"v-else></span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                    <span class="dropdown-item dropdown-header">{{notifications.messages.total+notifications.responses.total+notifications.reports.total}}个提醒</span>
+                    <div class="dropdown-divider"></div>
+                    <a href="#" class="dropdown-item">
+                        <i class="fas fa-envelope mr-2"></i> {{notifications.messages.total}}个新的消息
+                        <span class="float-right text-muted text-sm">{{notifications.messages.time}}</span>
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a href="#" class="dropdown-item">
+                        <i class="fas fa-users mr-2"></i> {{notifications.responses.total}}个新的好友回复
+                        <span class="float-right text-muted text-sm">{{notifications.responses.time}}</span>
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a href="#" class="dropdown-item">
+                        <i class="fas fa-file mr-2"></i>  &nbsp;&nbsp;{{notifications.reports.total}}个新的报告
+                        <span class="float-right text-muted text-sm">{{notifications.reports.time}}</span>
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a href="#" class="dropdown-item dropdown-footer">查看所有提示</a>
+                </div>
+            </li>
+
+            <!--启用后会导致页面下方加载过长显示错误-->
+            <!--            <li class="nav-item">-->
+            <!--                <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#">-->
+            <!--                    <i class="fas fa-th-large"></i>-->
+            <!--                </a>-->
+            <!--            </li>-->
+        </ul>
     </nav>
+</th:block>
 
-</div>
 
 </body>
 </html>

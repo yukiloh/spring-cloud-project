@@ -313,15 +313,17 @@ Annotation：描述一个事件的情况；通常发生阻塞可以查看到各�
 
 #### 配置service-admin,使用tk.mybatis自动生成数据库查询命，并连接数据库
 依赖部分:
-1.service-admin依赖于所有服务提供者common-service；将service-admin中的pom全部移至common-service,并修改service-admin使其依赖spring-cloud-common-service
+1.service-admin依赖于所有服务提供者common-service
+    -- 将service-admin中的pom全部移至common-service
+    -- 并修改service-admin使其依赖spring-cloud-common-service
 2.导入相关依赖(tk.mybatis、PageHelper、sql连接驱动)(此处遇到因为遗漏mariaDB驱动包导致test失败!)
 
 创建接口：
 common-service中创建MyMapper的接口,为service-admin提供
 
 配置自动生成sql查询的代码：
-1.service-admin的pom中，增加tk.mybatis代码生成插件配置（注意此处的sql依赖的类型）
-2.tk.mybatis通过generatorConfig.xml的配置来生成代码,因此进行.xml的配置
+1.service-admin的pom中，增加mybatis.generator代码生成插件配置（注意此处的sql依赖的类型）
+2.mybatis.generator通过generatorConfig.xml的配置来生成代码,因此进行.xml的配置
 (需要另创建jdbc.prop,用于供读取sql连接信息;   另xml中*标记处为需要自定义修改内容)
 *关于xml中的sqlStatement: https://mybatis.org/generator/configreference/generatedKey.html
 3.(后期准备)yml中（远程config配置）增加数据库连接信息(用户名密码)
@@ -342,7 +344,7 @@ aws：
       username: root
       password: CVQ39Vyt3mg#B5
 
-*关于用docker生成mariadb，docker-compose代码如下：
+###### 关于用docker生成mariaDB的docker-compose代码如下：
 
 version: '3.1'
  
@@ -359,6 +361,57 @@ services:
 
 个人用户生成语法：
 INSERT INTO `service-admin`.tb_sys_user (user_code, login_code, user_name, PASSWORD, email, mobile, phone, sex, avatar, SIGN, wx_openid, mobile_imei, user_type, ref_code, ref_name, mgr_type, pwd_security_level, pwd_update_date, pwd_update_record, pwd_question, pwd_question_answer, pwd_question_2, pwd_question_answer_2, pwd_question_3, pwd_question_answer_3, pwd_quest_update_date, last_login_ip, last_login_date, freeze_date, freeze_cause, user_weight, STATUS, create_by, create_date, update_by, update_date, remarks, corp_code, corp_name, extend_s1, extend_s2, extend_s3, extend_s4, extend_s5, extend_s6, extend_s7, extend_s8, extend_i1, extend_i2, extend_i3, extend_i4, extend_f1, extend_f2, extend_f3, extend_f4, extend_d1, extend_d2, extend_d3, extend_d4) VALUES ('fccf287e-d12c-4321-930b-df27afcb6997', 'test@test.com', 'username', '96e79218965eb72c92a549dd5a330112', 'password@111111.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, '1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', 'fccf287e-d12c-4321-930b-df27afcb6997', '2019-10-27 19:15:48', 'fccf287e-d12c-4321-930b-df27afcb6997', '2019-10-27 19:15:48', NULL, '0', 'test', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+
+##### 关于mybatis-generator(MBG)的使用
+自动生产mybatis的插件
+1.添加依赖依赖:(注意修改generatorConfig.xml的位置和依赖的sql依赖,此处是maria)
+<build>
+    <plugins>
+        <!--mybatis代码生成-->
+        <plugin>
+            <groupId>org.mybatis.generator</groupId>
+            <artifactId>mybatis-generator-maven-plugin</artifactId>
+            <version>1.3.5</version>
+            <configuration>
+                <configurationFile>${basedir}/src/main/resources/generator/generatorConfig.xml</configurationFile>
+                <overwrite>true</overwrite>
+                <verbose>true</verbose>
+            </configuration>
+            <dependencies>
+                <!--此处不是mysql的依赖-->
+                <dependency>
+                    <groupId>org.mariadb.jdbc</groupId>
+                    <artifactId>mariadb-java-client</artifactId>
+                    <version>${mariadb.version}</version>
+                </dependency>
+                <!--引入mybatis的(tk)依赖-->
+                <dependency>
+                    <groupId>tk.mybatis</groupId>
+                    <artifactId>mapper</artifactId>
+                    <version>3.4.4</version>
+                </dependency>
+            </dependencies>
+        </plugin>
+    </plugins>
+</build>
+
+2.添加generatorConfig.xml,配置其中的自定义属性
+
+3.通过maven的plugins生成
+
+
+##### 关于tk.mybatis
+国人制作的一款,提供通用单表增删改查的工具(不支持通用多表联合查询!)
+
+1.创建自定义Mapper类(需要指定泛型),可以继承Mapper等
+例如:public interface MyMapper<T> extends Mapper<T>, MySqlMapper<T> {
+详细接口文档:https://mapperhelper.github.io/all/
+
+2.在入口类添加@MapperScan,并指定mapper的路径(可以添加多个)
+例如:@MapperScan("com.example.AdminLET.mapper")
+
+
+
 
 #### service-admin 正式编写服务提供者的内容
 *项目需要先写在测试类中(测试先行)   缺点:费时   优点:代码质量高，且越写越容易
@@ -660,7 +713,6 @@ redis:      192.168.2.110:6379      ,6380,6381
 sentinel:   192.168.2.110:26379     ,26380,26381
 
 *关于redis集群配置密码：https://www.cnblogs.com/hckblogs/p/11186311.html
-aws-redis密码：pQxWfm339xbT@#
 
 ##### 项目中使用redis
 redis属于服务提供者,因此需要创建spring-cloud-service-redis项目
@@ -1149,7 +1201,7 @@ services:
       - ./data:/var/lib/rabbitmq
 # 注意修改用户名密码和容器位置即可
 
-RMQ默认地址:http://3.113.65.65:15672
+RMQ地址:http://3.113.65.65:15672
 
 
 ##### 使用rabbitMQ    基于spring提供的amqpTemplate
@@ -1179,17 +1231,8 @@ cron生成器：http://cron.qqe2.com/
 ================================================================================
 
 
-
-
-
-
-
-
-
-
-
 *尝试实现网关聚合
-
+网关整合阶段因服务器问题，无法进行测试，所整合的adminLET必然存在端口错误无法访问等问题
 
 
 

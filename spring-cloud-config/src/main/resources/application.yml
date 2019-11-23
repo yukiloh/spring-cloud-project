@@ -18,7 +18,7 @@ spring:
           search-paths: /spring-cloud-config/respo
 #          git的用户名&密码
           username: yukiloh@qq.com
-          password: vq!@frYH!#19
+          password:
   # 链路追踪
   zipkin:
     base-url: http://localhost:9411
