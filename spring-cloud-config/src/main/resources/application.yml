@@ -17,7 +17,7 @@ spring:
 #          uri下的路径
           search-paths: /spring-cloud-config/respo
 #          git的用户名&密码
-          username: yukiloh@qq.com
+          username:
           password:
   # 链路追踪
   zipkin:
