@@ -28,7 +28,7 @@ Java Version：12(原使用1.8，因需要部署至Docker-OpenJDK11容器中；�
 
 页面引擎：Thymeleaf
 
-ORM 框架：tk.mybatis（通用mybatis）
+ORM 框架：tk.mybatis（通用Mapper）
 
 数据库连接池：Hikari
 
