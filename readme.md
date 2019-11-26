@@ -5,7 +5,7 @@
 #### 部署环境
 操作系统：Amazon AWS 服务器（1C1G） Ubuntu 18
 虚拟化技术：Docker（通过Docker-Compose配置容器）
-数据库：MariaDB（Docker-latest）
+数据库：MariaDB（Docker-10.4）
 Java Version：12(原使用1.8，因需要部署至Docker-OpenJDK11容器中；已解决javax.xml.bind.JAXBContext的依赖问题)
 
 #### 项目工具
