@@ -23,12 +23,6 @@
             <artifactId>spring-cloud-common</artifactId>
             <version>${parent.version}</version>
         </dependency>
-
-        <dependency>
-            <groupId>com.test</groupId>
-            <artifactId>spring-cloud-common-domain</artifactId>
-            <version>${parent.version}</version>
-        </dependency>
         <!-- Spring Boot Begin -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

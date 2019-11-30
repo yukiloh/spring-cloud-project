@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class RedisServiceFallback implements RedisService {
-    /*与feign中的熔断机制相同，在common创建通用的熔断方法*/
+    /*于feign中的熔断机制相同，在common创建通用的熔断方法*/
     @Override
     public String put(String key, String value, long seconds) {
         return null;
@@ -14,7 +14,6 @@ public class RedisServiceFallback implements RedisService {
 
     @Override
     public String get(String key) {
-        System.out.println("####get redis value failed!####");
         return null;
     }
 

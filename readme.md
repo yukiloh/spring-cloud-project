@@ -1,16 +1,8 @@
-# spring cloud 
+# spring cloud 测试项目
 关于分布式：所有项目可单独运行，而非单个模块。
 面向对象的设计:最少知识原则（Least Knowledge Principle）
 (参考：https://www.cnblogs.com/gaochundong/p/least_knowledge_principle.html)
 极限编程:只管当下
-
-spring cloud提供了快速构建分布式系统中的常用工具（配置管理，服务发现注册，断路器...）
-因此产生了一个样板模型、思想、标准
-其余例如spring cloud netflix 或者spring cloud alibaba等都是基于spring cloud的思想创建的分布式构建模板
-
-
-#### bug 狗屁问题 乱七八糟
-找不到.iml时候:  mvn idea:module
 
 ##### 关于restful风格设计的一些原则:
 幂等性:HTTP 幂等方法，是指无论调用多少次都不会有不同结果的 HTTP 方法。例如:
@@ -292,8 +284,6 @@ Annotation：描述一个事件的情况；通常发生阻塞可以查看到各�
 #### 微服务逻辑关系
 本章节会着重对架构方面知识进行学习
 
-
-
 服务提供者1  服务提供者2  服务提供者3
     ↓           ↓           ↓
 服务消费者1  服务消费者2  服务消费者3
@@ -302,7 +292,6 @@ Annotation：描述一个事件的情况；通常发生阻塞可以查看到各�
                 ↓
 -            前台调用
 
-聚合微服务的结构图：/config/images/聚合微服务结构图.jpg
 服务消费者 ← 服务提供者         ←   数据库
 (feign)     (service-admin)
 所有的服务提供者都会获取数据库信息,因此需要创建一个提供给服务提供者专用的common-service通用接口
@@ -313,17 +302,15 @@ Annotation：描述一个事件的情况；通常发生阻塞可以查看到各�
 
 #### 配置service-admin,使用tk.mybatis自动生成数据库查询命，并连接数据库
 依赖部分:
-1.service-admin依赖于所有服务提供者common-service
-    -- 将service-admin中的pom全部移至common-service
-    -- 并修改service-admin使其依赖spring-cloud-common-service
+1.service-admin依赖于所有服务提供者common-service；将service-admin中的pom全部移至common-service,并修改service-admin使其依赖spring-cloud-common-service
 2.导入相关依赖(tk.mybatis、PageHelper、sql连接驱动)(此处遇到因为遗漏mariaDB驱动包导致test失败!)
 
 创建接口：
 common-service中创建MyMapper的接口,为service-admin提供
 
 配置自动生成sql查询的代码：
-1.service-admin的pom中，增加mybatis.generator代码生成插件配置（注意此处的sql依赖的类型）
-2.mybatis.generator通过generatorConfig.xml的配置来生成代码,因此进行.xml的配置
+1.service-admin的pom中，增加tk.mybatis代码生成插件配置（注意此处的sql依赖的类型）
+2.tk.mybatis通过generatorConfig.xml的配置来生成代码,因此进行.xml的配置
 (需要另创建jdbc.prop,用于供读取sql连接信息;   另xml中*标记处为需要自定义修改内容)
 *关于xml中的sqlStatement: https://mybatis.org/generator/configreference/generatedKey.html
 3.(后期准备)yml中（远程config配置）增加数据库连接信息(用户名密码)
@@ -344,7 +331,7 @@ aws：
       username: root
       password: CVQ39Vyt3mg#B5
 
-###### 关于用docker生成mariaDB的docker-compose代码如下：
+*关于用docker生成mariadb，docker-compose代码如下：
 
 version: '3.1'
  
@@ -361,57 +348,6 @@ services:
 
 个人用户生成语法：
 INSERT INTO `service-admin`.tb_sys_user (user_code, login_code, user_name, PASSWORD, email, mobile, phone, sex, avatar, SIGN, wx_openid, mobile_imei, user_type, ref_code, ref_name, mgr_type, pwd_security_level, pwd_update_date, pwd_update_record, pwd_question, pwd_question_answer, pwd_question_2, pwd_question_answer_2, pwd_question_3, pwd_question_answer_3, pwd_quest_update_date, last_login_ip, last_login_date, freeze_date, freeze_cause, user_weight, STATUS, create_by, create_date, update_by, update_date, remarks, corp_code, corp_name, extend_s1, extend_s2, extend_s3, extend_s4, extend_s5, extend_s6, extend_s7, extend_s8, extend_i1, extend_i2, extend_i3, extend_i4, extend_f1, extend_f2, extend_f3, extend_f4, extend_d1, extend_d2, extend_d3, extend_d4) VALUES ('fccf287e-d12c-4321-930b-df27afcb6997', 'test@test.com', 'username', '96e79218965eb72c92a549dd5a330112', 'password@111111.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, '1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', 'fccf287e-d12c-4321-930b-df27afcb6997', '2019-10-27 19:15:48', 'fccf287e-d12c-4321-930b-df27afcb6997', '2019-10-27 19:15:48', NULL, '0', 'test', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-
-##### 关于mybatis-generator(MBG)的使用
-自动生产mybatis的插件
-1.添加依赖依赖:(注意修改generatorConfig.xml的位置和依赖的sql依赖,此处是maria)
-<build>
-    <plugins>
-        <!--mybatis代码生成-->
-        <plugin>
-            <groupId>org.mybatis.generator</groupId>
-            <artifactId>mybatis-generator-maven-plugin</artifactId>
-            <version>1.3.5</version>
-            <configuration>
-                <configurationFile>${basedir}/src/main/resources/generator/generatorConfig.xml</configurationFile>
-                <overwrite>true</overwrite>
-                <verbose>true</verbose>
-            </configuration>
-            <dependencies>
-                <!--此处不是mysql的依赖-->
-                <dependency>
-                    <groupId>org.mariadb.jdbc</groupId>
-                    <artifactId>mariadb-java-client</artifactId>
-                    <version>${mariadb.version}</version>
-                </dependency>
-                <!--引入mybatis的(tk)依赖-->
-                <dependency>
-                    <groupId>tk.mybatis</groupId>
-                    <artifactId>mapper</artifactId>
-                    <version>3.4.4</version>
-                </dependency>
-            </dependencies>
-        </plugin>
-    </plugins>
-</build>
-
-2.添加generatorConfig.xml,配置其中的自定义属性
-
-3.通过maven的plugins生成
-
-
-##### 关于tk.mybatis
-国人制作的一款,提供通用单表增删改查的工具(不支持通用多表联合查询!)
-
-1.创建自定义Mapper类(需要指定泛型),可以继承Mapper等
-例如:public interface MyMapper<T> extends Mapper<T>, MySqlMapper<T> {
-详细接口文档:https://mapperhelper.github.io/all/
-
-2.在入口类添加@MapperScan,并指定mapper的路径(可以添加多个)
-例如:@MapperScan("com.example.AdminLET.mapper")
-
-
-
 
 #### service-admin 正式编写服务提供者的内容
 *项目需要先写在测试类中(测试先行)   缺点:费时   优点:代码质量高，且越写越容易
@@ -713,6 +649,7 @@ redis:      192.168.2.110:6379      ,6380,6381
 sentinel:   192.168.2.110:26379     ,26380,26381
 
 *关于redis集群配置密码：https://www.cnblogs.com/hckblogs/p/11186311.html
+aws-redis密码：pQxWfm339xbT@#
 
 ##### 项目中使用redis
 redis属于服务提供者,因此需要创建spring-cloud-service-redis项目
@@ -753,8 +690,7 @@ spring:
 ##### 使用redis实现单点登录SSO（SingleSignOn）    既是服务消费者，也是提供者
 使用传统的cookie可以通过共享域名来交换会话，但缺点1.域名必须统一；2.无法实现跨语言；3.cookie本身不安全
 
-
-示意图：/config/images/单点登录示意图.jpg          
+单点登录示意图          
                       局部会话          全局会话
 网页（客户端）     →     服务端     →     SSO（需要获取客户端地址用于返回跳转页面）
                 登陆             校验   授权
@@ -783,8 +719,7 @@ spring:
 3.cookie本身不安全      →redis中使用uuid,通过uuid来验证loginCode
 因此需要在loginController中完善cookie的问题3
 
-关于loginController的逻辑:/config/images/loginController登陆逻辑示意图.jpg
-
+关于loginController的逻辑:
 登陆后进行判断     →   有token  →   查找loginCode     →   匹配则回传user对象
                  →    无token  →     进行登录,验证用户名密码    →   登陆完成后赋予token
 *错误点:获取user时使用了错误的变量!
@@ -837,16 +772,12 @@ spring:
 ================================================================================
 ================================================================================
 
-### 后半场的工作
+#### 后半场的工作
 1.实现Spring Cloud Config Client 通用配置
-2.实现Spring Boot MyBatis Redis 二级缓存，用于缓存一些不太变化的数据
-3.swagger2接口文档引擎
-4.管理员服务、文章服务实现CRUD 功能
-5.使用FastDFS 实现图片上传
-
-
-================================================================================
-================================================================================
+2.管理员服务、文章服务实现CRUD 功能
+3.实现Spring Boot MyBatis Redis 二级缓存，用于缓存一些不太变化的数据
+4.swagger2接口文档引擎
+4.使用FastDFS 实现图片上传
 
 ##### 1.关于通用配置
 可以通过配置通用配置文件（common-service），使一些通用的配置（如eureka、admin、zipkin等）统一归类
@@ -859,13 +790,41 @@ spring:
       label: master
       profile: dev
 
-*有坑，导致service-admin出现sql类型的错误，暂时禁用（已解决）
+*有坑，导致service-admin出现sql类型的错误，暂时禁用
 
 
 ================================================================================
 
 
-##### 2.实现MyBatis Redis 二级缓存功能      对于一个新知识的学习方法:了解技术-实现技术
+##### 2.关于管理员服务、文章服务类的crud功能
+###### 前置工作（对原有service-admin项目进行重构）
+1.创建数据库service-posts（脚本文件于config.sql中）
+2.重构项目中关于sql的代码
+    -- 已规定,连接数据库的必然是服务提供者,因此将数据库连接功能移至common-service中;创建generatorConfig.xml进行配置(user和post2个数据库)
+    -- 进行共性抽取,在common-domain中创建领域模型BaseDomain和2个衍生实体类post&user(注意需要继承领域模型)
+3.在common-service中编写领域模型crud业务逻辑
+    -- 创建接口类BaseService和实体类BaseServiceImpl,编写领域模型的crud业务逻辑(注意勿忘事务管理!)
+4.在service-admin中继承领域模型的crud类
+5.在service-admin中的controller编写业务
+    -- 基于Restful风格进行api解口的编写
+        当访问/v1/admins//page/{pageNum}/{pageSize}时，返回一个带有（user）list,（页码）cursor的结果集
+
+###### service-posts 文章服务的提供者的具体业务步骤
+1.创建service-posts项目,pom内容基本基于service-admin
+2.创建mapper.TbPostsPostExtendMapper(扩展mapper),和相对应的resources下的mapper.xml
+3.编写service层;写接口,写实现类;
+ (类似于adminController,提供保存(更新)文章 根据id获取文章 分页查询的功能;   实际工作中需要*严格*依据API文档,为前端提供功能!!)
+*错误点：因框架布局混乱导致mbg生成的实体类和mapper文件混乱，最后拓展的实体类统一至common-service（基类BaseDomain位于common-domain下）
+且service-posts的config只会读取数据库service-posts（service-admin相同），而讲师的mbg是全读取
+因此生成的实体类文件 @Table(name = "service-posts..tb_posts_post")处不相同
+
+*此处因为创建了第二个mapper，因此将原有的UserMapper一起进行归类，统一继承被BaseService所调用（而BS则会被其他的service所继承）
+犯错点：BaseService应该是抽象类！！！！！
+
+================================================================================
+
+
+##### 3.实现MyBatis Redis 二级缓存功能      对于一个新知识的学习方法:了解技术-实现技术
 了解技术:什么是二级缓存
 ###### 先了解什么是一级缓存
 一级缓存是 SqlSession 级别(内存级)的缓存，存在于内存区域，第二次查询时会从一级缓存中查找数据；
@@ -928,7 +887,7 @@ mybatis:
 ================================================================================
 
 
-#### 3.swagger2接口文档引擎   
+#### 4.swagger2接口文档引擎   
 主要作用：免去写文档的工作量
 缺点:入侵式; spring则是非入侵式
 
@@ -957,34 +916,7 @@ swagger可以在扫描的路径下（controller层）
 
 ================================================================================
 
-
-##### 4.关于管理员服务、文章服务类的crud功能
-###### 前置工作（对原有service-admin项目进行重构）
-1.创建数据库service-posts（脚本文件于config.sql中）
-2.重构项目中关于sql的代码
-    -- 已规定,连接数据库的必然是服务提供者,因此将数据库连接功能移至common-service中;创建generatorConfig.xml进行配置(user和post2个数据库)
-    -- 进行共性抽取,在common-domain中创建领域模型BaseDomain和2个衍生实体类post&user(注意需要继承领域模型)
-3.在common-service中编写领域模型crud业务逻辑
-    -- 创建接口类BaseService和实体类BaseServiceImpl,编写领域模型的crud业务逻辑(注意勿忘事务管理!)
-4.在service-admin中继承领域模型的crud类
-5.在service-admin中的controller编写业务
-    -- 基于Restful风格进行api解口的编写
-        当访问/v1/admins//page/{pageNum}/{pageSize}时，返回一个带有（user）list,（页码）cursor的结果集
-
-###### service-posts 文章服务的提供者的具体业务步骤
-1.创建service-posts项目,pom内容基本基于service-admin
-2.创建mapper.TbPostsPostExtendMapper(扩展mapper),和相对应的resources下的mapper.xml
-3.编写service层;写接口,写实现类;
- (类似于adminController,提供保存(更新)文章 根据id获取文章 分页查询的功能;   实际工作中需要*严格*依据API文档,为前端提供功能!!)
-*错误点：因框架布局混乱导致mbg生成的实体类和mapper文件混乱，最后拓展的实体类统一至common-service（基类BaseDomain位于common-domain下）
-且service-posts的config只会读取数据库service-posts（service-admin相同），而讲师的mbg是全读取
-因此生成的实体类文件 @Table(name = "service-posts..tb_posts_post")处不相同
-
-*此处因为创建了第二个mapper，因此将原有的UserMapper一起进行归类，统一继承被BaseService所调用（而BS则会被其他的service所继承）
-犯错点：BaseService应该是抽象类！！！！！
-
-
-#####  为admin-posts创建服务消费者web-post
+####  为admin-posts创建服务消费者web-post
 创建步骤基本和web-admin相同
 因为进行第二次编写,所以先对原有代码进行重构
     -- config中创建通用hosts,抽取sso的登陆地址
@@ -1001,137 +933,16 @@ swagger可以在扫描的路径下（controller层）
 2.创建RedisService(和fallback)，通过feign指向service-redis
 
 
-##### 创建消费者分页功能 PostService     创建前端的页面，并展示效果
-提供的服务内容： 分页查看（√），文章查看（√），创建文章（×）
-页面模板方面（thymeleaf）:  (因html页面无法创建成功，此处是概念，没有实际内容)
-    -- 为静态js资源共性抽取 在common-web的resources下创建static.assets.app,存放所有js资源
-       (打包时利用maven的打包机制 <script src="/assets/app/validate.js"></script> 直接从根目录引用)
-    -- 为页面进行共性抽取,使用thymeleaf的include功能  <th:block th:include="includes/head :: head"></th:block>  
-       从其他页面引入模块资源  模块资源统一放置在common-web的templates.includes下
-       
-controller方面:
-    -- 创建BaseController,使其他controller去继承他,并创建为bc服务的BaseClientService和DataTablesResult
-    -- 进行共性抽取,重构service 创建BaseClientService,使其他service继承他
-    -- 创建DataTablesResult,用于接收page方法的结果集
-       (注意,他继承了BaseResult,并将需要的属性集进行了封装,无论从哪里请求结果都可以拿到完整,并附带额外需要的结果)
-       (面向对象的修改原则，里氏替换原则
-        里氏的概括:子类可以扩展父类的功能，但是不能改变父类原有的功能,即所有父类出现的地方,都可以用子类代替)
-    -- 开发html，读取BaseController提供的页面
-
-*redis存在写入/读取失败的问题，已在需要读取/存放redis的代码处插入了重试器；    或者可以通过设置feign的等待时间来解决（待开发）
-*html内容跨度过大，略过，只提供返回前台简单的json数据
-
-
-================================================================================
-
-
-#### 5.FastDFS  分布式文件系统     为微服务提供文件上传下载功能
-FastDFS是一个开源的轻量级分布式文件系统，提供文件存储、文件同步、文件访问（文件上传、文件下载）等功能
-主要解决了*大容量存储*和*负载均衡*的问题
-
-服务端有2个角色：跟踪器（tracker）和存储节点（storage）
--- 跟踪器主要完成调度工作，在访问上起负载均衡的作用
--- 存储节点则进行存储、同步和提供存取接口的功能
-
-*fastDFS需要与nginx相结合：
--- FastDFS的客户端可进行文件的上传、下载、删除等操作，同时通过 FastDFS 的 HTTP 服务器来提供 HTTP 服务
-   但是 FastDFS 的 HTTP 服务较为简单，无法提供负载均衡等高性能的服务，我们需要使用 FastDFS 的 Nginx 模块来弥补这一缺陷
-
-FastDFS架构图：/config/images/FastDFS结构示意图.jpg
-
-关于追踪器的功能示意图：/config/images/FastDFS追踪器的功能示意图.jpg
-
-##### 在服务器端安装FastDFS
-1.下载FastDFS.zip(/config/apps/)
-2.创建并配置docker-compost.yml
-
-version: '3.1'
-services:
-  fastdfs:
-    build: environment
-    restart: always
-    container_name: fastdfs
-    volumes:
-      - ./storage:/fastdfs/storage
-    # 主机模式,将容器的所有端口都暴露
-    network_mode: host
-    
-3. ./environment下创建并配置Dockerfile    (FastDFS.zip中存在,注意修改port的端口)
-4.修改storage.conf 中跟踪器的ip地址(修改为服务器端的ip地址)
-5.修改client.conf中追踪器的ip地址
-6.修改mod_fastdfs.conf中追踪器的ip地址
-*4 5 6类似于服务发现与注册,FastDFS自带服务器端和客户端,需要让二者互相发现对方
-
-7.修改nginx.conf中的端口(例如:8888→8899)
-8.构建,并运行  
- -- docker-compose build        -- docker-compost up -d
-9.测试上传功能
- --   上传命令↓         上传的文件↓                上传地址至
- -- fdfs_upload_file /etc/fdfs/client.conf /usr/local/src/fastdfs-5.11/INSTALL
-
-上传完成后会返回文件的uri
-本案例参考:  http://3.113.65.65:8899/group1/M00/00/00/rB8AkF3JFUKAQmogAAAeSwu9TgM2083402
-补充:     宿主机的文件夹路径 /root/docker/fastDFS/environment      
-          docker中的地址    /etc/fdfs/
-
-##### 创建service-upload FastDFS的服务上传模块       只负责上传功能
-1.创建pom文件(可以从redis中复制)
-2.引入依赖:fastdfs-client-java; 可以参考:https://www.jianshu.com/p/c39ca1ee222b
-3.添加工具类 (fastdfs包下)
-4.添加云配置,此为自定义配置,需要根据服务器情况进行更改
-
-fastdfs.base.url: http://3.113.65.65:8899/
-storage:
-  type: fastdfs
-  fastdfs:
-    tracker_server: 3.113.65.65:22122
-
-5.创建UploadController(提供文件上传功能)
-测试页面为web-posts下的index.html
-再引入必要的js&css资源后可以正常使用
-参考连接: http://3.113.65.65:8899/group1/M00/00/00/rB8AkF3JdWiAWQHoAAMLrbVliv8146.jpg
-上传成功后会返回文件名
-
-
-================================================================================\
-
-
-#### 后台聚合服务
-完成了2个服务消费者后，需要通过网关（zuul）来供后台页面去读取所有的消费者页面
-实际开发中网关需要按照职责进行划分因此后台连接网关的中间需要创建nginx，来提供反向代理
-参考：/config/images/添加了网关后的项目结构图.jpg
-
-
-##### 使用行内框架iFrame实现局部页面刷新
-通过th:include加载页头、侧边栏、页脚、copyright
-中间内容展示部分可以通过iFrame加载
-    页头....
-    侧边栏....
-    <iframe src="/index" name="iframe" frameborder="0" style="width: 100%; heigh= 768px;" />
-    页脚....
-
-其中src地址可以进行替换，因此使用脚本，与侧边栏的button相结合，来实现跳转页面的功能
-侧边栏button的写法：
-    <a href="javascript:void(0);" id="btnPostsIndex" onclick="show(this.id)">index</a>
-    <a href="javascript:void(0);" id="btnPostsForm" onclick="show(this.id)">form</a>
-
-脚本的写法：
-    var iframe = document.getElementById("iframe"");    
-    if (id ==="btnPostsIndex") {
-        iframe.src = "/index";
-    }
-    else if(id ==="btnPostsForm") {
-        iframe.src = "/form";
-    }
-
-或者可以使用nth-tabs插件，步骤略
+##### 创建消费者分页功能 PostService
 
 
 
-##### 使用zuul聚合各模块的内容
 
 
-##### 使用web-backend读取zuul提供的各模块的页面
+
+
+
+
 
 
 
@@ -1139,112 +950,5 @@ storage:
 
 
 ================================================================================
-
-
-#### 消息队列 MessageQueue
-MQ 带给我的“协议”不是具体的通讯协议，而是更高层次通讯模型
-它定义了两个对象——发送数据的叫生产者
-接收数据的叫消费者， 提供一个 SDK 让我们可以定义自己的生产者和消费者实现消息通讯而无视底层通讯协议
-
-MQ 真正的目的是为了通讯，屏蔽底层复杂的通讯协议，定义了一套应用层的、更加简单的通讯协议
-即简化通讯，解决通信的问题，实现解耦
-
-消息队列实现了FIFO（先进先出），且具有缓存的能力
-
-##### 消息队列的流派
-
-有broker的mq：存在中间件broker，所有消息经过broker再转发至客户端，例如：
--- 重Topic：kafka、JMS     kafka传输效率块的原因：将大量消息队列压缩，再发送至客消费者进行解压；容易造成消息丢失
--- 轻Topic：RabbitMQ  生产者将消息存放至指定的key，消费者通过消息订阅来获取属于自己队列queue（数据）；
-   可以实现负载均衡，队列大小取决于服务器的内存
-   此种模式下属于轻量级的topic，生产者只需关注消息存放，消费者只需关心自身的队列，用于映射key和queue的称为交换机（exchange）
-
-无broker的mq：没有broker
--- 代表：ZeroMQ
-   因为MQ解决的socket通讯问题，因此将broker设计为一个 库 而非中间件，库 即是服务端，也是消费端，通过重量级的Actor模型来实现
-
--- 关于Actor模型
-   Actor属于并行 异步消息模型，Actor模型需要满足操作系统对进程/线程的要求
-   最重要的一点是必须实现公平调度，然而java的akka是无法实现公平调度的，erLang可以
-   而RabbitMQ是通过ErLang语言实现的，因此本项目采用RabbitMQ作为消息队列
-
-
-##### 关于RabbitMQ 
-基于ErLang语言开发，具有实现高可用高并发，适用于集群服务器
-支持多语言，跨平台   有消息确认和持久化机制，可靠  且开源
-RMQ可将消息设置为持久化、临时、或自动删除
-RMQ中的交换机exchange类似于数据通信中的交换机
--- 生产者在传递消息时会附带一个ROUTING_KEY,exchange根据key指定给专用的消费者(即路由器中arp协议)
--- (而arp伪装即伪装自己的ip地址欺骗交换机)
-而RMQ Server会创建多各虚拟的Massage Broker(即VirtualHosts),也即小型的MQ Server,保证边界隔离相互之间不会干扰
--- 因此生产者和消费者连接RMQ Server时,需要指定一个virtual host
-
-*RMQ类似于网络组网,总RMQServer即三层交换机,MiniRMQServer即下层的交换机,消费者则为最下层的各主机
-
-##### 创建RMQ服务器端 通过docker
-基于docker，创建docker-compose.yml
-
-version: '3.1'
-services:
-  rabbitmq:
-    restart: always
-    image: rabbitmq:management
-    container_name: rabbitmq
-    ports:
-      - 5672:5672
-      - 15672:15672
-    environment:
-      TZ: Asia/Shanghai
-      RABBITMQ_DEFAULT_USER: rabbit
-      RABBITMQ_DEFAULT_PASS: dhnB0v42aAVs
-    volumes:
-      - ./data:/var/lib/rabbitmq
-# 注意修改用户名密码和容器位置即可
-
-RMQ地址:http://3.113.65.65:15672
-
-
-##### 使用rabbitMQ    基于spring提供的amqpTemplate
-服务提供者部分:
-1.创建配置类RabbitConfiguration,在其中创建队列
-2.创建服务提供者RabbitProvider,使用amqpTemplate发送至rabbitMQ服务器端
-3.创建配置文件yml,告知amqpTemplate服务器端的地址
-*可以使用此处使用测试类进行消息发送的测试
-
-服务消费者部分:
-1.创建RabbitConsumer,使用注解@RabbitListener(queues = "hello-rabbit")监听队列
-2.通过@RabbitHandler 创建方法，对监听的消息进行消费
-
-
-================================================================================
-
-#### Quartz 任务调度
-使用cron表示，指定一个计划周期来执行任务  spring提供了Quartz的配套模板
--- cron表达式：通过规定的式子来表达执行周期，可以使用工具插件
-
-开启步骤：
-1.入口类添加@EnableScheduling 开启任务调度
-2.创建Quartz的执行类  方法上添加    @Scheduled(cron = "0/2 * * * * ?")，通过cron表达式来指定执行周期
-cron生成器：http://cron.qqe2.com/
-
-
-================================================================================
-
-
-*尝试实现网关聚合
-网关整合阶段因服务器问题，无法进行测试，所整合的adminLET必然存在端口错误无法访问等问题
-
-
-
-
-
-
-
-
-
-
-
-
-
 ================================================================================
 ================================================================================

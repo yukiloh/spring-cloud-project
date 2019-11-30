@@ -30,6 +30,7 @@ public class LoginController {
 
     @GetMapping("/")
     public String index(){
+        System.out.println("success");
         return "index";
     }
 
@@ -64,11 +65,13 @@ public class LoginController {
                         e.printStackTrace();
                     }
                 }
+
             }
         }
         if (StringUtils.isNotBlank(url)) {
             model.addAttribute("url",url);
         }
+
         return "login";
     }
 
@@ -78,9 +81,6 @@ public class LoginController {
                         @RequestParam(required = false) String url,     /*用于获取来访地址（并在登陆成功后跳转），设定默认可以没有（false）*/
                         HttpServletRequest request, HttpServletResponse response,Model model/*, RedirectAttributes  redirectAttributes*/){
         TbSysUser tbSysUser = loginService.login(loginCode, password);
-        /*redis存入会失败，设置重试次数*/
-        int retrial = 10;
-
 
         /*登陆失败*/
         if (tbSysUser == null){
@@ -93,36 +93,26 @@ public class LoginController {
 
         /*登陆成功,则设置一个全局的token，存放loginCode供其他服务端调取*/
         else {
-
             String token = UUID.randomUUID().toString();
+            String result = redisService.put(token, loginCode, 5 * 60);   /*在redis中存放token（内含loginCode）,结果为"ok"或者null*/
 
-//            String result = redisService.put(token, loginCode, 30 * 60);/*在redis中存放token（内含loginCode）,结果为"ok"或者null*/
-            Boolean flag = tryToPutDataIntoRedis(token, loginCode, retrial);
-            /*如果存放成功*/
-            if (flag){
-                /*在cookie中存放token的值*/
-                CookieUtils.setCookie(request,response,WebConstants.SESSION_TOKEN,token,30 * 60);
-
-                /*将json数据放入redis    存在bug，无法放入！原因未知，可能是机器性能问题*/
-                try {
-                    tryToPutDataIntoRedis(loginCode,MapperUtils.obj2json(tbSysUser),retrial);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
+            /*判断是否存放成功(可能触发熔断),成功则进行存放并跳转*/
+            if (StringUtils.isNotBlank(result) && "ok".equals(result)) {   /*当result不为空且为ok*/
+                CookieUtils.setCookie(request,response,WebConstants.SESSION_TOKEN,token,5 * 60);  /*在cookie中存放token的值*/
                 if (StringUtils.isNotBlank(url)){   /*当存在来访地址时让其返回原地址，否则统一返回login*/
                     return "redirect:"+url;
                 }
+            }else { /*熔断的处理*/
+//                redirectAttributes.addFlashAttribute("message","服务器异常，稍后重试"+url);
+                model.addAttribute("message","服务器异常，稍后重试"+url);
 
-                model.addAttribute("message","welcome");
-                model.addAttribute(WebConstants.SESSION_USER,tbSysUser);
-                return "login";
+
             }
         }
-        /*如果登陆错误,返回至login(并返回错误信息)*/
-        model.addAttribute("message","服务器异常，无法登陆");
+        /*如果登陆错误,返回至login(并返回错误信息,暂时略)*/
         return "login";
     }
+
 
     /*登出功能，删除cookie 返回一个login的方法（比较新奇）*/
     @GetMapping("/logout")
@@ -132,33 +122,7 @@ public class LoginController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return login(url,request,model);
     }
-
-
-
-
-    /*失败后重试*/
-    private Boolean tryToPutDataIntoRedis(String key, String value, int retrial) {
-        try {
-            for (int i = 0; i < retrial; i++) {
-                String result = redisService.put(key, value, 30 * 60);
-                if (StringUtils.isNotBlank(result) && "ok".equals(result)){
-                    return true;
-                }
-                try {
-                    Thread.sleep(500);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        } catch (Exception e) {
-            System.out.println("####redis存储数据失败，超过重试次数上限！####");
-        }
-        return false;
-
-    }
-
-
-
 }
