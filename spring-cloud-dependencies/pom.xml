@@ -36,7 +36,7 @@
         <lombok.version>1.18.4</lombok.version>
         <guava.version>28.1-jre </guava.version>
         <nekohtml.version>1.9.22</nekohtml.version>
-        <jackson.version>2.10.0</jackson.version>
+        <jackson.version>2.12.7.1</jackson.version>
         <persistence-api.version>1.0.2</persistence-api.version>
         <swagger2.version>2.9.2</swagger2.version>
         <fastDFS.version>1.27-SNAPSHOT</fastDFS.version>
